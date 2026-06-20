@@ -641,6 +641,18 @@ async function upsertBookingCrisis() {
   ];
 
   // Replace quests for this campaign (idempotent seed)
+  await prisma.questAssignment.deleteMany({
+    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+  });
+  await prisma.questSubmission.deleteMany({
+    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+  });
+  await prisma.questComment.deleteMany({
+    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+  });
+  await prisma.projectQuest.deleteMany({
+    where: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },
+  });
   await prisma.questDependencyTemplate.deleteMany({
     where: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },
   });
@@ -750,6 +762,15 @@ async function upsertBookingCrisis() {
   }
 
   // Client events (Phase 4 will implement behavior; seeded now for realism)
+  await prisma.clientEventComment.deleteMany({
+    where: { projectClientEvent: { project: { campaignTemplateId: campaign.id } } },
+  });
+  await prisma.projectClientEvent.deleteMany({
+    where: { project: { campaignTemplateId: campaign.id } },
+  });
+  await prisma.clientEventOptionTemplate.deleteMany({
+    where: { clientEventTemplate: { campaignTemplateId: campaign.id } },
+  });
   await prisma.clientEventTemplate.deleteMany({ where: { campaignTemplateId: campaign.id } });
 
   const events = [

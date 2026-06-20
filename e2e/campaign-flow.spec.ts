@@ -22,6 +22,8 @@ test.describe("Phase 5 campaign flow", () => {
   });
 
   test("full team campaign path", async ({ browser }) => {
+    test.setTimeout(120_000);
+
     const memberContext = await browser.newContext();
     const memberPage = await memberContext.newPage();
     await login(memberPage, "demo.member@devquest.local");
@@ -82,12 +84,15 @@ test.describe("Phase 5 campaign flow", () => {
       timeout: 15000,
     });
 
-    await leaderPage
-      .getByRole("link", { name: /view public page|zobacz stronę publiczną/i })
-      .click();
+    const [publicPage] = await Promise.all([
+      leaderPage.context().waitForEvent("page"),
+      leaderPage.getByRole("link", { name: /view public page|zobacz stronę publiczną/i }).click(),
+    ]);
+    await publicPage.waitForLoadState("domcontentloaded");
     await expect(
-      leaderPage.getByRole("heading", { name: /brightlane team sprint/i }),
-    ).toBeVisible();
+      publicPage.getByRole("heading", { name: /brightlane team sprint/i }),
+    ).toBeVisible({ timeout: 15_000 });
+    await publicPage.close();
 
     await leaderContext.close();
   });

@@ -13,7 +13,7 @@ export function getAuthOptions(): NextAuthOptions {
 
   return {
     adapter: PrismaAdapter(prisma),
-    session: { strategy: "database" },
+    session: { strategy: "jwt" },
     secret: env.AUTH_SECRET,
     pages: {
       signIn: "/login",
@@ -46,9 +46,15 @@ export function getAuthOptions(): NextAuthOptions {
       }),
     ],
     callbacks: {
-      async session({ session, user }) {
-        if (session.user) {
-          session.user.id = user.id;
+      async jwt({ token, user }) {
+        if (user?.id) {
+          token.id = user.id;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if (session.user && token.id) {
+          session.user.id = token.id as string;
         }
         return session;
       },
