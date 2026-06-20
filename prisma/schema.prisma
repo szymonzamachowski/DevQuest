@@ -1,0 +1,602 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  en
+  pl
+}
+
+enum CampaignStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum CampaignDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum ProjectMode {
+  SOLO
+  TEAM
+}
+
+enum ProjectStatus {
+  SETUP
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum SetupStep {
+  MODE
+  TEAM
+  ROLES
+  ROLE_APPROVAL
+  STACK
+  SUMMARY
+  COMPLETED
+}
+
+enum ProjectMemberRole {
+  LEADER
+  MEMBER
+}
+
+enum ProjectQuestStatus {
+  LOCKED
+  AVAILABLE
+  IN_PROGRESS
+  REVIEW
+  CHANGES_REQUIRED
+  COMPLETED
+  FAILED
+}
+
+enum QuestType {
+  MAIN
+  SIDE
+}
+
+enum QuestCategory {
+  PLANNING
+  SETUP
+  FRONTEND
+  BACKEND
+  DATABASE
+  TESTING
+  DEVOPS
+  UX_UI
+  GIT
+  DOCUMENTATION
+  TEAMWORK
+  PRODUCT
+}
+
+enum ClientEventTriggerType {
+  CHAPTER_START
+  QUEST_COMPLETED
+  TIME_SINCE_START
+  MANUAL
+}
+
+enum ClientEventStatus {
+  PENDING
+  RESOLVED
+  EXPIRED
+}
+
+enum ClientEventImportance {
+  LOW
+  NORMAL
+  HIGH
+  CRITICAL
+}
+
+enum ClientEventDecisionType {
+  ACCEPT
+  REJECT
+  LIMITED
+  DEFER
+}
+
+enum QuestSubmissionStatus {
+  SUBMITTED
+  ACCEPTED
+  CHANGES_REQUIRED
+}
+
+enum ActivityType {
+  QUEST_UNLOCKED
+  QUEST_STARTED
+  QUEST_ASSIGNED
+  QUEST_SUBMITTED
+  QUEST_REVIEWED
+  CLIENT_EVENT_TRIGGERED
+  CLIENT_EVENT_RESOLVED
+  XP_AWARDED
+  HEALTH_CHANGED
+  ACHIEVEMENT_UNLOCKED
+  ROLE_CHANGED
+  PROJECT_COMPLETED
+}
+
+enum AchievementRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  name               String?
+  email              String   @unique
+  emailVerified      DateTime?
+  image              String?
+  passwordHash       String?
+  preferredDirection String?
+  totalXp            Int      @default(0)
+  level              Int      @default(1)
+  locale             Locale   @default(en)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+
+  projectMembers  ProjectMember[]
+  questAssignments QuestAssignment[]
+  questSubmissions QuestSubmission[] @relation("SubmittedBy")
+  questReviews     QuestSubmission[] @relation("ReviewedBy")
+  questComments   QuestComment[]
+  clientEventComments ClientEventComment[]
+  activities      ProjectActivity[]
+  healthHistory   ProjectHealthHistory[]
+  userAchievements UserAchievement[]
+  userSkills      UserSkill[]
+  userFinalReports UserFinalReport[]
+
+  ledProjects     Project[] @relation("ProjectLeader")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Skill {
+  id    String @id @default(cuid())
+  key   String @unique
+  title String
+
+  userSkills UserSkill[]
+  questSkillRewards QuestSkillRewardTemplate[]
+}
+
+model UserSkill {
+  userId String
+  skillId String
+  xp     Int @default(0)
+  level  Int @default(1)
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([userId, skillId])
+}
+
+model CampaignTemplate {
+  id              String            @id @default(cuid())
+  title           String
+  slug            String            @unique
+  description     String
+  businessProblem String
+  projectGoal     String            @default("")
+  scope           String            @default("")
+  prerequisites   Json              @default("[]")
+  skillKeys       Json              @default("[]")
+  difficulty      CampaignDifficulty
+  estimatedDuration String
+  minimumTeamSize Int
+  maximumTeamSize Int
+  supportsSolo    Boolean           @default(true)
+  status          CampaignStatus    @default(PUBLISHED)
+  coverImage      String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  chapters        CampaignChapterTemplate[]
+  clientEvents    ClientEventTemplate[]
+  projects        Project[]
+}
+
+model CampaignChapterTemplate {
+  id                String @id @default(cuid())
+  campaignTemplateId String
+  title             String
+  order             Int
+  description       String
+
+  campaignTemplate CampaignTemplate @relation(fields: [campaignTemplateId], references: [id], onDelete: Cascade)
+  quests          QuestTemplate[]
+}
+
+model QuestTemplate {
+  id                String @id @default(cuid())
+  chapterTemplateId String
+  title             String
+  slug              String
+  questType         QuestType
+  category          QuestCategory
+  description       String
+  businessDescription String
+  technicalGoal     String
+  difficulty        Int
+  estimatedMinutes  Int
+  baseXp            Int
+  isRequired        Boolean @default(true)
+  isMainQuest       Boolean @default(true)
+  order             Int
+  unlockRule        String
+  acceptanceCriteria Json
+  learningResources Json
+
+  chapterTemplate CampaignChapterTemplate @relation(fields: [chapterTemplateId], references: [id], onDelete: Cascade)
+
+  dependencies       QuestDependencyTemplate[] @relation("DependsOn")
+  dependents         QuestDependencyTemplate[] @relation("DependentOf")
+  skillRewards       QuestSkillRewardTemplate[]
+
+  projectQuests      ProjectQuest[]
+
+  @@unique([chapterTemplateId, slug])
+}
+
+model QuestDependencyTemplate {
+  questTemplateId            String
+  dependsOnQuestTemplateId   String
+
+  questTemplate         QuestTemplate @relation("DependentOf", fields: [questTemplateId], references: [id], onDelete: Cascade)
+  dependsOnQuestTemplate QuestTemplate @relation("DependsOn", fields: [dependsOnQuestTemplateId], references: [id], onDelete: Cascade)
+
+  @@id([questTemplateId, dependsOnQuestTemplateId])
+}
+
+model QuestSkillRewardTemplate {
+  questTemplateId String
+  skillId         String
+  xp              Int
+
+  questTemplate QuestTemplate @relation(fields: [questTemplateId], references: [id], onDelete: Cascade)
+  skill         Skill        @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([questTemplateId, skillId])
+}
+
+model ClientEventTemplate {
+  id                 String @id @default(cuid())
+  campaignTemplateId String
+  chapterTemplateId  String?
+  title              String
+  subject            String
+  message            String
+  triggerType        ClientEventTriggerType
+  triggerConfiguration Json
+  responseDeadlineHours Int?
+  affectedQuestTemplateIds Json
+  order              Int
+
+  campaignTemplate CampaignTemplate @relation(fields: [campaignTemplateId], references: [id], onDelete: Cascade)
+  options          ClientEventOptionTemplate[]
+  projectEvents    ProjectClientEvent[]
+}
+
+model ClientEventOptionTemplate {
+  id                  String @id @default(cuid())
+  clientEventTemplateId String
+  label               String
+  description         String
+  decisionType        ClientEventDecisionType @default(ACCEPT)
+  healthImpact        Int
+  xpImpact            Int
+  resultMessage       String
+  followUpConfiguration Json
+
+  clientEventTemplate ClientEventTemplate @relation(fields: [clientEventTemplateId], references: [id], onDelete: Cascade)
+  projectSelections   ProjectClientEvent[] @relation("SelectedOption")
+}
+
+model Project {
+  id                String @id @default(cuid())
+  campaignTemplateId String
+  title             String
+  slug              String @unique
+  mode              ProjectMode
+  status            ProjectStatus @default(SETUP)
+  leaderId          String
+  currentChapterId  String?
+  projectHealth     Int @default(85)
+  teamLevel         Int @default(1)
+  estimatedEndDate  DateTime?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  isPublic          Boolean @default(false)
+  publicSlug        String? @unique
+  repositoryUrl     String?
+  liveDemoUrl       String?
+  solutionDescription String?
+  screenshots       Json @default("[]")
+  isDemo            Boolean @default(false)
+  techStack         Json?
+  stackAssessment   Json?
+  setupStep         SetupStep @default(MODE)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  campaignTemplate CampaignTemplate @relation(fields: [campaignTemplateId], references: [id])
+  leader          User @relation("ProjectLeader", fields: [leaderId], references: [id])
+
+  members         ProjectMember[]
+  projectQuests   ProjectQuest[]
+  clientEvents    ProjectClientEvent[]
+  activities      ProjectActivity[]
+  healthHistory   ProjectHealthHistory[]
+  userAchievements UserAchievement[]
+  finalReport     FinalReport?
+
+  @@index([status])
+  @@index([leaderId])
+}
+
+model ProjectMember {
+  projectId        String
+  userId           String
+  role             ProjectMemberRole @default(MEMBER)
+  preferredRoles   Json
+  approvedRoles    Json
+  contributionScore Int @default(0)
+  teamworkXp       Int @default(0)
+  joinedAt         DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, userId])
+  @@index([userId])
+}
+
+model ProjectQuest {
+  id             String @id @default(cuid())
+  projectId      String
+  questTemplateId String
+  status         ProjectQuestStatus @default(LOCKED)
+  unlockedAt     DateTime?
+  startedAt      DateTime?
+  submittedAt    DateTime?
+  completedAt    DateTime?
+  suggestedDeadline DateTime?
+  xpAwardedAt    DateTime?
+  healthImpact   Int @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  project       Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  questTemplate QuestTemplate @relation(fields: [questTemplateId], references: [id])
+
+  assignments   QuestAssignment[]
+  submissions   QuestSubmission[]
+  comments      QuestComment[]
+
+  @@unique([projectId, questTemplateId])
+  @@index([projectId, status])
+}
+
+model QuestAssignment {
+  projectQuestId String
+  userId         String
+  assignedAt     DateTime @default(now())
+
+  projectQuest ProjectQuest @relation(fields: [projectQuestId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([projectQuestId, userId])
+}
+
+model QuestSubmission {
+  id            String @id @default(cuid())
+  projectQuestId String
+  submittedById String
+  commitUrl     String
+  pullRequestUrl String?
+  description   String
+  githubMetadata Json?
+  status        QuestSubmissionStatus @default(SUBMITTED)
+  reviewedById  String?
+  reviewComment String?
+  createdAt     DateTime @default(now())
+  reviewedAt    DateTime?
+
+  projectQuest ProjectQuest @relation(fields: [projectQuestId], references: [id], onDelete: Cascade)
+  submittedBy  User @relation("SubmittedBy", fields: [submittedById], references: [id], onDelete: Cascade)
+  reviewedBy   User? @relation("ReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+}
+
+model QuestComment {
+  id            String @id @default(cuid())
+  projectQuestId String
+  authorId      String
+  content       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  projectQuest ProjectQuest @relation(fields: [projectQuestId], references: [id], onDelete: Cascade)
+  author      User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model ProjectClientEvent {
+  id                 String @id @default(cuid())
+  projectId           String
+  clientEventTemplateId String
+  status             ClientEventStatus @default(PENDING)
+  importance         ClientEventImportance @default(NORMAL)
+  isRead             Boolean @default(false)
+  triggeredAt        DateTime @default(now())
+  respondedAt        DateTime?
+  responseDeadline   DateTime?
+  selectedOptionId   String?
+  leaderResponse     String?
+  resultingHealthChange Int @default(0)
+  resultingXpChange  Int @default(0)
+  resultMessage      String?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  clientEventTemplate ClientEventTemplate @relation(fields: [clientEventTemplateId], references: [id])
+  selectedOption ClientEventOptionTemplate? @relation("SelectedOption", fields: [selectedOptionId], references: [id], onDelete: SetNull)
+  comments ClientEventComment[]
+}
+
+model ClientEventComment {
+  id                   String @id @default(cuid())
+  projectClientEventId String
+  authorId             String
+  content              String
+  createdAt            DateTime @default(now())
+
+  projectClientEvent ProjectClientEvent @relation(fields: [projectClientEventId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model ProjectHealthHistory {
+  id            String @id @default(cuid())
+  projectId     String
+  userId        String?
+  previousValue Int
+  newValue      Int
+  delta         Int
+  reason        String
+  ruleKey       String
+  createdAt     DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, createdAt])
+}
+
+model ProjectActivity {
+  id          String @id @default(cuid())
+  projectId   String
+  userId      String?
+  type        ActivityType
+  title       String
+  description String
+  metadata    Json
+  createdAt   DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, createdAt])
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  key         String @unique
+  title       String
+  description String
+  icon        String
+  rarity      AchievementRarity
+
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  userId        String
+  achievementId String
+  projectId     String
+  unlockedAt    DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@id([userId, achievementId, projectId])
+}
+
+model FinalReport {
+  id                 String @id @default(cuid())
+  projectId           String @unique
+  finalGrade          String
+  finalHealth         Int
+  completionScore     Int
+  teamworkScore       Int
+  testingScore        Int
+  documentationScore  Int
+  adaptabilityScore   Int
+  summary             String
+  reportPayload       Json?
+  generatedAt         DateTime @default(now())
+
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userReports  UserFinalReport[]
+}
+
+model UserFinalReport {
+  id                String @id @default(cuid())
+  finalReportId      String
+  userId            String
+  questsCompleted   Int
+  commitsSubmitted  Int
+  reviewsCompleted  Int
+  contributionSummary String
+  strongestSkills   Json
+  improvementAreas  Json
+  finalScore        Int
+  skillXpBreakdown  Json @default("{}")
+  roleContribution  Json @default("[]")
+  suggestedNextDirection String @default("")
+
+  finalReport FinalReport @relation(fields: [finalReportId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+

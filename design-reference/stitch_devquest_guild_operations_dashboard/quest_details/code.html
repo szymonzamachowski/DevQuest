@@ -1,0 +1,619 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quest Details - Build Booking Form</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Grotesk:wght@300..700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#ffb786",
+              "on-secondary-fixed-variant": "#5516be",
+              error: "#ffb4ab",
+              "surface-variant": "#32353c",
+              "tertiary-container": "#df7412",
+              "on-tertiary-container": "#461f00",
+              "surface-dim": "#10131a",
+              "on-surface-variant": "#c2c6d6",
+              "surface-container-lowest": "#0b0e15",
+              "on-tertiary": "#502400",
+              "on-primary-fixed-variant": "#004395",
+              "on-secondary-container": "#c4abff",
+              "on-primary-fixed": "#001a42",
+              "surface-tint": "#adc6ff",
+              "on-surface": "#e1e2ec",
+              "on-tertiary-fixed": "#311400",
+              "surface-container-highest": "#32353c",
+              secondary: "#d0bcff",
+              "inverse-primary": "#005ac2",
+              "secondary-fixed": "#e9ddff",
+              "surface-container-low": "#191b23",
+              "primary-fixed-dim": "#adc6ff",
+              "inverse-on-surface": "#2e3038",
+              "surface-bright": "#363941",
+              "error-container": "#93000a",
+              primary: "#adc6ff",
+              "surface-container-high": "#272a31",
+              "inverse-surface": "#e1e2ec",
+              "on-error": "#690005",
+              "primary-container": "#4d8eff",
+              "on-background": "#e1e2ec",
+              "secondary-fixed-dim": "#d0bcff",
+              "surface-container": "#1d2027",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#424754",
+              tertiary: "#ffb786",
+              "on-primary-container": "#00285d",
+              "tertiary-fixed": "#ffdcc6",
+              "on-primary": "#002e6a",
+              outline: "#8c909f",
+              background: "#10131a",
+              "primary-fixed": "#d8e2ff",
+              "on-secondary-fixed": "#23005c",
+              surface: "#10131a",
+              "secondary-container": "#571bc1",
+              "on-tertiary-fixed-variant": "#723600",
+              "on-secondary": "#3c0091",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              base: "4px",
+              lg: "24px",
+              md: "16px",
+              "container-max": "1280px",
+              xl: "32px",
+              sm: "8px",
+              gutter: "24px",
+              xs: "4px",
+            },
+            fontFamily: {
+              "body-md": ["Geist"],
+              "mono-label": ["Geist"],
+              "chapter-header-mobile": ["Space Grotesk"],
+              "headline-lg": ["Geist"],
+              "label-caps": ["Geist"],
+              "body-sm": ["Geist"],
+              "chapter-header": ["Space Grotesk"],
+              "headline-md": ["Geist"],
+              "body-lg": ["Geist"],
+            },
+            fontSize: {
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "mono-label": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+              "chapter-header-mobile": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "headline-lg": [
+                "32px",
+                { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" },
+              ],
+              "label-caps": [
+                "12px",
+                { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" },
+              ],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "chapter-header": [
+                "48px",
+                { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" },
+              ],
+              "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0b0f19; /* Layer 0 Base */
+        color: #e1e2ec;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #161b22;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #424754;
+        border-radius: 2px;
+      }
+      .pixel-border {
+        border: 1px solid #1e293b;
+      }
+      .pixel-border:hover {
+        border-color: rgba(59, 130, 246, 0.5);
+        transition: border-color 0.3s ease;
+      }
+      .chapter-line::after {
+        content: "";
+        display: inline-block;
+        height: 2px;
+        background: #1e293b;
+        flex-grow: 1;
+        margin-left: 16px;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="font-body-md text-body-md">
+    <!-- Desktop Navigation Drawer -->
+    <aside
+      class="py-lg px-md gap-sm bg-surface-dim border-outline-variant fixed top-0 left-0 z-40 hidden h-screen w-72 flex-col border-r md:flex"
+    >
+      <div class="gap-md px-md mb-xl flex items-center">
+        <div
+          class="bg-primary-container text-on-primary-container flex h-10 w-10 items-center justify-center rounded font-bold"
+        >
+          JD
+        </div>
+        <div class="flex flex-col">
+          <span class="font-chapter-header text-primary text-[20px] leading-tight">DevQuest</span>
+          <span class="font-body-sm text-on-surface-variant">Lead Architect</span>
+        </div>
+      </div>
+      <nav class="gap-xs flex flex-col">
+        <a
+          class="gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high flex items-center rounded-lg transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Overview</span>
+        </a>
+        <a
+          class="gap-md px-md py-sm text-primary border-primary bg-secondary-container/20 flex items-center rounded-lg border-l-2 font-bold"
+          href="#"
+        >
+          <span class="material-symbols-outlined">assignment</span>
+          <span>Quest Board</span>
+        </a>
+        <a
+          class="gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high flex items-center rounded-lg transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">map</span>
+          <span>Campaign Roadmap</span>
+        </a>
+        <a
+          class="gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high flex items-center rounded-lg transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">group</span>
+          <span>Team</span>
+        </a>
+        <a
+          class="gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high flex items-center rounded-lg transition-all"
+          href="#"
+        >
+          <span class="material-symbols-outlined">mail</span>
+          <span>Client Inbox</span>
+        </a>
+      </nav>
+      <div class="px-md mt-auto">
+        <div class="pixel-border bg-surface-container p-md gap-sm flex flex-col rounded-lg">
+          <div class="flex items-center justify-between">
+            <span class="font-label-caps text-label-caps text-on-surface-variant">ELITE TIER</span>
+            <span class="font-mono-label text-tertiary">LVL 12</span>
+          </div>
+          <div class="bg-outline-variant h-2 w-full overflow-hidden rounded-full">
+            <div class="from-primary to-secondary h-full w-[75%] bg-gradient-to-r"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <!-- Top App Bar -->
+    <header
+      class="px-lg max-w-container-max bg-surface-container border-outline-variant sticky top-0 z-30 mx-auto flex h-20 w-full items-center justify-between border-b md:pl-80"
+    >
+      <div class="gap-md flex items-center">
+        <button class="text-on-surface p-2 md:hidden">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1 class="font-chapter-header-mobile text-chapter-header-mobile text-on-surface">
+          Quest Details
+        </h1>
+      </div>
+      <div class="gap-md flex items-center">
+        <div class="mr-md hidden flex-col items-end sm:flex">
+          <span class="font-label-caps text-label-caps text-primary">PROJECT HEALTH</span>
+          <div class="mt-1 flex gap-1">
+            <div class="bg-tertiary h-1.5 w-3 rounded-sm"></div>
+            <div class="bg-tertiary h-1.5 w-3 rounded-sm"></div>
+            <div class="bg-tertiary h-1.5 w-3 rounded-sm"></div>
+            <div class="bg-tertiary h-1.5 w-3 rounded-sm"></div>
+            <div class="bg-outline-variant h-1.5 w-3 rounded-sm opacity-20"></div>
+          </div>
+        </div>
+        <div
+          class="gap-sm bg-surface-container-high px-md py-sm pixel-border flex items-center rounded-full"
+        >
+          <span class="material-symbols-outlined text-primary text-sm">verified</span>
+          <span class="font-mono-label text-on-surface">Lvl 12</span>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="p-md md:p-lg min-h-screen md:ml-72">
+      <div class="space-y-lg mx-auto max-w-5xl">
+        <!-- Breadcrumbs & Navigation Back -->
+        <div class="gap-sm mb-md flex items-center">
+          <button
+            class="gap-xs text-on-surface-variant hover:text-primary flex items-center transition-colors"
+          >
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span class="font-label-caps text-label-caps">BACK TO BOARD</span>
+          </button>
+        </div>
+        <!-- Hero Section / Title Area -->
+        <section
+          class="gap-md border-outline-variant pb-lg flex flex-col justify-between border-b md:flex-row md:items-end"
+        >
+          <div class="space-y-sm flex-1">
+            <div class="gap-md flex items-center">
+              <span
+                class="bg-primary-container/20 text-primary px-sm border-primary/30 rounded border py-1 text-[11px] font-bold tracking-widest uppercase"
+                >Active</span
+              >
+              <span class="font-mono-label text-on-surface-variant">QUEST_ID: #B-204-FORM</span>
+            </div>
+            <div class="chapter-line flex items-center gap-4">
+              <h2 class="font-chapter-header text-chapter-header text-on-surface">
+                Build Booking Form
+              </h2>
+            </div>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              Develop a high-conversion multi-step booking interface for the Carbon Initiative
+              portal. Focus on seamless state management and real-time validation.
+            </p>
+          </div>
+          <div class="gap-sm flex flex-col items-end">
+            <button
+              class="bg-primary text-on-primary px-xl py-md gap-md flex items-center rounded-lg font-bold transition-transform hover:scale-95"
+            >
+              <span>Submit for Review</span>
+              <span class="material-symbols-outlined">send</span>
+            </button>
+            <span class="font-body-sm text-on-error">Deadline: Oct 24, 2023</span>
+          </div>
+        </section>
+        <!-- Bento Grid Details -->
+        <div class="gap-lg grid grid-cols-1 md:grid-cols-3">
+          <!-- Left Column: Requirements & Checklist -->
+          <div class="space-y-lg md:col-span-2">
+            <!-- Technical Goals -->
+            <div class="pixel-border bg-surface-container-low p-lg rounded-xl">
+              <div class="gap-md mb-md flex items-center">
+                <span class="material-symbols-outlined text-primary">terminal</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface">Technical Goals</h3>
+              </div>
+              <ul class="space-y-md font-body-md text-on-surface-variant">
+                <li class="gap-md flex items-start">
+                  <span class="bg-primary mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"></span>
+                  <span
+                    >Implement **React Hook Form** for optimized re-renders and robust validation
+                    logic.</span
+                  >
+                </li>
+                <li class="gap-md flex items-start">
+                  <span class="bg-primary mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"></span>
+                  <span
+                    >Create a custom **Framer Motion** transition system for the step-by-step
+                    navigation.</span
+                  >
+                </li>
+                <li class="gap-md flex items-start">
+                  <span class="bg-primary mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"></span>
+                  <span
+                    >Integrate real-time availability polling via the Inventory GraphQL edge.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- Acceptance Criteria Checklist -->
+            <div class="pixel-border bg-surface-container-low p-lg rounded-xl">
+              <div class="gap-md mb-md flex items-center">
+                <span class="material-symbols-outlined text-tertiary">fact_check</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface">
+                  Acceptance Criteria
+                </h3>
+              </div>
+              <div class="space-y-sm">
+                <label
+                  class="gap-md p-md bg-surface-container hover:border-outline-variant flex cursor-pointer items-center rounded-lg border border-transparent transition-all"
+                >
+                  <input
+                    checked=""
+                    class="border-outline bg-surface-dim text-primary focus:ring-primary h-5 w-5 rounded"
+                    type="checkbox"
+                  />
+                  <span class="text-on-surface flex-1"
+                    >User can select dates via an interactive calendar</span
+                  >
+                  <span class="font-mono-label text-primary bg-primary/10 rounded px-2 py-1"
+                    >DONE</span
+                  >
+                </label>
+                <label
+                  class="gap-md p-md bg-surface-container hover:border-outline-variant flex cursor-pointer items-center rounded-lg border border-transparent transition-all"
+                >
+                  <input
+                    checked=""
+                    class="border-outline bg-surface-dim text-primary focus:ring-primary h-5 w-5 rounded"
+                    type="checkbox"
+                  />
+                  <span class="text-on-surface flex-1"
+                    >Service tier selection updates price summary in real-time</span
+                  >
+                  <span class="font-mono-label text-primary bg-primary/10 rounded px-2 py-1"
+                    >DONE</span
+                  >
+                </label>
+                <label
+                  class="gap-md p-md bg-surface-container hover:border-outline-variant flex cursor-pointer items-center rounded-lg border border-transparent transition-all"
+                >
+                  <input
+                    class="border-outline bg-surface-dim text-primary focus:ring-primary h-5 w-5 rounded"
+                    type="checkbox"
+                  />
+                  <span class="text-on-surface flex-1"
+                    >Form data persists locally if user refreshes the page</span
+                  >
+                  <span
+                    class="font-mono-label text-on-surface-variant bg-surface-dim rounded px-2 py-1"
+                    >TODO</span
+                  >
+                </label>
+                <label
+                  class="gap-md p-md bg-surface-container hover:border-outline-variant flex cursor-pointer items-center rounded-lg border border-transparent transition-all"
+                >
+                  <input
+                    class="border-outline bg-surface-dim text-primary focus:ring-primary h-5 w-5 rounded"
+                    type="checkbox"
+                  />
+                  <span class="text-on-surface flex-1"
+                    >Accessible keyboard navigation for all interactive elements</span
+                  >
+                  <span
+                    class="font-mono-label text-on-surface-variant bg-surface-dim rounded px-2 py-1"
+                    >TODO</span
+                  >
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- Right Column: Stats & XP -->
+          <div class="space-y-lg">
+            <!-- XP Breakdown Card -->
+            <div
+              class="pixel-border bg-surface-container-high p-lg relative overflow-hidden rounded-xl"
+            >
+              <div class="p-lg absolute top-0 right-0 opacity-10">
+                <span class="material-symbols-outlined text-[80px]">military_tech</span>
+              </div>
+              <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-xl">
+                REWARD BREAKDOWN
+              </h3>
+              <div class="space-y-lg">
+                <div class="space-y-sm">
+                  <div class="flex items-end justify-between">
+                    <span class="font-body-md text-on-surface">Frontend Architect</span>
+                    <span class="font-mono-label text-primary">+80 XP</span>
+                  </div>
+                  <div class="bg-surface-dim h-1.5 w-full rounded-full">
+                    <div
+                      class="bg-primary h-full w-[80%] rounded-full shadow-[0_0_8px_rgba(173,198,255,0.4)]"
+                    ></div>
+                  </div>
+                </div>
+                <div class="space-y-sm">
+                  <div class="flex items-end justify-between">
+                    <span class="font-body-md text-on-surface">UX/UI Logic</span>
+                    <span class="font-mono-label text-secondary">+20 XP</span>
+                  </div>
+                  <div class="bg-surface-dim h-1.5 w-full rounded-full">
+                    <div
+                      class="bg-secondary h-full w-[20%] rounded-full shadow-[0_0_8px_rgba(208,188,255,0.4)]"
+                    ></div>
+                  </div>
+                </div>
+                <div class="space-y-sm pt-md border-outline-variant border-t">
+                  <div class="flex items-end justify-between">
+                    <span class="font-body-md text-on-surface">Strategic Bonus</span>
+                    <span class="font-mono-label text-tertiary">X 1.2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Assignee / Team -->
+            <div class="pixel-border bg-surface-container p-lg rounded-xl">
+              <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md">
+                COMMANDER
+              </h3>
+              <div class="gap-md flex items-center">
+                <div class="pixel-border h-12 w-12 rounded-lg p-0.5">
+                  <img
+                    class="h-full w-full rounded object-cover"
+                    data-alt="A cinematic, high-detail portrait of a professional female creative director in her 30s, wearing modern tech-wear. The setting is a dimly lit, high-tech command center with holographic displays in the background. The lighting is dominated by deep blues and vibrant neon accents, reflecting a sophisticated corporate modern aesthetic with a technical edge. The mood is focused and elite."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_zWW1w3yF9gdNAndMYGe8iOW7X1xGza1FIDPXkTM7yogGZ9YQWHl63cltSoGyKPsuh9S3W0OH_Foo-j99v-dto4DlHjaxfrXau-g_tNgJn6bRIe4icBjyCOHLrGVSQ0x88N3yxpJytyKjupgvsN2g2tz32U4zmRVM_I3Tn1VP-Vb9Quq909mwWDVwQJWKSkao9MoUjlcvyOvYTIkBs-whJboxLW0RHMtTPWpJHwfLY6l2F_dKJDwbYG2wrSCoiU7yydDBJRLRkzY"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-body-md text-on-surface font-bold">Sarah 'Cipher' Chen</span>
+                  <span class="font-body-sm text-on-surface-variant">Lead Strategy Officer</span>
+                </div>
+              </div>
+              <div class="mt-xl pt-lg border-outline-variant border-t">
+                <h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md">
+                  DEPENDENCIES
+                </h3>
+                <div class="gap-sm flex flex-col">
+                  <div class="gap-sm group flex cursor-pointer items-center">
+                    <span class="material-symbols-outlined text-error text-[18px]">lock</span>
+                    <span
+                      class="font-body-sm text-on-surface-variant group-hover:text-error transition-colors"
+                      >API Endpoint Mockup</span
+                    >
+                  </div>
+                  <div class="gap-sm group flex cursor-pointer items-center">
+                    <span class="material-symbols-outlined text-primary text-[18px]">link</span>
+                    <span
+                      class="font-body-sm text-on-surface-variant group-hover:text-primary transition-colors"
+                      >Figma Design Assets</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Quick Actions -->
+            <div class="gap-sm flex flex-col">
+              <button
+                class="pixel-border bg-surface-container-high px-md py-md hover:bg-surface-bright flex items-center justify-between rounded-lg transition-all"
+              >
+                <span class="font-body-md text-on-surface">Set Status: Blocked</span>
+                <span class="material-symbols-outlined text-error">flag</span>
+              </button>
+              <button
+                class="pixel-border bg-surface-container-high px-md py-md hover:bg-surface-bright flex items-center justify-between rounded-lg transition-all"
+              >
+                <span class="font-body-md text-on-surface">Share Quest Link</span>
+                <span class="material-symbols-outlined text-on-surface-variant">share</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Business Description / Context -->
+        <section class="pixel-border bg-surface-container-low p-lg rounded-xl">
+          <div class="gap-md mb-md flex items-center">
+            <span class="material-symbols-outlined text-secondary">business_center</span>
+            <h3 class="font-headline-md text-headline-md text-on-surface">Project Context</h3>
+          </div>
+          <div class="gap-lg grid md:grid-cols-2">
+            <div class="space-y-md text-on-surface-variant font-body-md">
+              <p>
+                This quest is part of the **Campaign: Genesis Phase**. Our primary goal is to
+                minimize user friction during the initial commitment phase of the Carbon Initiative.
+              </p>
+              <p>
+                Historical data indicates a 40% drop-off rate on the current legacy form. This
+                reconstruction aims to reclaim at least 25% of that lost engagement through better
+                UX patterns and psychological triggers like perceived progress.
+              </p>
+            </div>
+            <div class="pixel-border relative aspect-video overflow-hidden rounded-lg">
+              <img
+                class="h-full w-full object-cover"
+                data-alt="A clean, minimalist UI dashboard mockup showing an analytics chart with a significant upward trend. The interface is dark-themed with sleek navy and slate tones. Vibrant emerald green and electric blue highlights point to successful growth metrics. The aesthetic is extremely professional, echoing modern SaaS tools like Linear or Vercel, with thin borders and crisp typography."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1u17_wA6NkRQ2r5K5tvy5Ihng6-GYX2smOz4A2N9waW-gPM6vOBFZKYLJdsqSey4pmnwj9tWUnO08Oyu3p4TzAp6MPwI38nSCmKvlP0RMXru-R2SNs5I_ZmE8wg8jNs4iUNUxckkrj-cDZbDmmWaxNUpnh0KoMnAJpl0ZfGWB0tGVJAd-h5mWV6rhXw3Bl0g0TVYmwadbvqg6b_YkEPbT2Qk2FsJvwcPYorenjhCAPqktPm7nobLfWrKXoZCtYRzaIPRDKs_LoMI"
+              />
+              <div
+                class="from-surface-dim absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60"
+              ></div>
+              <div class="absolute bottom-4 left-4">
+                <span
+                  class="font-label-caps text-label-caps text-on-surface bg-primary/20 border-primary/30 rounded border px-3 py-1 backdrop-blur-md"
+                  >CURRENT KPIS</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- Bottom Navigation Bar (Mobile Only) -->
+    <nav
+      class="bg-surface-container-lowest border-outline-variant fixed bottom-0 left-0 z-50 flex w-full items-center justify-around rounded-t-xl border-t px-4 py-2 shadow-lg md:hidden"
+    >
+      <a
+        class="text-on-surface-variant hover:text-primary flex flex-col items-center justify-center p-2 transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-label-caps text-label-caps mt-1">HOME</span>
+      </a>
+      <a
+        class="bg-primary-container text-on-primary-container flex flex-col items-center justify-center rounded-full p-2 transition-transform active:scale-90"
+        href="#"
+      >
+        <span class="material-symbols-outlined">assignment</span>
+      </a>
+      <a
+        class="text-on-surface-variant hover:text-primary flex flex-col items-center justify-center p-2 transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">map</span>
+        <span class="font-label-caps text-label-caps mt-1">MAP</span>
+      </a>
+      <a
+        class="text-on-surface-variant hover:text-primary flex flex-col items-center justify-center p-2 transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">group</span>
+        <span class="font-label-caps text-label-caps mt-1">TEAM</span>
+      </a>
+      <a
+        class="text-on-surface-variant hover:text-primary flex flex-col items-center justify-center p-2 transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">mail</span>
+        <span class="font-label-caps text-label-caps mt-1">INBOX</span>
+      </a>
+    </nav>
+    <!-- Contextual FAB (Hidden on this detail screen per rules, but logic placeholder exists) -->
+    <script>
+      // Micro-interactions
+      document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+          const parent = this.closest("label");
+          const badge = parent.querySelector(".font-mono-label");
+          if (this.checked) {
+            badge.textContent = "DONE";
+            badge.classList.remove("text-on-surface-variant", "bg-surface-dim");
+            badge.classList.add("text-primary", "bg-primary/10");
+          } else {
+            badge.textContent = "TODO";
+            badge.classList.add("text-on-surface-variant", "bg-surface-dim");
+            badge.classList.remove("text-primary", "bg-primary/10");
+          }
+        });
+      });
+
+      // Hover scale for primary action
+      const submitBtn = document.querySelector("button.bg-primary");
+      if (submitBtn) {
+        submitBtn.addEventListener("mousedown", () => (submitBtn.style.transform = "scale(0.95)"));
+        submitBtn.addEventListener("mouseup", () => (submitBtn.style.transform = "scale(1)"));
+      }
+    </script>
+  </body>
+</html>

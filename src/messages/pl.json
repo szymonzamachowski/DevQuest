@@ -1,0 +1,444 @@
+{
+  "common": {
+    "appName": "DevQuest",
+    "continue": "Kontynuuj",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "loading": "Ładowanie…",
+    "error": "Coś poszło nie tak"
+  },
+  "navigation": {
+    "overview": "Przegląd",
+    "questBoard": "Tablica zadań",
+    "roadmap": "Mapa kampanii",
+    "team": "Zespół",
+    "clientInbox": "Skrzynka klienta",
+    "activity": "Aktywność",
+    "achievements": "Osiągnięcia",
+    "finalReport": "Raport końcowy",
+    "settings": "Ustawienia",
+    "campaigns": "Kampanie",
+    "profile": "Profil",
+    "sidebar": "Panel boczny workspace",
+    "mainNav": "Nawigacja główna",
+    "accountNav": "Nawigacja konta",
+    "openMenu": "Otwórz menu nawigacji"
+  },
+  "auth": {
+    "loginTitle": "Logowanie",
+    "registerTitle": "Rejestracja",
+    "email": "E-mail",
+    "password": "Hasło",
+    "name": "Imię",
+    "confirmPassword": "Powtórz hasło",
+    "submitLogin": "Zaloguj się",
+    "submitRegister": "Utwórz konto",
+    "registeredHint": "Konto utworzone. Możesz się zalogować.",
+    "demoLogin": "Demo (lider zespołu)",
+    "invalidCredentials": "Nieprawidłowy e-mail lub hasło"
+  },
+  "pages": {
+    "homeTitle": "Symulacje projektów jak w pracy",
+    "homeSubtitle": "Prowadź realistyczne kampanie software’owe. Zarządzaj jak w SaaS — rozwijaj umiejętności jak w RPG.",
+    "campaignsTitle": "Kampanie",
+    "appTitle": "Workspace",
+    "settingsTitle": "Ustawienia"
+  },
+  "validation": {
+    "required": "To pole jest wymagane"
+  },
+  "campaigns": {
+    "catalogTitle": "Katalog kampanii",
+    "catalogSubtitle": "Wejdź w realistyczne symulacje biznesowe. Poprowadź zespół od planowania do wdrożenia.",
+    "empty": "Brak kampanii pasujących do filtrów.",
+    "error": "Nie udało się wczytać kampanii. Sprawdź połączenie z bazą danych.",
+    "viewDetails": "Szczegóły",
+    "difficulty": {
+      "beginner": "Początkujący",
+      "intermediate": "Średniozaawansowany",
+      "advanced": "Zaawansowany"
+    },
+    "modes": {
+      "solo": "Tryb solo"
+    },
+    "stats": {
+      "quests": "questów",
+      "devs": "devów"
+    },
+    "filters": {
+      "searchPlaceholder": "Szukaj po nazwie, umiejętnościach lub opisie…",
+      "difficultyAll": "Trudność: wszystkie",
+      "difficultyBeginner": "Początkujący",
+      "difficultyIntermediate": "Średniozaawansowany",
+      "difficultyAdvanced": "Zaawansowany",
+      "durationAll": "Czas: wszystkie",
+      "durationShort": "1–2 tygodnie",
+      "durationMedium": "2–4 tygodnie",
+      "durationLong": "1 miesiąc+",
+      "modeAll": "Tryb: wszystkie",
+      "modeSolo": "Solo",
+      "modeTeam": "Tylko zespół"
+    },
+    "detail": {
+      "backToCatalog": "Wróć do katalogu",
+      "businessProblem": "Problem biznesowy",
+      "projectGoal": "Cel projektu",
+      "scope": "Zakres kampanii",
+      "difficulty": "Trudność",
+      "duration": "Czas trwania",
+      "teamSize": "Wielkość zespołu",
+      "quests": "Questy",
+      "prerequisites": "Wymagane podstawy",
+      "startCampaign": "Rozpocznij kampanię",
+      "chapters": "Rozdziały",
+      "chapter": "Rozdział",
+      "questsInChapter": "questów"
+    },
+    "app": {
+      "title": "Twoje kampanie",
+      "subtitle": "Wznów konfigurację lub otwórz aktywny workspace.",
+      "empty": "Nie masz jeszcze aktywnych kampanii.",
+      "browse": "Przeglądaj katalog",
+      "continueSetup": "Kontynuuj setup",
+      "openWorkspace": "Otwórz workspace",
+      "error": "Nie udało się wczytać kampanii."
+    }
+  },
+  "setup": {
+    "wizardLabel": "Konfiguracja kampanii",
+    "continue": "Kontynuuj",
+    "steps": {
+      "MODE": "Wybierz tryb solo lub zespół",
+      "TEAM": "Zbuduj zespół",
+      "ROLES": "Wybierz preferowane role",
+      "ROLE_APPROVAL": "Zatwierdź role zespołu",
+      "STACK": "Wybierz stack technologiczny",
+      "SUMMARY": "Podsumowanie i start",
+      "COMPLETED": "Konfiguracja zakończona"
+    },
+    "mode": {
+      "soloTitle": "Solo",
+      "soloDescription": "Pełna odpowiedzialność za wszystkie obszary. Idealne do nauki całego procesu dostarczenia.",
+      "teamTitle": "Zespół",
+      "teamDescription": "Współpraca 1–4 developerów. Przypisz role i wspólną odpowiedzialność."
+    },
+    "team": {
+      "title": "Zaproś członków zespołu",
+      "subtitle": "{current} z {max} członków",
+      "emailPlaceholder": "kolega@example.com",
+      "invite": "Zaproś"
+    },
+    "roles": {
+      "title": "Preferowane role",
+      "subtitle": "Wybierz obszary, w których chcesz pracować. Możesz wybrać wiele ról.",
+      "pendingTeam": "Poczekaj, aż wszyscy członkowie wybiorą role."
+    },
+    "approval": {
+      "title": "Zatwierdź role",
+      "subtitle": "Jako lider potwierdź odpowiedzialności każdego członka.",
+      "preferred": "Preferowane",
+      "approve": "Zatwierdź role",
+      "cannotSelfApprove": "Lider nie może zatwierdzić własnych ról w trybie zespołowym.",
+      "error": "Nie udało się zatwierdzić ról.",
+      "waitingForLeader": "Oczekiwanie na zatwierdzenie ról przez lidera.",
+      "criticalCoverage": "Krytyczne obszary",
+      "coverage": {
+        "engineering": "Inżynieria",
+        "testing": "Testowanie",
+        "documentation": "Dokumentacja"
+      }
+    },
+    "stack": {
+      "title": "Stack technologiczny",
+      "subtitle": "Wybierz stack. Ocena jest doradcza i nie blokuje startu.",
+      "selectOption": "Wybierz…",
+      "assessAndContinue": "Oceń stack i kontynuuj",
+      "compatibilityScore": "Wynik kompatybilności",
+      "strengths": "Mocne strony",
+      "risks": "Ryzyka",
+      "missing": "Brakujące elementy",
+      "recommendations": "Rekomendacje"
+    },
+    "summary": {
+      "title": "Gotowe do startu",
+      "mode": "Tryb",
+      "team": "Zespół",
+      "advisory": "Odblokowywanie questów i dashboard projektu będą dostępne w kolejnej fazie.",
+      "launch": "Uruchom kampanię"
+    },
+    "errors": {
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "USER_NOT_FOUND": "Nie znaleziono zarejestrowanego użytkownika z tym e-mailem.",
+      "TEAM_FULL": "Zespół osiągnął maksymalną liczebność.",
+      "ALREADY_MEMBER": "Ten użytkownik jest już w zespole.",
+      "CRITICAL_ROLES_INCOMPLETE": "Krytyczne obszary nie są w pełni pokryte.",
+      "CANNOT_SELF_APPROVE": "Nie możesz zatwierdzić własnych ról w trybie zespołowym."
+    }
+  },
+  "quests": {
+    "boardTitle": "Tablica questów",
+    "boardSubtitle": "Przeciągaj questy między kolumnami. Reguły workflow i uprawnienia są weryfikowane po stronie serwera.",
+    "boardRegion": "Kolumny tablicy questów",
+    "dragHandle": "Przeciągnij kartę questa",
+    "statusLabel": "Status: {status}",
+    "mainQuest": "Main Quest",
+    "sideQuest": "Side Quest",
+    "commitLinked": "Commit podpięty",
+    "difficulty": "Trudność {level}",
+    "dependsOn": "Zależy od: {names}",
+    "deadline": "Sugerowany deadline: {date}",
+    "columns": {
+      "locked": "Zablokowane",
+      "available": "Dostępne",
+      "inProgress": "W trakcie",
+      "review": "Review",
+      "completed": "Ukończone"
+    },
+    "category": {
+      "PLANNING": "Planowanie",
+      "SETUP": "Setup",
+      "FRONTEND": "Frontend",
+      "BACKEND": "Backend",
+      "DATABASE": "Baza danych",
+      "TESTING": "Testowanie",
+      "DEVOPS": "DevOps",
+      "UX_UI": "UX/UI",
+      "GIT": "Git",
+      "DOCUMENTATION": "Dokumentacja",
+      "TEAMWORK": "Teamwork",
+      "PRODUCT": "Produkt"
+    },
+    "errors": {
+      "generic": "Nie udało się zaktualizować questa.",
+      "QUEST_LOCKED": "Quest jest zablokowany do czasu ukończenia zależności.",
+      "INVALID_TRANSITION": "Ta zmiana statusu jest niedozwolona.",
+      "NOT_ASSIGNED": "Musisz być przypisany do tego questa.",
+      "LEADER_REQUIRED": "Tylko lider zespołu może wykonać tę akcję.",
+      "VALIDATION_ERROR": "Sprawdź pola formularza.",
+      "INVALID_GITHUB_COMMIT_URL": "Podaj poprawny URL commita GitHub.",
+      "INVALID_GITHUB_PR_URL": "Podaj poprawny URL pull requesta GitHub."
+    },
+    "dashboard": {
+      "currentChapter": "Aktualny rozdział: {chapter}",
+      "openBoard": "Otwórz tablicę",
+      "openRoadmap": "Otwórz roadmapę",
+      "campaignProgress": "Postęp kampanii",
+      "chapterProgress": "Postęp rozdziału",
+      "availableQuests": "Dostępne questy",
+      "personalXp": "Twój XP",
+      "mainQuest": "Aktualny main quest",
+      "noMainQuest": "Brak aktywnego main questa.",
+      "availableNow": "Dostępne teraz",
+      "noneAvailable": "Brak dostępnych questów.",
+      "lockedNext": "Następne zablokowane",
+      "myAssignments": "Twoje zadania",
+      "noAssignments": "Brak przypisanych questów.",
+      "team": "Zespół",
+      "teamworkXp": "teamwork XP",
+      "recentActivity": "Ostatnia aktywność"
+    },
+    "roadmap": {
+      "title": "Roadmapa kampanii",
+      "subtitle": "Rozdziały, węzły questów i przepływ zależności.",
+      "chapter": "Rozdział {order}"
+    },
+    "detail": {
+      "backToBoard": "Wróć do tablicy",
+      "businessDescription": "Kontekst biznesowy",
+      "description": "Opis",
+      "technicalGoal": "Cel techniczny",
+      "acceptanceCriteria": "Kryteria akceptacji",
+      "dependencies": "Zależności",
+      "noDependencies": "Brak zależności",
+      "xpRewards": "Nagrody XP",
+      "resources": "Materiały pomocnicze",
+      "assignMembers": "Przypisz członków",
+      "saveAssignment": "Zapisz przypisanie",
+      "startQuest": "Rozpocznij quest",
+      "submission": "Prześlij rozwiązanie",
+      "submissionHint": "Wklej URL commita GitHub. Pobranie metadanych jest opcjonalne i nie blokuje submission. DevQuest nie weryfikuje automatycznie poprawności kodu.",
+      "commitUrl": "URL commita GitHub",
+      "pullRequestUrl": "URL pull requesta (opcjonalnie)",
+      "solutionDescription": "Opis rozwiązania",
+      "submitForReview": "Wyślij do review",
+      "leaderReview": "Review lidera",
+      "selfReviewTitle": "Samoocena (tryb solo)",
+      "selfReviewNotice": "Oceniasz własne rozwiązanie. To samoocena — traktuj ją jak checklistę, nie automatyczną walidację.",
+      "accept": "Zaakceptuj submission",
+      "requestChanges": "Poproś o poprawki",
+      "reviewCommentPrompt": "Co należy poprawić?",
+      "comments": "Komentarze",
+      "commentPlaceholder": "Dodaj komentarz…",
+      "addComment": "Dodaj komentarz",
+      "activity": "Historia submission",
+      "noActivity": "Brak submissionów.",
+      "errors": {
+        "generic": "Coś poszło nie tak."
+      }
+    }
+  },
+  "phase4": {
+    "dashboard": {
+      "projectHealth": "Project Health",
+      "unresolvedEvents": "Nierozwiązane wydarzenia",
+      "activeRisks": "Aktywne ryzyka",
+      "noActiveRisks": "Brak wykrytych ryzyk.",
+      "latestClientMessage": "Ostatnia wiadomość klienta",
+      "noClientMessages": "Brak wiadomości od klienta.",
+      "viewInbox": "Otwórz skrzynkę",
+      "openInbox": "Client Inbox",
+      "latestAchievement": "Ostatnie osiągnięcie",
+      "noAchievements": "Brak odblokowanych osiągnięć.",
+      "teamWorkload": "Obciążenie zespołu",
+      "teamHealth": "Team Health",
+      "viewAllActivity": "Cała aktywność"
+    },
+    "inbox": {
+      "title": "Client Inbox",
+      "subtitle": "{unread} nieprzeczytanych wiadomości",
+      "empty": "Brak wiadomości. Wydarzenia pojawiają się w trakcie kampanii.",
+      "deadline": "Termin odpowiedzi: {date}",
+      "responseOptions": "Opcje odpowiedzi",
+      "leaderOnlyDecision": "Tylko lider podejmuje decyzję. Możesz przeglądać opcje i komentować.",
+      "chooseOption": "Wybierz tę opcję",
+      "comments": "Dyskusja zespołu",
+      "commentPlaceholder": "Dodaj komentarz dla zespołu…",
+      "addComment": "Dodaj komentarz",
+      "errors": {
+        "generic": "Nie udało się zapisać decyzji.",
+        "PERMISSION_DENIED": "W trybie zespołowym decyduje tylko lider."
+      }
+    },
+    "activity": {
+      "title": "Oś czasu aktywności",
+      "subtitle": "Zdarzenia projektu: questy, klient, health, XP i osiągnięcia.",
+      "allUsers": "Wszyscy użytkownicy",
+      "allCategories": "Wszystkie kategorie",
+      "empty": "Brak aktywności dla wybranych filtrów.",
+      "categories": {
+        "quest": "Questy",
+        "client": "Klient",
+        "health": "Health",
+        "xp": "XP",
+        "achievement": "Osiągnięcia",
+        "team": "Zespół"
+      }
+    },
+    "team": {
+      "title": "Zespół",
+      "subtitle": "Balans obciążenia, wkład i zdrowie zespołu.",
+      "projectHealth": "Project Health",
+      "teamHealth": "Team Health",
+      "workloadBalance": "Balans obciążenia",
+      "spread": "Rozpiętość aktywnych questów: {count}",
+      "members": "Członkowie",
+      "member": "Członek",
+      "activeQuests": "Aktywne",
+      "completedQuests": "Ukończone",
+      "contribution": "Wkład",
+      "teamworkXp": "Teamwork XP",
+      "status": "Status",
+      "blocked": "Zablokowany",
+      "inactive": "Nieaktywny",
+      "active": "Aktywny",
+      "soloModeNote": "Tryb solo — pełna odpowiedzialność za projekt.",
+      "recentActivity": "Ostatnia aktywność zespołu"
+    },
+    "achievements": {
+      "title": "Osiągnięcia",
+      "subtitle": "Kamienie milowe zdobyte w tej kampanii.",
+      "newAchievement": "Nowe osiągnięcie",
+      "unlockedAt": "Odblokowano {date}",
+      "locked": "Zablokowane"
+    }
+  },
+  "phase5": {
+    "report": {
+      "preCompletionTitle": "Zakończ kampanię",
+      "preCompletionSubtitle": "Sprawdź wymagania, opublikuj rozwiązanie i wygeneruj raport końcowy.",
+      "requirements": "Wymagania ukończenia",
+      "requiredMainProgress": "Wymagane main questy: {done}/{total}",
+      "optionalProgress": "Opcjonalne questy: {done}/{total}",
+      "allRequirementsMet": "Wszystkie wymagane warunki są spełnione.",
+      "leaderOnly": "Tylko lider (lub gracz solo) może zakończyć kampanię.",
+      "completeForm": "Finalizacja i publikacja",
+      "solutionDescription": "Opis rozwiązania",
+      "repositoryUrl": "URL repozytorium",
+      "liveDemoUrl": "URL live demo",
+      "makePublic": "Opublikuj publiczną stronę portfolio",
+      "publicSlug": "Slug publicznego URL",
+      "confirmComplete": "Zakończ kampanię",
+      "reportNotReady": "Raport końcowy jest przygotowywany. Odśwież za chwilę.",
+      "finalReportTitle": "Raport końcowy",
+      "viewPublicPage": "Zobacz stronę publiczną",
+      "grade": "Ocena",
+      "health": "Health",
+      "completion": "Ukończenie",
+      "teamwork": "Teamwork",
+      "testing": "Testowanie",
+      "adaptability": "Adaptacyjność",
+      "teamSummary": "Podsumowanie zespołu",
+      "duration": "Czas realizacji: {days} dni",
+      "questsCompleted": "Wymagane {required}/{requiredTotal} · Opcjonalne {optional}",
+      "strongestAreas": "Najmocniejsze obszary: {areas}",
+      "recommendations": "Rekomendacje na kolejną kampanię",
+      "yourReport": "Twój wkład",
+      "yourScore": "Wynik wkładu: {score}",
+      "nextDirection": "Sugerowany kierunek: {direction}",
+      "noIndividualReport": "Brak raportu indywidualnego dla Twojego konta.",
+      "errors": {
+        "generic": "Nie udało się zakończyć kampanii.",
+        "ALREADY_COMPLETED": "Ta kampania jest już ukończona.",
+        "CAMPAIGN_ALREADY_COMPLETED": "Ta kampania jest już ukończona.",
+        "LEADER_REQUIRED": "Tylko lider może zakończyć kampanię.",
+        "REQUIREMENTS_NOT_MET": "Wymagania nie są jeszcze spełnione.",
+        "VALIDATION_ERROR": "Sprawdź pola formularza i spróbuj ponownie.",
+        "PUBLIC_SLUG_TAKEN": "Ten slug jest już zajęty.",
+        "DEMO_READ_ONLY": "Ten projekt demo jest tylko do odczytu."
+      }
+    },
+    "profile": {
+      "title": "Twój profil",
+      "level": "Poziom",
+      "totalXp": "Łączne XP",
+      "completedCampaigns": "Ukończone kampanie",
+      "achievementsCount": "Osiągnięcia",
+      "contributionSummary": "Podsumowanie wkładu",
+      "contributionText": "Aktywny w {projects} projektach · Wynik wkładu {score} · Teamwork XP {teamworkXp}",
+      "preferredDirection": "Preferowany kierunek",
+      "skillXp": "XP umiejętności",
+      "noSkills": "Brak zapisanych umiejętności.",
+      "completedCampaignsTitle": "Ukończone kampanie",
+      "noCampaigns": "Brak ukończonych kampanii.",
+      "viewReport": "Zobacz raport",
+      "publicPage": "Strona publiczna",
+      "publicProjects": "Publiczne projekty portfolio",
+      "noPublicProjects": "Brak publicznych projektów.",
+      "achievements": "Osiągnięcia",
+      "noAchievements": "Brak odblokowanych osiągnięć."
+    },
+    "public": {
+      "portfolioProject": "Projekt portfolio",
+      "completedOn": "Ukończono {date}",
+      "businessProblem": "Problem biznesowy",
+      "solution": "Rozwiązanie",
+      "noSolutionDescription": "Brak opisu rozwiązania.",
+      "techStack": "Stack technologiczny",
+      "deliveredScope": "Zakres dostarczony",
+      "screenshots": "Zrzuty ekranu",
+      "screenshotsPlaceholder": "Miejsce na zrzuty ekranu — dodaj je po wdrożeniu produkcyjnym.",
+      "outcome": "Wynik projektu",
+      "grade": "Ocena końcowa",
+      "projectHealth": "Project Health",
+      "teamwork": "Wynik teamwork",
+      "team": "Zespół",
+      "memberContribution": "Wyróżniony wkład",
+      "memberScore": "Wynik wkładu: {score}",
+      "achievements": "Osiągnięcia",
+      "viewRepository": "Zobacz repozytorium",
+      "viewLiveDemo": "Zobacz live demo",
+      "disabledTitle": "Projekt niedostępny",
+      "disabledDescription": "Ten projekt nie jest publiczny lub nie został jeszcze ukończony."
+    }
+  }
+}

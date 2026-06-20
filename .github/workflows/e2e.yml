@@ -1,0 +1,58 @@
+name: E2E
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: devquest
+          POSTGRES_USER: devquest
+          POSTGRES_PASSWORD: devquest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U devquest -d devquest"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://devquest:devquest@localhost:5432/devquest?schema=public
+      AUTH_SECRET: ci_test_auth_secret_with_sufficient_length_1234567890
+      NEXTAUTH_URL: http://localhost:3000
+      E2E_SKIP_SEED: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npm run prisma:generate
+
+      - name: Apply migrations
+        run: npx prisma migrate deploy
+
+      - name: Seed database
+        run: npm run db:seed
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Playwright tests
+        run: npm run e2e

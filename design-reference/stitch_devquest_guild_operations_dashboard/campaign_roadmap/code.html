@@ -1,0 +1,677 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Campaign Roadmap | The Carbon Initiative</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Grotesk:wght@300..700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#ffb786",
+              "on-secondary-fixed-variant": "#5516be",
+              error: "#ffb4ab",
+              "surface-variant": "#32353c",
+              "tertiary-container": "#df7412",
+              "on-tertiary-container": "#461f00",
+              "surface-dim": "#10131a",
+              "on-surface-variant": "#c2c6d6",
+              "surface-container-lowest": "#0b0e15",
+              "on-tertiary": "#502400",
+              "on-primary-fixed-variant": "#004395",
+              "on-secondary-container": "#c4abff",
+              "on-primary-fixed": "#001a42",
+              "surface-tint": "#adc6ff",
+              "on-surface": "#e1e2ec",
+              "on-tertiary-fixed": "#311400",
+              "surface-container-highest": "#32353c",
+              secondary: "#d0bcff",
+              "inverse-primary": "#005ac2",
+              "secondary-fixed": "#e9ddff",
+              "surface-container-low": "#191b23",
+              "primary-fixed-dim": "#adc6ff",
+              "inverse-on-surface": "#2e3038",
+              "surface-bright": "#363941",
+              "error-container": "#93000a",
+              primary: "#adc6ff",
+              "surface-container-high": "#272a31",
+              "inverse-surface": "#e1e2ec",
+              "on-error": "#690005",
+              "primary-container": "#4d8eff",
+              "on-background": "#e1e2ec",
+              "secondary-fixed-dim": "#d0bcff",
+              "surface-container": "#1d2027",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#424754",
+              tertiary: "#ffb786",
+              "on-primary-container": "#00285d",
+              "tertiary-fixed": "#ffdcc6",
+              "on-primary": "#002e6a",
+              outline: "#8c909f",
+              background: "#10131a",
+              "primary-fixed": "#d8e2ff",
+              "on-secondary-fixed": "#23005c",
+              surface: "#10131a",
+              "secondary-container": "#571bc1",
+              "on-tertiary-fixed-variant": "#723600",
+              "on-secondary": "#3c0091",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              base: "4px",
+              lg: "24px",
+              md: "16px",
+              "container-max": "1280px",
+              xl: "32px",
+              sm: "8px",
+              gutter: "24px",
+              xs: "4px",
+            },
+            fontFamily: {
+              "body-md": ["Geist"],
+              "mono-label": ["Geist"],
+              "chapter-header-mobile": ["Space Grotesk"],
+              "headline-lg": ["Geist"],
+              "label-caps": ["Geist"],
+              "body-sm": ["Geist"],
+              "chapter-header": ["Space Grotesk"],
+              "headline-md": ["Geist"],
+              "body-lg": ["Geist"],
+            },
+            fontSize: {
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "mono-label": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+              "chapter-header-mobile": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "headline-lg": [
+                "32px",
+                { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" },
+              ],
+              "label-caps": [
+                "12px",
+                { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" },
+              ],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "chapter-header": [
+                "48px",
+                { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" },
+              ],
+              "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        user-select: none;
+      }
+      body {
+        background-color: #10131a; /* surface-dim */
+        color: #e1e2ec; /* on-surface */
+        font-family: "Geist", sans-serif;
+        overflow-x: hidden;
+      }
+      .roadmap-container {
+        mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      }
+      .node-line {
+        background: linear-gradient(to bottom, #adc6ff 50%, #424754 50%);
+        background-size: 100% 200%;
+        background-position: bottom;
+        transition: background-position 0.5s ease;
+      }
+      .node-line.completed {
+        background-position: top;
+      }
+      .skill-node:hover .node-glow {
+        opacity: 0.5;
+      }
+      .glass-card {
+        background: rgba(22, 27, 34, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid #1e293b;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="flex min-h-screen">
+    <!-- Navigation Drawer (Shared Component) -->
+    <aside
+      class="bg-surface-dim dark:bg-surface-dim border-outline-variant py-lg px-md gap-sm fixed top-0 left-0 z-40 flex hidden h-screen w-72 flex-col border-r md:flex"
+    >
+      <div class="mb-xl gap-md px-sm flex items-center">
+        <div
+          class="bg-primary text-on-primary flex h-10 w-10 items-center justify-center rounded-lg font-bold"
+        >
+          JD
+        </div>
+        <div>
+          <div class="font-chapter-header text-primary text-[20px] leading-tight">DevQuest</div>
+          <div class="font-body-sm text-on-surface-variant">Lead Architect</div>
+        </div>
+      </div>
+      <nav class="gap-xs flex flex-col">
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span> Overview
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">assignment</span> Quest Board
+        </a>
+        <a
+          class="gap-md p-md text-primary border-primary bg-secondary-container/20 font-body-md text-body-md flex items-center rounded-lg border-l-2 font-bold"
+          href="#"
+        >
+          <span class="material-symbols-outlined">map</span> Campaign Roadmap
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">group</span> Team
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">mail</span> Client Inbox
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">history</span> Activity
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">military_tech</span> Achievements
+        </a>
+        <a
+          class="gap-md p-md text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md flex cursor-pointer items-center rounded-lg transition-all active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">description</span> Final Report
+        </a>
+      </nav>
+      <div class="p-md bg-surface-container-low border-outline-variant mt-auto rounded-xl border">
+        <div class="mb-sm flex items-center justify-between">
+          <span class="font-label-caps text-label-caps text-on-surface-variant">ELITE TIER</span>
+          <span class="font-label-caps text-label-caps text-primary">LVL 12</span>
+        </div>
+        <div class="bg-outline-variant h-1.5 w-full overflow-hidden rounded-full">
+          <div class="from-primary to-secondary h-full w-3/4 bg-gradient-to-r"></div>
+        </div>
+      </div>
+    </aside>
+    <!-- Main Content Stage -->
+    <main class="relative flex min-h-screen flex-1 flex-col overflow-hidden md:ml-72">
+      <!-- Top App Bar -->
+      <header
+        class="bg-surface-container dark:bg-surface-container border-outline-variant dark:border-outline-variant px-lg max-w-container-max sticky top-0 z-30 mx-auto flex h-20 w-full items-center justify-between border-b"
+      >
+        <div class="gap-md flex items-center">
+          <div
+            class="font-chapter-header-mobile text-chapter-header-mobile text-on-surface dark:text-on-surface font-bold"
+          >
+            Campaign Roadmap
+          </div>
+        </div>
+        <div class="gap-lg flex items-center">
+          <div class="hidden flex-col items-end sm:flex">
+            <span class="font-label-caps text-label-caps text-tertiary">CHAPTER 04</span>
+            <span class="font-body-md text-body-md text-primary font-bold">Scaling Horizon</span>
+          </div>
+          <div
+            class="bg-surface-container-high border-outline-variant text-primary flex h-10 w-10 items-center justify-center rounded-full border font-bold"
+          >
+            JD
+          </div>
+        </div>
+      </header>
+      <!-- Skill Tree / Roadmap Canvas -->
+      <div class="p-lg relative mx-auto w-full max-w-5xl flex-1">
+        <!-- Chapter Progress Overview -->
+        <div class="gap-lg mb-xl grid grid-cols-1 md:grid-cols-3">
+          <div class="glass-card p-lg gap-sm flex flex-col rounded-xl">
+            <div
+              class="text-on-surface-variant font-label-caps text-label-caps tracking-wider uppercase"
+            >
+              Total Progress
+            </div>
+            <div class="text-headline-md font-headline-md text-on-surface">
+              64% <span class="text-body-sm font-body-sm text-primary ml-2">+2.4%</span>
+            </div>
+            <div class="bg-outline-variant mt-2 h-1 rounded-full">
+              <div class="bg-primary h-full w-[64%]"></div>
+            </div>
+          </div>
+          <div class="glass-card p-lg gap-sm flex flex-col rounded-xl">
+            <div
+              class="text-on-surface-variant font-label-caps text-label-caps tracking-wider uppercase"
+            >
+              Current Node
+            </div>
+            <div class="text-headline-md font-headline-md text-tertiary">Core Features</div>
+            <div class="gap-xs text-body-sm font-body-sm text-on-surface-variant flex items-center">
+              <span class="material-symbols-outlined text-[16px]">timer</span> 4 days remaining
+            </div>
+          </div>
+          <div class="glass-card p-lg gap-sm flex flex-col rounded-xl">
+            <div
+              class="text-on-surface-variant font-label-caps text-label-caps tracking-wider uppercase"
+            >
+              Campaign Tier
+            </div>
+            <div class="text-headline-md font-headline-md text-secondary">Strategic</div>
+            <div class="gap-xs text-body-sm font-body-sm text-on-surface-variant flex items-center">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >military_tech</span
+              >
+              Mastery Level: 3
+            </div>
+          </div>
+        </div>
+        <!-- The Vertical Roadmap -->
+        <div class="py-xl roadmap-container relative">
+          <!-- Central Connector Line (Full Length) -->
+          <div
+            class="bg-outline-variant absolute top-0 bottom-0 left-1/2 z-0 w-px -translate-x-1/2"
+          ></div>
+          <!-- Stage 1: Discovery (Completed) -->
+          <div class="mb-xl relative flex flex-col items-center">
+            <div
+              class="bg-primary absolute -top-4 bottom-1/2 left-1/2 z-0 w-px -translate-x-1/2"
+            ></div>
+            <div class="skill-node group relative z-10">
+              <div
+                class="bg-primary border-surface-dim ring-primary flex h-16 w-16 items-center justify-center rounded-full border-4 shadow-[0_0_20px_rgba(173,198,255,0.4)] ring-1 transition-transform group-hover:scale-110"
+              >
+                <span class="material-symbols-outlined text-on-primary text-[32px]">search</span>
+              </div>
+              <div
+                class="bg-secondary-container border-surface-dim absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2"
+              >
+                <span
+                  class="material-symbols-outlined text-on-secondary-container text-[14px]"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >check</span
+                >
+              </div>
+            </div>
+            <div class="mt-md text-center">
+              <div class="font-label-caps text-label-caps text-primary">STAGE 01</div>
+              <div class="font-headline-md text-headline-md text-on-surface">Discovery</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant mt-xs max-w-xs">
+                Completed 12 days ago. All objectives cleared.
+              </div>
+            </div>
+          </div>
+          <!-- Stage 2: Foundation (Completed) -->
+          <div class="mb-xl relative flex flex-col items-center">
+            <div
+              class="-top-xl bg-primary absolute bottom-1/2 left-1/2 z-0 w-px -translate-x-1/2"
+            ></div>
+            <div class="skill-node group relative z-10">
+              <div
+                class="bg-primary border-surface-dim ring-primary flex h-16 w-16 items-center justify-center rounded-full border-4 shadow-[0_0_20px_rgba(173,198,255,0.4)] ring-1 transition-transform group-hover:scale-110"
+              >
+                <span class="material-symbols-outlined text-on-primary text-[32px]">layers</span>
+              </div>
+              <div
+                class="bg-secondary-container border-surface-dim absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2"
+              >
+                <span
+                  class="material-symbols-outlined text-on-secondary-container text-[14px]"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >check</span
+                >
+              </div>
+            </div>
+            <div class="mt-md text-center">
+              <div class="font-label-caps text-label-caps text-primary">STAGE 02</div>
+              <div class="font-headline-md text-headline-md text-on-surface">Foundation</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant mt-xs max-w-xs">
+                Project structure and database schemas locked.
+              </div>
+            </div>
+          </div>
+          <!-- MILESTONE: Architecture Review (Completed) -->
+          <div class="mb-xl px-lg relative flex flex-col items-center">
+            <div
+              class="-top-xl bg-primary absolute bottom-1/2 left-1/2 z-0 w-px -translate-x-1/2"
+            ></div>
+            <div
+              class="glass-card gap-lg p-md px-xl border-primary/50 relative z-10 flex items-center rounded-full border shadow-[0_0_30px_rgba(173,198,255,0.1)]"
+            >
+              <span
+                class="material-symbols-outlined text-primary"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >verified</span
+              >
+              <div class="bg-outline-variant h-8 w-px"></div>
+              <div class="flex flex-col">
+                <span class="font-label-caps text-label-caps text-primary">MILESTONE</span>
+                <span class="font-body-md text-body-md font-bold">Architecture Review</span>
+              </div>
+              <div class="bg-outline-variant h-8 w-px"></div>
+              <span class="font-mono-label text-mono-label text-on-surface-variant">APPROVED</span>
+            </div>
+          </div>
+          <!-- Stage 3: Core Features (Available/Active) -->
+          <div class="mb-xl relative flex flex-col items-center">
+            <div
+              class="-top-xl bg-primary absolute bottom-1/2 left-1/2 z-0 w-px -translate-x-1/2"
+            ></div>
+            <div class="skill-node group relative z-10">
+              <div
+                class="bg-surface-container border-primary ring-primary/50 animate-pulse-slow flex h-20 w-20 items-center justify-center rounded-full border-4 shadow-[0_0_40px_rgba(173,198,255,0.2)] ring-1 transition-transform group-hover:scale-105"
+              >
+                <span class="material-symbols-outlined text-primary text-[40px]">code</span>
+              </div>
+              <div
+                class="bg-tertiary text-on-tertiary font-label-caps border-surface-dim absolute -top-1 -right-1 rounded-full border px-2 py-0.5 text-[10px]"
+              >
+                IN PROGRESS
+              </div>
+            </div>
+            <div class="mt-md text-center">
+              <div class="font-label-caps text-label-caps text-tertiary">STAGE 03 • CURRENT</div>
+              <div class="font-headline-md text-headline-md text-on-surface">Core Features</div>
+              <div class="gap-sm mt-md mx-auto flex w-64 flex-col">
+                <div
+                  class="font-label-caps text-on-surface-variant flex justify-between text-[11px]"
+                >
+                  <span>Quest Progress</span>
+                  <span>3 / 5 Task Complete</span>
+                </div>
+                <div class="bg-outline-variant h-1.5 w-full overflow-hidden rounded-full">
+                  <div class="bg-tertiary h-full w-[60%]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Dependency Branching (Example for Skill Tree Vibe) -->
+          <div class="gap-xl mb-xl relative grid grid-cols-2">
+            <svg
+              class="pointer-events-none absolute top-0 left-0 h-full w-full opacity-40"
+              viewbox="0 0 400 200"
+            >
+              <path
+                d="M 200 0 L 200 40 L 100 80 L 100 120"
+                fill="none"
+                stroke="#8c909f"
+                stroke-width="1"
+              ></path>
+              <path
+                d="M 200 0 L 200 40 L 300 80 L 300 120"
+                fill="none"
+                stroke="#8c909f"
+                stroke-width="1"
+              ></path>
+            </svg>
+            <!-- Branch A: Stabilization (Locked) -->
+            <div class="flex flex-col items-center pt-24">
+              <div class="skill-node group relative z-10">
+                <div
+                  class="bg-surface-dim border-outline-variant flex h-16 w-16 items-center justify-center rounded-full border-4 opacity-60 grayscale"
+                >
+                  <span class="material-symbols-outlined text-on-surface-variant text-[32px]"
+                    >bug_report</span
+                  >
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-surface-variant/30 text-[40px]"
+                    >lock</span
+                  >
+                </div>
+              </div>
+              <div class="mt-md text-center">
+                <div class="font-label-caps text-label-caps text-on-surface-variant">STAGE 04</div>
+                <div class="font-headline-md text-headline-md text-on-surface-variant">
+                  Stabilization
+                </div>
+                <div class="font-body-sm text-body-sm text-on-surface-variant/50 mt-xs italic">
+                  Requires 'Core Features'
+                </div>
+              </div>
+            </div>
+            <!-- Branch B: Integration (Locked) -->
+            <div class="flex flex-col items-center pt-24">
+              <div class="skill-node group relative z-10">
+                <div
+                  class="bg-surface-dim border-outline-variant flex h-16 w-16 items-center justify-center rounded-full border-4 opacity-60 grayscale"
+                >
+                  <span class="material-symbols-outlined text-on-surface-variant text-[32px]"
+                    >hub</span
+                  >
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-surface-variant/30 text-[40px]"
+                    >lock</span
+                  >
+                </div>
+              </div>
+              <div class="mt-md text-center">
+                <div class="font-label-caps text-label-caps text-on-surface-variant">STAGE 05</div>
+                <div class="font-headline-md text-headline-md text-on-surface-variant">
+                  Integration
+                </div>
+                <div class="font-body-sm text-body-sm text-on-surface-variant/50 mt-xs italic">
+                  Requires 'Core Features'
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Stage 6: Release (Final Milestone) -->
+          <div class="mb-xl relative flex flex-col items-center">
+            <div class="skill-node group relative z-10">
+              <div
+                class="bg-surface-container-lowest border-outline-variant flex h-24 w-24 flex-col items-center justify-center rounded-full border-2 border-dashed opacity-40"
+              >
+                <span class="material-symbols-outlined text-on-surface-variant text-[48px]"
+                  >rocket_launch</span
+                >
+                <span class="font-label-caps mt-1 text-[10px]">END POINT</span>
+              </div>
+            </div>
+            <div class="mt-md text-center">
+              <div class="font-label-caps text-label-caps text-on-surface-variant">FINAL STAGE</div>
+              <div class="font-headline-md text-headline-md text-on-surface-variant">
+                Release Candidate
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Float Floating Action Button (Shared Logic) -->
+      <!-- Suppressed on Roadmap screen based on 'Relevance Check' -->
+      <!-- Bottom Nav Bar (Mobile Only) -->
+      <nav
+        class="bg-surface-container-lowest dark:bg-surface-container-lowest border-outline-variant fixed bottom-0 left-0 z-50 flex w-full items-center justify-around rounded-t-xl border-t px-4 py-2 shadow-lg md:hidden"
+      >
+        <a
+          class="text-on-surface-variant flex flex-col items-center justify-center p-2 transition-transform active:scale-90"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          <span class="font-label-caps text-label-caps">Overview</span>
+        </a>
+        <a
+          class="text-on-surface-variant flex flex-col items-center justify-center p-2 transition-transform active:scale-90"
+          href="#"
+        >
+          <span class="material-symbols-outlined">assignment</span>
+          <span class="font-label-caps text-label-caps">Quests</span>
+        </a>
+        <a
+          class="bg-primary-container text-on-primary-container flex flex-col items-center justify-center rounded-full p-2 transition-transform active:scale-90"
+          href="#"
+        >
+          <span class="material-symbols-outlined">map</span>
+          <span class="font-label-caps text-label-caps">Roadmap</span>
+        </a>
+        <a
+          class="text-on-surface-variant flex flex-col items-center justify-center p-2 transition-transform active:scale-90"
+          href="#"
+        >
+          <span class="material-symbols-outlined">group</span>
+          <span class="font-label-caps text-label-caps">Team</span>
+        </a>
+        <a
+          class="text-on-surface-variant flex flex-col items-center justify-center p-2 transition-transform active:scale-90"
+          href="#"
+        >
+          <span class="material-symbols-outlined">mail</span>
+          <span class="font-label-caps text-label-caps">Mail</span>
+        </a>
+      </nav>
+      <!-- Right Side Panel: Quest Context (Bento Style) -->
+      <aside
+        class="p-lg gap-lg fixed top-20 right-0 bottom-0 hidden w-80 flex-col overflow-y-auto xl:flex"
+      >
+        <div class="glass-card p-lg gap-md flex flex-col rounded-xl">
+          <div class="gap-sm flex items-center">
+            <span class="material-symbols-outlined text-tertiary">priority_high</span>
+            <span class="font-label-caps text-label-caps text-on-surface">ACTIVE QUEST</span>
+          </div>
+          <div class="font-body-md text-body-md font-bold">
+            Implement WebSockets for Real-time Fleet Status
+          </div>
+          <div class="gap-sm flex">
+            <span
+              class="bg-surface-container-high border-outline-variant font-mono-label text-on-surface-variant rounded border px-2 py-0.5 text-[11px]"
+              >LVL 5</span
+            >
+            <span
+              class="bg-error-container text-on-error-container font-mono-label rounded px-2 py-0.5 text-[11px]"
+              >HARD</span
+            >
+          </div>
+          <div class="font-body-sm text-body-sm text-on-surface-variant">
+            Integrate the Carbon-API with the primary dashboard to show vehicle positions with <
+            100ms latency.
+          </div>
+          <button
+            class="py-md bg-primary text-on-primary w-full rounded-lg font-bold transition-transform active:scale-95"
+          >
+            Open Terminal
+          </button>
+        </div>
+        <div class="glass-card p-lg gap-md flex flex-col rounded-xl">
+          <div class="font-label-caps text-label-caps text-on-surface-variant">DEPENDENCY TREE</div>
+          <div class="space-y-md">
+            <div class="gap-sm flex items-center">
+              <span
+                class="material-symbols-outlined text-primary text-[18px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check_circle</span
+              >
+              <span class="font-body-sm text-body-sm text-on-surface-variant/60 line-through"
+                >API Route Design</span
+              >
+            </div>
+            <div class="gap-sm flex items-center">
+              <span
+                class="material-symbols-outlined text-primary text-[18px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check_circle</span
+              >
+              <span class="font-body-sm text-body-sm text-on-surface-variant/60 line-through"
+                >Auth Middleware</span
+              >
+            </div>
+            <div class="gap-sm flex items-center">
+              <div
+                class="border-tertiary flex h-4 w-4 items-center justify-center rounded-full border-2"
+              >
+                <div class="bg-tertiary h-1.5 w-1.5 animate-ping rounded-full"></div>
+              </div>
+              <span class="font-body-sm text-body-sm text-on-surface font-bold"
+                >WS Handshake Flow</span
+              >
+            </div>
+            <div class="gap-sm flex items-center">
+              <div class="border-outline-variant h-4 w-4 rounded-full border-2"></div>
+              <span class="font-body-sm text-body-sm text-on-surface-variant"
+                >Redis Pub/Sub setup</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="glass-card p-lg mt-auto rounded-xl">
+          <div
+            class="mb-md h-32 w-full rounded-lg bg-cover bg-center grayscale transition-all duration-700 hover:grayscale-0"
+            data-alt="A macro shot of professional high-end computer hardware with glowing blue internal LED lights, showing a circuit board with extreme detail and precision. The aesthetic is clean, technical, and premium dark mode, with shallow depth of field focusing on the central processor unit branded with a minimalist logo."
+            style="
+              background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAHbshJZq2n7ED4i-yhfVZPMnwwW4kgNky68mGs5f22FE6EK2pgtnzqh9dkY3Rwx6lK27t4fZJtnSSUJnQt3__TuxfC7F-jCgDLSpoH6BNjdvmhrXDEjDYJ-uo0WnjGgvGCD553Lm0A14HsneMMefB5Lp2D7xL7HbtnDSSDSruPHAM4FYqMCRojxs5i4tm0XL9fgr0hYG3mPb_8WiBTXuk5axkeYtwZTFw8fUWY1LugQgNCB3CPaPFy4_O4tvRZFpksj1Emqn5snsk&quot;);
+            "
+          ></div>
+          <div class="font-label-caps text-label-caps text-on-surface-variant mb-xs text-center">
+            SERVER UPTIME
+          </div>
+          <div class="font-body-md text-body-md text-primary text-center font-bold">99.998%</div>
+        </div>
+      </aside>
+    </main>
+    <script>
+      // Micro-interaction for roadmap line
+      document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+          threshold: 0.5,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("completed");
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll(".node-line").forEach((line) => {
+          observer.observe(line);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: devquest-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: devquest
+      POSTGRES_USER: devquest
+      POSTGRES_PASSWORD: devquest
+    ports:
+      - "5432:5432"
+    volumes:
+      - devquest_pgdata:/var/lib/postgresql/data
+
+volumes:
+  devquest_pgdata:

@@ -1,0 +1,444 @@
+{
+  "common": {
+    "appName": "DevQuest",
+    "continue": "Continue",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading…",
+    "error": "Something went wrong"
+  },
+  "navigation": {
+    "overview": "Overview",
+    "questBoard": "Quest Board",
+    "roadmap": "Campaign Roadmap",
+    "team": "Team",
+    "clientInbox": "Client Inbox",
+    "activity": "Activity",
+    "achievements": "Achievements",
+    "finalReport": "Final Report",
+    "settings": "Settings",
+    "campaigns": "Campaigns",
+    "profile": "Profile",
+    "sidebar": "Workspace sidebar",
+    "mainNav": "Main navigation",
+    "accountNav": "Account navigation",
+    "openMenu": "Open navigation menu"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "confirmPassword": "Confirm password",
+    "submitLogin": "Log in",
+    "submitRegister": "Create account",
+    "registeredHint": "Account created. You can log in now.",
+    "demoLogin": "Try demo (team leader)",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "pages": {
+    "homeTitle": "Career-grade project simulations",
+    "homeSubtitle": "Lead realistic software campaigns. Track progress like a SaaS team — earn skill XP like an RPG.",
+    "campaignsTitle": "Campaigns",
+    "appTitle": "Workspace",
+    "settingsTitle": "Settings"
+  },
+  "validation": {
+    "required": "This field is required"
+  },
+  "campaigns": {
+    "catalogTitle": "Campaign Catalog",
+    "catalogSubtitle": "Deploy into realistic business simulations. Lead your team from planning through release.",
+    "empty": "No campaigns match your filters.",
+    "error": "Unable to load campaigns. Check your database connection.",
+    "viewDetails": "View details",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "modes": {
+      "solo": "Solo supported"
+    },
+    "stats": {
+      "quests": "quests",
+      "devs": "devs"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name, skills, or description…",
+      "difficultyAll": "Difficulty: All",
+      "difficultyBeginner": "Beginner",
+      "difficultyIntermediate": "Intermediate",
+      "difficultyAdvanced": "Advanced",
+      "durationAll": "Duration: All",
+      "durationShort": "1–2 weeks",
+      "durationMedium": "2–4 weeks",
+      "durationLong": "1 month+",
+      "modeAll": "Mode: All",
+      "modeSolo": "Solo",
+      "modeTeam": "Team only"
+    },
+    "detail": {
+      "backToCatalog": "Back to catalog",
+      "businessProblem": "Business problem",
+      "projectGoal": "Project goal",
+      "scope": "Campaign scope",
+      "difficulty": "Difficulty",
+      "duration": "Duration",
+      "teamSize": "Team size",
+      "quests": "Quests",
+      "prerequisites": "Prerequisites",
+      "startCampaign": "Start campaign",
+      "chapters": "Chapters",
+      "chapter": "Chapter",
+      "questsInChapter": "quests"
+    },
+    "app": {
+      "title": "Your campaigns",
+      "subtitle": "Resume setup or open an active workspace.",
+      "empty": "You have no active campaigns yet.",
+      "browse": "Browse catalog",
+      "continueSetup": "Continue setup",
+      "openWorkspace": "Open workspace",
+      "error": "Unable to load your campaigns."
+    }
+  },
+  "setup": {
+    "wizardLabel": "Campaign setup",
+    "continue": "Continue",
+    "steps": {
+      "MODE": "Choose solo or team mode",
+      "TEAM": "Build your team",
+      "ROLES": "Select preferred roles",
+      "ROLE_APPROVAL": "Approve team roles",
+      "STACK": "Select technology stack",
+      "SUMMARY": "Review and launch",
+      "COMPLETED": "Setup complete"
+    },
+    "mode": {
+      "soloTitle": "Solo",
+      "soloDescription": "You hold all critical responsibilities. Ideal for learning the full delivery flow.",
+      "teamTitle": "Team",
+      "teamDescription": "Collaborate with 1–4 developers. Assign roles and share accountability."
+    },
+    "team": {
+      "title": "Invite team members",
+      "subtitle": "{current} of {max} members",
+      "emailPlaceholder": "colleague@example.com",
+      "invite": "Invite member"
+    },
+    "roles": {
+      "title": "Preferred roles",
+      "subtitle": "Select the areas where you want to contribute. You may choose multiple roles.",
+      "pendingTeam": "Waiting for all team members to select roles before continuing."
+    },
+    "approval": {
+      "title": "Approve roles",
+      "subtitle": "As team leader, confirm each member's responsibilities before continuing.",
+      "preferred": "Preferred",
+      "approve": "Approve roles",
+      "cannotSelfApprove": "Leaders cannot approve their own roles in team mode.",
+      "error": "Unable to approve roles.",
+      "waitingForLeader": "Waiting for the team leader to approve roles.",
+      "criticalCoverage": "Critical coverage",
+      "coverage": {
+        "engineering": "Engineering",
+        "testing": "Testing",
+        "documentation": "Documentation"
+      }
+    },
+    "stack": {
+      "title": "Technology stack",
+      "subtitle": "Choose your stack. Assessment is advisory and does not block launch.",
+      "selectOption": "Select…",
+      "assessAndContinue": "Assess stack & continue",
+      "compatibilityScore": "Compatibility score",
+      "strengths": "Strengths",
+      "risks": "Risks",
+      "missing": "Missing areas",
+      "recommendations": "Recommendations"
+    },
+    "summary": {
+      "title": "Ready to launch",
+      "mode": "Mode",
+      "team": "Team",
+      "advisory": "Quest unlocking and project dashboard will be available in the next phase.",
+      "launch": "Launch campaign"
+    },
+    "errors": {
+      "generic": "Something went wrong. Try again.",
+      "USER_NOT_FOUND": "No registered user found with that email.",
+      "TEAM_FULL": "Team is at maximum capacity.",
+      "ALREADY_MEMBER": "This user is already on the team.",
+      "CRITICAL_ROLES_INCOMPLETE": "Critical responsibilities are not fully covered.",
+      "CANNOT_SELF_APPROVE": "You cannot approve your own roles in team mode."
+    }
+  },
+  "quests": {
+    "boardTitle": "Quest Board",
+    "boardSubtitle": "Drag quests between columns. Workflow rules and permissions are enforced server-side.",
+    "boardRegion": "Quest board columns",
+    "dragHandle": "Drag quest card",
+    "statusLabel": "Status: {status}",
+    "mainQuest": "Main Quest",
+    "sideQuest": "Side Quest",
+    "commitLinked": "Commit linked",
+    "difficulty": "Difficulty {level}",
+    "dependsOn": "Depends on: {names}",
+    "deadline": "Suggested deadline: {date}",
+    "columns": {
+      "locked": "Locked",
+      "available": "Available",
+      "inProgress": "In Progress",
+      "review": "Review",
+      "completed": "Completed"
+    },
+    "category": {
+      "PLANNING": "Planning",
+      "SETUP": "Setup",
+      "FRONTEND": "Frontend",
+      "BACKEND": "Backend",
+      "DATABASE": "Database",
+      "TESTING": "Testing",
+      "DEVOPS": "DevOps",
+      "UX_UI": "UX/UI",
+      "GIT": "Git",
+      "DOCUMENTATION": "Documentation",
+      "TEAMWORK": "Teamwork",
+      "PRODUCT": "Product"
+    },
+    "errors": {
+      "generic": "Unable to update quest.",
+      "QUEST_LOCKED": "This quest is locked until dependencies are completed.",
+      "INVALID_TRANSITION": "That status change is not allowed.",
+      "NOT_ASSIGNED": "You must be assigned to this quest.",
+      "LEADER_REQUIRED": "Only the team leader can perform this action.",
+      "VALIDATION_ERROR": "Please check the form fields.",
+      "INVALID_GITHUB_COMMIT_URL": "Enter a valid GitHub commit URL.",
+      "INVALID_GITHUB_PR_URL": "Enter a valid GitHub pull request URL."
+    },
+    "dashboard": {
+      "currentChapter": "Current chapter: {chapter}",
+      "openBoard": "Open Quest Board",
+      "openRoadmap": "Open Roadmap",
+      "campaignProgress": "Campaign progress",
+      "chapterProgress": "Chapter progress",
+      "availableQuests": "Available quests",
+      "personalXp": "Your XP",
+      "mainQuest": "Current main quest",
+      "noMainQuest": "No active main quest right now.",
+      "availableNow": "Available now",
+      "noneAvailable": "No quests available yet.",
+      "lockedNext": "Locked next",
+      "myAssignments": "Your assignments",
+      "noAssignments": "No quests assigned to you yet.",
+      "team": "Team",
+      "teamworkXp": "teamwork XP",
+      "recentActivity": "Recent activity"
+    },
+    "roadmap": {
+      "title": "Campaign Roadmap",
+      "subtitle": "Chapters, quest nodes, and dependency flow across the campaign.",
+      "chapter": "Chapter {order}"
+    },
+    "detail": {
+      "backToBoard": "Back to Quest Board",
+      "businessDescription": "Business context",
+      "description": "Description",
+      "technicalGoal": "Technical goal",
+      "acceptanceCriteria": "Acceptance criteria",
+      "dependencies": "Dependencies",
+      "noDependencies": "No dependencies",
+      "xpRewards": "XP rewards",
+      "resources": "Learning resources",
+      "assignMembers": "Assign members",
+      "saveAssignment": "Save assignment",
+      "startQuest": "Start quest",
+      "submission": "Submit solution",
+      "submissionHint": "Paste a GitHub commit URL. Metadata fetch is optional and never blocks submission. DevQuest does not automatically verify code correctness.",
+      "commitUrl": "GitHub commit URL",
+      "pullRequestUrl": "Pull request URL (optional)",
+      "solutionDescription": "Solution summary",
+      "submitForReview": "Submit for review",
+      "leaderReview": "Leader review",
+      "selfReviewTitle": "Self-review (solo mode)",
+      "selfReviewNotice": "You are reviewing your own submission. This is a self-assessment — treat it as a checklist, not automated validation.",
+      "accept": "Accept submission",
+      "requestChanges": "Request changes",
+      "reviewCommentPrompt": "What should be improved?",
+      "comments": "Comments",
+      "commentPlaceholder": "Add a comment…",
+      "addComment": "Post comment",
+      "activity": "Submission history",
+      "noActivity": "No submissions yet.",
+      "errors": {
+        "generic": "Something went wrong."
+      }
+    }
+  },
+  "phase4": {
+    "dashboard": {
+      "projectHealth": "Project Health",
+      "unresolvedEvents": "Unresolved events",
+      "activeRisks": "Active risks",
+      "noActiveRisks": "No active risks detected.",
+      "latestClientMessage": "Latest client message",
+      "noClientMessages": "No client messages yet.",
+      "viewInbox": "Open Client Inbox",
+      "openInbox": "Client Inbox",
+      "latestAchievement": "Latest achievement",
+      "noAchievements": "No achievements unlocked yet.",
+      "teamWorkload": "Team workload",
+      "teamHealth": "Team Health",
+      "viewAllActivity": "View all activity"
+    },
+    "inbox": {
+      "title": "Client Inbox",
+      "subtitle": "{unread} unread message(s)",
+      "empty": "No client messages yet. Events appear as the campaign progresses.",
+      "deadline": "Response deadline: {date}",
+      "responseOptions": "Response options",
+      "leaderOnlyDecision": "Only the team leader can submit the final decision. You can review options and comment.",
+      "chooseOption": "Choose this option",
+      "comments": "Team discussion",
+      "commentPlaceholder": "Add a comment for the team…",
+      "addComment": "Post comment",
+      "errors": {
+        "generic": "Unable to process decision.",
+        "PERMISSION_DENIED": "Only the team leader can decide in team mode."
+      }
+    },
+    "activity": {
+      "title": "Activity Timeline",
+      "subtitle": "Project events across quests, client messages, health, XP, and achievements.",
+      "allUsers": "All users",
+      "allCategories": "All categories",
+      "empty": "No activity matches your filters.",
+      "categories": {
+        "quest": "Quests",
+        "client": "Client",
+        "health": "Health",
+        "xp": "XP",
+        "achievement": "Achievements",
+        "team": "Team"
+      }
+    },
+    "team": {
+      "title": "Team",
+      "subtitle": "Workload balance, contribution, and team health for this campaign.",
+      "projectHealth": "Project Health",
+      "teamHealth": "Team Health",
+      "workloadBalance": "Workload balance",
+      "spread": "Active quest spread: {count}",
+      "members": "Members",
+      "member": "Member",
+      "activeQuests": "Active",
+      "completedQuests": "Completed",
+      "contribution": "Contribution",
+      "teamworkXp": "Teamwork XP",
+      "status": "Status",
+      "blocked": "Blocked",
+      "inactive": "Inactive",
+      "active": "Active",
+      "soloModeNote": "Solo mode — you hold all responsibilities on this project.",
+      "recentActivity": "Recent team activity"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "subtitle": "Milestones earned during this campaign.",
+      "newAchievement": "New achievement",
+      "unlockedAt": "Unlocked {date}",
+      "locked": "Locked"
+    }
+  },
+  "phase5": {
+    "report": {
+      "preCompletionTitle": "Complete campaign",
+      "preCompletionSubtitle": "Review requirements, publish your solution, and generate the final report.",
+      "requirements": "Completion requirements",
+      "requiredMainProgress": "Required main quests: {done}/{total}",
+      "optionalProgress": "Optional quests: {done}/{total}",
+      "allRequirementsMet": "All required conditions are met.",
+      "leaderOnly": "Only the team leader (or solo player) can complete the campaign.",
+      "completeForm": "Finalize and publish",
+      "solutionDescription": "Solution description",
+      "repositoryUrl": "Repository URL",
+      "liveDemoUrl": "Live demo URL",
+      "makePublic": "Publish a public portfolio page",
+      "publicSlug": "Public URL slug",
+      "confirmComplete": "Complete campaign",
+      "reportNotReady": "The final report is being prepared. Refresh in a moment.",
+      "finalReportTitle": "Final report",
+      "viewPublicPage": "View public page",
+      "grade": "Grade",
+      "health": "Health",
+      "completion": "Completion",
+      "teamwork": "Teamwork",
+      "testing": "Testing",
+      "adaptability": "Adaptability",
+      "teamSummary": "Team summary",
+      "duration": "Duration: {days} days",
+      "questsCompleted": "Required {required}/{requiredTotal} · Optional {optional}",
+      "strongestAreas": "Strongest areas: {areas}",
+      "recommendations": "Next campaign recommendations",
+      "yourReport": "Your contribution",
+      "yourScore": "Contribution score: {score}",
+      "nextDirection": "Suggested direction: {direction}",
+      "noIndividualReport": "No individual report found for your account.",
+      "errors": {
+        "generic": "Unable to complete the campaign.",
+        "ALREADY_COMPLETED": "This campaign is already completed.",
+        "CAMPAIGN_ALREADY_COMPLETED": "This campaign is already completed.",
+        "LEADER_REQUIRED": "Only the leader can complete the campaign.",
+        "REQUIREMENTS_NOT_MET": "Requirements are not met yet.",
+        "VALIDATION_ERROR": "Check the form fields and try again.",
+        "PUBLIC_SLUG_TAKEN": "This public URL slug is already taken.",
+        "DEMO_READ_ONLY": "This demo project is read-only."
+      }
+    },
+    "profile": {
+      "title": "Your profile",
+      "level": "Level",
+      "totalXp": "Total XP",
+      "completedCampaigns": "Completed campaigns",
+      "achievementsCount": "Achievements",
+      "contributionSummary": "Contribution summary",
+      "contributionText": "Active on {projects} project(s) · Contribution score {score} · Teamwork XP {teamworkXp}",
+      "preferredDirection": "Preferred direction",
+      "skillXp": "Skill XP",
+      "noSkills": "No skill XP recorded yet.",
+      "completedCampaignsTitle": "Completed campaigns",
+      "noCampaigns": "No completed campaigns yet.",
+      "viewReport": "View report",
+      "publicPage": "Public page",
+      "publicProjects": "Public portfolio projects",
+      "noPublicProjects": "No public projects yet.",
+      "achievements": "Achievements",
+      "noAchievements": "No achievements unlocked yet."
+    },
+    "public": {
+      "portfolioProject": "Portfolio project",
+      "completedOn": "Completed {date}",
+      "businessProblem": "Business problem",
+      "solution": "Solution",
+      "noSolutionDescription": "Solution description not provided.",
+      "techStack": "Technology stack",
+      "deliveredScope": "Delivered scope",
+      "screenshots": "Screenshots",
+      "screenshotsPlaceholder": "Screenshot gallery placeholder — add images when publishing from a real deployment.",
+      "outcome": "Project outcome",
+      "grade": "Final grade",
+      "projectHealth": "Project health",
+      "teamwork": "Teamwork score",
+      "team": "Team",
+      "memberContribution": "Highlighted contribution",
+      "memberScore": "Contribution score: {score}",
+      "achievements": "Achievements",
+      "viewRepository": "View repository",
+      "viewLiveDemo": "View live demo",
+      "disabledTitle": "Project not available",
+      "disabledDescription": "This project is not published or has not been completed yet."
+    }
+  }
+}
