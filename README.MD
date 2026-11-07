@@ -213,10 +213,6 @@ Not implemented in this MVP:
 - Campaign authoring UI
 - Richer portfolio media uploads
 
-## Project status
-
-**MVP complete (Phases 1–6).** The application covers the full campaign lifecycle from catalog to public portfolio page, with demo data, tests, and CI pipelines suitable for a public GitHub portfolio repository.
-
 ## License
 
 [MIT](LICENSE)
