@@ -8,6 +8,8 @@
   Career-grade software project simulations for students and junior developers.
 </p>
 
+> **Status: work in progress.** Core MVP features below are implemented, with unit (Vitest) and e2e (Playwright) tests in CI. Not deployed publicly yet.
+
 ---
 
 ## Problem
