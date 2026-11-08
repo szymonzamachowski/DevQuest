@@ -322,7 +322,7 @@ export function QuestDetailView(props: QuestDetailProps) {
                 name="description"
                 required
                 minLength={10}
-                className="mt-1 min-h-24 w-full rounded-md border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
+                className="mt-1 min-h-24 w-full border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
               />
             </div>
             <Button type="submit" disabled={pending} data-testid="quest-submit">
@@ -335,7 +335,7 @@ export function QuestDetailView(props: QuestDetailProps) {
       {props.quest.status === "REVIEW" && latestSubmission && (props.isLeader || selfReview) ? (
         <Section title={selfReview ? t("selfReviewTitle") : t("leaderReview")}>
           {selfReview ? (
-            <p className="mb-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
+            <p className="mb-4 border border-[var(--dq-gold)] bg-[var(--dq-surface-container-lowest)] px-3 py-2 text-sm text-[var(--dq-gold)]">
               {t("selfReviewNotice")}
             </p>
           ) : null}

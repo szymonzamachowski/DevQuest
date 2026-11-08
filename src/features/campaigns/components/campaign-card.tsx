@@ -31,7 +31,7 @@ export function CampaignCard({
   return (
     <article
       className={cn(
-        "dq-card dq-hover-glow overflow-hidden rounded-xl",
+        "dq-card dq-hover-glow overflow-hidden",
         featured ? "col-span-1 flex flex-col md:col-span-2 md:flex-row" : "flex flex-col",
       )}
     >
@@ -44,9 +44,10 @@ export function CampaignCard({
         {campaign.coverImage ? (
           <Image
             src={campaign.coverImage}
+            unoptimized
             alt={campaign.title}
             fill
-            className="object-cover"
+            className="object-cover [image-rendering:pixelated]"
             sizes={featured ? "(max-width: 768px) 100vw, 50vw" : "400px"}
           />
         ) : (
@@ -54,7 +55,7 @@ export function CampaignCard({
             <Code2 className="h-12 w-12" />
           </div>
         )}
-        <div className="absolute top-4 right-4 rounded bg-[var(--dq-surface-dim)]/80 px-2 py-1 font-mono text-xs text-[var(--foreground)] backdrop-blur-md">
+        <div className="absolute top-4 right-4 bg-[var(--dq-surface-dim)]/80 px-2 py-1 font-mono text-xs text-[var(--foreground)] backdrop-blur-md">
           {difficultyLabel(campaign.difficulty, t)}
         </div>
       </div>
@@ -62,7 +63,7 @@ export function CampaignCard({
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-2 flex items-start justify-between gap-3">
           <h3 className="text-xl font-semibold text-[var(--foreground)]">{campaign.title}</h3>
-          <span className="shrink-0 rounded bg-[color-mix(in_oklab,var(--dq-primary)_20%,transparent)] px-2 py-1 font-mono text-[11px] text-[var(--dq-primary)]">
+          <span className="shrink-0 bg-[color-mix(in_oklab,var(--dq-primary)_20%,transparent)] px-2 py-1 font-mono text-sm text-[var(--dq-primary)]">
             {campaign.questCount} {t("stats.quests")}
           </span>
         </div>
@@ -72,16 +73,16 @@ export function CampaignCard({
         </p>
 
         <div className="mb-4 flex flex-wrap gap-4 text-xs text-[var(--muted-foreground)]">
-          <span className="inline-flex items-center gap-1.5 tracking-wide uppercase">
+          <span className="inline-flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5" />
             {campaign.estimatedDuration}
           </span>
-          <span className="inline-flex items-center gap-1.5 tracking-wide uppercase">
+          <span className="inline-flex items-center gap-1.5">
             <Users className="h-3.5 w-3.5" />
             {campaign.minimumTeamSize}-{campaign.maximumTeamSize} {t("stats.devs")}
           </span>
           {campaign.supportsSolo ? (
-            <span className="rounded border border-[var(--dq-border)] px-2 py-0.5 text-[var(--dq-primary)]">
+            <span className="border border-[var(--dq-border)] px-2 py-0.5 text-[var(--dq-primary)]">
               {t("modes.solo")}
             </span>
           ) : null}
@@ -92,7 +93,7 @@ export function CampaignCard({
             {campaign.skillKeys.slice(0, 4).map((skill) => (
               <span
                 key={skill}
-                className="rounded border border-[var(--dq-border)] bg-[var(--dq-surface-container)] px-2 py-0.5 text-[11px] text-[var(--muted-foreground)]"
+                className="border border-[var(--dq-border)] bg-[var(--dq-surface-container)] px-2 py-0.5 text-sm text-[var(--muted-foreground)]"
               >
                 {skill}
               </span>

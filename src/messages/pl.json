@@ -41,7 +41,7 @@
     "homeTitle": "Symulacje projektów jak w pracy",
     "homeSubtitle": "Prowadź realistyczne kampanie software’owe. Zarządzaj jak w SaaS — rozwijaj umiejętności jak w RPG.",
     "campaignsTitle": "Kampanie",
-    "appTitle": "Workspace",
+    "appTitle": "Panel",
     "settingsTitle": "Ustawienia"
   },
   "validation": {
@@ -196,7 +196,7 @@
     },
     "category": {
       "PLANNING": "Planowanie",
-      "SETUP": "Setup",
+      "SETUP": "Konfiguracja",
       "FRONTEND": "Frontend",
       "BACKEND": "Backend",
       "DATABASE": "Baza danych",
@@ -205,7 +205,7 @@
       "UX_UI": "UX/UI",
       "GIT": "Git",
       "DOCUMENTATION": "Dokumentacja",
-      "TEAMWORK": "Teamwork",
+      "TEAMWORK": "Praca zespołowa",
       "PRODUCT": "Produkt"
     },
     "errors": {
@@ -234,7 +234,7 @@
       "myAssignments": "Twoje zadania",
       "noAssignments": "Brak przypisanych questów.",
       "team": "Zespół",
-      "teamworkXp": "teamwork XP",
+      "teamworkXp": "XP za pracę zespołową",
       "recentActivity": "Ostatnia aktywność"
     },
     "roadmap": {
@@ -288,18 +288,18 @@
   },
   "phase4": {
     "dashboard": {
-      "projectHealth": "Project Health",
+      "projectHealth": "Kondycja projektu",
       "unresolvedEvents": "Nierozwiązane wydarzenia",
       "activeRisks": "Aktywne ryzyka",
       "noActiveRisks": "Brak wykrytych ryzyk.",
       "latestClientMessage": "Ostatnia wiadomość klienta",
       "noClientMessages": "Brak wiadomości od klienta.",
       "viewInbox": "Otwórz skrzynkę",
-      "openInbox": "Client Inbox",
+      "openInbox": "Skrzynka klienta",
       "latestAchievement": "Ostatnie osiągnięcie",
       "noAchievements": "Brak odblokowanych osiągnięć.",
       "teamWorkload": "Obciążenie zespołu",
-      "teamHealth": "Team Health",
+      "teamHealth": "Kondycja zespołu",
       "viewAllActivity": "Cała aktywność",
       "partyStatus": "Stan kampanii",
       "level": "Poziom {level}",
@@ -319,8 +319,8 @@
       }
     },
     "inbox": {
-      "title": "Client Inbox",
-      "subtitle": "{unread} nieprzeczytanych wiadomości",
+      "title": "Skrzynka klienta",
+      "subtitle": "{unread, plural, =0 {Wszystkie listy przeczytane} one {# nieprzeczytany list} few {# nieprzeczytane listy} many {# nieprzeczytanych listów} other {# nieprzeczytanego listu}}",
       "empty": "Brak wiadomości. Wydarzenia pojawiają się w trakcie kampanii.",
       "deadline": "Termin odpowiedzi: {date}",
       "responseOptions": "Opcje odpowiedzi",
@@ -332,7 +332,22 @@
       "errors": {
         "generic": "Nie udało się zapisać decyzji.",
         "PERMISSION_DENIED": "W trybie zespołowym decyduje tylko lider."
-      }
+      },
+      "importance": {
+        "LOW": "Niski",
+        "NORMAL": "Normalny",
+        "HIGH": "Wysoki",
+        "CRITICAL": "Krytyczny"
+      },
+      "status": {
+        "PENDING": "Czeka na decyzję",
+        "RESOLVED": "Odpowiedziano",
+        "EXPIRED": "Wygasł"
+      },
+      "healthImpact": "Kondycja {value}",
+      "xpImpact": "{value} XP",
+      "outcome": "Wynik",
+      "from": "Od klienta"
     },
     "activity": {
       "title": "Oś czasu aktywności",
@@ -343,7 +358,7 @@
       "categories": {
         "quest": "Questy",
         "client": "Klient",
-        "health": "Health",
+        "health": "Kondycja",
         "xp": "XP",
         "achievement": "Osiągnięcia",
         "team": "Zespół"
@@ -352,8 +367,8 @@
     "team": {
       "title": "Zespół",
       "subtitle": "Balans obciążenia, wkład i zdrowie zespołu.",
-      "projectHealth": "Project Health",
-      "teamHealth": "Team Health",
+      "projectHealth": "Kondycja projektu",
+      "teamHealth": "Kondycja zespołu",
       "workloadBalance": "Balans obciążenia",
       "spread": "Rozpiętość aktywnych questów: {count}",
       "members": "Członkowie",
@@ -361,8 +376,8 @@
       "activeQuests": "Aktywne",
       "completedQuests": "Ukończone",
       "contribution": "Wkład",
-      "teamworkXp": "Teamwork XP",
-      "status": "Status",
+      "teamworkXp": "XP za pracę zespołową",
+      "status": "Stan",
       "blocked": "Zablokowany",
       "inactive": "Nieaktywny",
       "active": "Aktywny",
@@ -374,7 +389,8 @@
       "subtitle": "Kamienie milowe zdobyte w tej kampanii.",
       "newAchievement": "Nowe osiągnięcie",
       "unlockedAt": "Odblokowano {date}",
-      "locked": "Zablokowane"
+      "locked": "Zablokowane",
+      "progress": "Odblokowano {unlocked} z {total}"
     }
   },
   "phase5": {
@@ -397,9 +413,9 @@
       "finalReportTitle": "Raport końcowy",
       "viewPublicPage": "Zobacz stronę publiczną",
       "grade": "Ocena",
-      "health": "Health",
+      "health": "Kondycja",
       "completion": "Ukończenie",
-      "teamwork": "Teamwork",
+      "teamwork": "Praca zespołowa",
       "testing": "Testowanie",
       "adaptability": "Adaptacyjność",
       "teamSummary": "Podsumowanie zespołu",
@@ -420,7 +436,8 @@
         "VALIDATION_ERROR": "Sprawdź pola formularza i spróbuj ponownie.",
         "PUBLIC_SLUG_TAKEN": "Ten slug jest już zajęty.",
         "DEMO_READ_ONLY": "Ten projekt demo jest tylko do odczytu."
-      }
+      },
+      "notEligibleYet": "Ukończ pozostałe wymagane questy z listy powyżej i wróć, żeby zamknąć kampanię."
     },
     "profile": {
       "title": "Twój profil",

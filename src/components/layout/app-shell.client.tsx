@@ -190,7 +190,8 @@ export function AppShellClient({
           <div className="flex h-16 items-center justify-between gap-3 px-4">
             <div className="flex min-w-0 items-center gap-3">
               <MobileDrawer navItems={resolvedNav} />
-              <BrandLogo href="/app" />
+              {/* Wordmark only where it fits next to the menu and avatar. */}
+              <BrandLogo href="/app" className="[&>span]:hidden sm:[&>span]:inline" />
             </div>
             <Avatar className="h-9 w-9">
               <AvatarFallback className="bg-[var(--dq-surface-container-high)] text-[var(--dq-gold)]">

@@ -55,54 +55,53 @@ export async function CampaignDetailView({ campaign, startHref }: CampaignDetail
           </div>
           <p className="text-lg leading-8 text-[var(--muted-foreground)]">{campaign.description}</p>
 
-          <div className="dq-card space-y-4 rounded-xl p-6">
-            <h2 className="text-sm font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
+          <div className="dq-card space-y-4 p-6">
+            <h2 className="text-sm font-semibold text-[var(--dq-primary)]">
               {t("businessProblem")}
             </h2>
             <p className="text-sm leading-7 text-[var(--foreground)]">{campaign.businessProblem}</p>
           </div>
 
-          <div className="dq-card space-y-4 rounded-xl p-6">
-            <h2 className="flex items-center gap-2 text-sm font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
+          <div className="dq-card space-y-4 p-6">
+            <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--dq-primary)]">
               <Target className="h-4 w-4" />
               {t("projectGoal")}
             </h2>
             <p className="text-sm leading-7 text-[var(--foreground)]">{campaign.projectGoal}</p>
           </div>
 
-          <div className="dq-card space-y-4 rounded-xl p-6">
-            <h2 className="text-sm font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
-              {t("scope")}
-            </h2>
+          <div className="dq-card space-y-4 p-6">
+            <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("scope")}</h2>
             <p className="text-sm leading-7 text-[var(--foreground)]">{campaign.scope}</p>
           </div>
         </section>
 
         <aside className="space-y-4 lg:col-span-5">
-          <div className="dq-card overflow-hidden rounded-xl">
+          <div className="dq-card overflow-hidden">
             {campaign.coverImage ? (
               <div className="relative h-48 w-full">
                 <Image
                   src={campaign.coverImage}
+                  unoptimized
                   alt={campaign.title}
                   fill
-                  className="object-cover"
+                  className="object-cover [image-rendering:pixelated]"
                 />
               </div>
             ) : null}
             <div className="space-y-4 p-6">
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
+                <div className="border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
                   <div className="text-xs text-[var(--muted-foreground)]">{t("difficulty")}</div>
                   <div className="font-medium">{campaign.difficulty}</div>
                 </div>
-                <div className="rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
+                <div className="border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
                   <div className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
                     <Clock className="h-3 w-3" /> {t("duration")}
                   </div>
                   <div className="font-medium">{campaign.estimatedDuration}</div>
                 </div>
-                <div className="rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
+                <div className="border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
                   <div className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
                     <Users className="h-3 w-3" /> {t("teamSize")}
                   </div>
@@ -110,7 +109,7 @@ export async function CampaignDetailView({ campaign, startHref }: CampaignDetail
                     {campaign.minimumTeamSize}-{campaign.maximumTeamSize}
                   </div>
                 </div>
-                <div className="rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
+                <div className="border border-[var(--dq-border)] bg-[var(--dq-surface-container)] p-3">
                   <div className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
                     <Layers className="h-3 w-3" /> {t("quests")}
                   </div>
@@ -122,7 +121,7 @@ export async function CampaignDetailView({ campaign, startHref }: CampaignDetail
                 {campaign.skillKeys.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded border border-[var(--dq-border)] px-2 py-1 text-xs text-[var(--dq-primary)]"
+                    className="border border-[var(--dq-border)] px-2 py-1 text-xs text-[var(--dq-primary)]"
                   >
                     {skill}
                   </span>
@@ -131,7 +130,7 @@ export async function CampaignDetailView({ campaign, startHref }: CampaignDetail
 
               {campaign.prerequisites.length > 0 ? (
                 <div>
-                  <div className="mb-2 text-xs font-semibold tracking-widest text-[var(--muted-foreground)] uppercase">
+                  <div className="mb-2 text-xs font-semibold text-[var(--muted-foreground)]">
                     {t("prerequisites")}
                   </div>
                   <ul className="space-y-1 text-sm text-[var(--foreground)]">
@@ -157,8 +156,8 @@ export async function CampaignDetailView({ campaign, startHref }: CampaignDetail
         <h2 className="font-heading text-2xl text-[var(--foreground)]">{t("chapters")}</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {campaign.chapters.map((chapter) => (
-            <div key={chapter.id} className="dq-card dq-hover-glow rounded-xl p-5">
-              <div className="mb-2 text-xs font-semibold tracking-widest text-[var(--dq-tertiary)]">
+            <div key={chapter.id} className="dq-card dq-hover-glow p-5">
+              <div className="mb-2 text-xs font-semibold text-[var(--dq-tertiary)]">
                 {t("chapter")} {chapter.order}
               </div>
               <h3 className="mb-2 font-semibold text-[var(--foreground)]">{chapter.title}</h3>

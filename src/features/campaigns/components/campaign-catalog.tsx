@@ -14,7 +14,7 @@ export function CampaignCatalog({ campaigns }: { campaigns: CampaignListItem[] }
         <Suspense fallback={null}>
           <CampaignFilters />
         </Suspense>
-        <div className="dq-card rounded-xl p-8 text-center">
+        <div className="dq-card p-8 text-center">
           <p className="text-sm text-[var(--muted-foreground)]">{t("empty")}</p>
         </div>
       </div>
@@ -42,10 +42,10 @@ export function CampaignCatalog({ campaigns }: { campaigns: CampaignListItem[] }
 export function CampaignCatalogSkeleton() {
   return (
     <div className="space-y-6">
-      <div className="dq-card h-20 animate-pulse rounded-xl" />
+      <div className="dq-card h-20 animate-pulse" />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="dq-card h-72 animate-pulse rounded-xl md:col-span-2" />
-        <div className="dq-card h-64 animate-pulse rounded-xl" />
+        <div className="dq-card h-72 animate-pulse md:col-span-2" />
+        <div className="dq-card h-64 animate-pulse" />
       </div>
     </div>
   );

@@ -20,11 +20,11 @@ export function PageLoading({ label = "Loading…" }: { label?: string }) {
 export function PageSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn("animate-pulse space-y-6", className)} aria-hidden>
-      <div className="h-10 w-64 rounded-lg bg-[var(--dq-surface-container-high)]" />
-      <div className="h-32 rounded-xl bg-[var(--dq-surface-container-high)]" />
+      <div className="h-10 w-64 bg-[var(--dq-surface-container-high)]" />
+      <div className="h-32 bg-[var(--dq-surface-container-high)]" />
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="h-40 rounded-xl bg-[var(--dq-surface-container-high)]" />
-        <div className="h-40 rounded-xl bg-[var(--dq-surface-container-high)]" />
+        <div className="h-40 bg-[var(--dq-surface-container-high)]" />
+        <div className="h-40 bg-[var(--dq-surface-container-high)]" />
       </div>
     </div>
   );
@@ -40,7 +40,7 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="dq-card flex flex-col items-center rounded-xl px-6 py-12 text-center">
+    <div className="dq-card flex flex-col items-center px-6 py-12 text-center">
       <Inbox className="mb-4 h-10 w-10 text-[var(--muted-foreground)]" aria-hidden />
       <h2 className="text-lg font-semibold text-[var(--foreground)]">{title}</h2>
       {description ? (
@@ -61,10 +61,7 @@ export function ErrorState({
   onRetry?: () => void;
 }) {
   return (
-    <div
-      className="dq-card flex flex-col items-center rounded-xl px-6 py-12 text-center"
-      role="alert"
-    >
+    <div className="dq-card flex flex-col items-center px-6 py-12 text-center" role="alert">
       <AlertCircle className="mb-4 h-10 w-10 text-[var(--dq-error)]" aria-hidden />
       <h2 className="text-lg font-semibold text-[var(--foreground)]">{title}</h2>
       {description ? (

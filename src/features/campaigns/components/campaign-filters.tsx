@@ -18,7 +18,7 @@ export function CampaignFilters() {
   }
 
   return (
-    <div className="dq-card flex flex-col gap-4 rounded-xl p-4 lg:flex-row lg:items-center">
+    <div className="dq-card flex flex-col gap-4 p-4 lg:flex-row lg:items-center">
       <div className="flex-1">
         <Input
           placeholder={t("searchPlaceholder")}
@@ -29,7 +29,7 @@ export function CampaignFilters() {
       </div>
       <div className="flex flex-wrap gap-2">
         <select
-          className="h-11 rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
+          className="h-11 border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
           defaultValue={params.get("difficulty") ?? "ALL"}
           onChange={(e) => update("difficulty", e.target.value)}
         >
@@ -39,7 +39,7 @@ export function CampaignFilters() {
           <option value="ADVANCED">{t("difficultyAdvanced")}</option>
         </select>
         <select
-          className="h-11 rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
+          className="h-11 border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
           defaultValue={params.get("duration") ?? "ALL"}
           onChange={(e) => update("duration", e.target.value)}
         >
@@ -49,7 +49,7 @@ export function CampaignFilters() {
           <option value="LONG">{t("durationLong")}</option>
         </select>
         <select
-          className="h-11 rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
+          className="h-11 border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
           defaultValue={params.get("solo") ?? "ALL"}
           onChange={(e) => update("solo", e.target.value)}
         >

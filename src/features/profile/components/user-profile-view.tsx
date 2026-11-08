@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import { PixelMeter } from "@/components/ui/pixel-meter";
+import { levelProgress } from "@/lib/xp-level";
 
 type ProfileProps = {
   user: {
@@ -49,18 +51,24 @@ export function UserProfileView({ user }: ProfileProps) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-heading text-3xl text-[var(--foreground)]">{t("title")}</h1>
+        <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">{t("title")}</h1>
         <p className="mt-2 text-sm text-[var(--muted-foreground)]">{user.name ?? user.email}</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label={t("level")} value={String(user.level)} />
-        <StatCard label={t("totalXp")} value={String(user.totalXp)} />
+        <div className="dq-card p-4 sm:col-span-2">
+          <PixelMeter
+            label={`${t("level")} ${user.level}`}
+            value={levelProgress(user.totalXp).percent}
+            display={`${user.totalXp} XP`}
+            tone="ember"
+          />
+        </div>
         <StatCard label={t("completedCampaigns")} value={String(completedCampaigns.length)} />
         <StatCard label={t("achievementsCount")} value={String(user.userAchievements.length)} />
       </div>
 
-      <section className="dq-card rounded-xl p-5">
+      <section className="dq-card p-5">
         <h2 className="text-sm font-semibold text-[var(--dq-primary)]">
           {t("contributionSummary")}
         </h2>
@@ -79,23 +87,26 @@ export function UserProfileView({ user }: ProfileProps) {
         ) : null}
       </section>
 
-      <section className="dq-card rounded-xl p-5">
+      <section className="dq-card p-5">
         <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("skillXp")}</h2>
         {sortedSkills.length === 0 ? (
           <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("noSkills")}</p>
         ) : (
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-4 grid gap-6 md:grid-cols-2">
             {sortedSkills.map((s) => (
-              <li key={s.skill.key} className="flex items-center justify-between text-sm">
-                <span>{s.skill.title}</span>
-                <span className="font-medium text-[var(--dq-primary)]">{s.xp} XP</span>
+              <li key={s.skill.key}>
+                <PixelMeter
+                  label={s.skill.title}
+                  value={(s.xp / Math.max(1, sortedSkills[0].xp)) * 100}
+                  display={`${s.xp} XP`}
+                />
               </li>
             ))}
           </ul>
         )}
       </section>
 
-      <section className="dq-card rounded-xl p-5">
+      <section className="dq-card p-5">
         <h2 className="text-sm font-semibold text-[var(--dq-primary)]">
           {t("completedCampaignsTitle")}
         </h2>
@@ -132,7 +143,7 @@ export function UserProfileView({ user }: ProfileProps) {
         )}
       </section>
 
-      <section className="dq-card rounded-xl p-5">
+      <section className="dq-card p-5">
         <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("publicProjects")}</h2>
         {publicProjects.length === 0 ? (
           <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("noPublicProjects")}</p>
@@ -152,7 +163,7 @@ export function UserProfileView({ user }: ProfileProps) {
         )}
       </section>
 
-      <section className="dq-card rounded-xl p-5">
+      <section className="dq-card p-5">
         <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("achievements")}</h2>
         {user.userAchievements.length === 0 ? (
           <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("noAchievements")}</p>
@@ -176,7 +187,7 @@ export function UserProfileView({ user }: ProfileProps) {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="dq-card rounded-xl p-4">
+    <div className="dq-card p-4">
       <div className="text-xs text-[var(--muted-foreground)]">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
     </div>

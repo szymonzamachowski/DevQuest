@@ -17,9 +17,7 @@ export function PhasePlaceholder({
         </h1>
         <div className="h-px flex-1 bg-gradient-to-r from-[rgba(173,198,255,0.25)] to-transparent" />
       </div>
-      <div className="dq-card rounded-xl p-6 text-sm text-[var(--muted-foreground)]">
-        {description}
-      </div>
+      <div className="dq-card p-6 text-sm text-[var(--muted-foreground)]">{description}</div>
     </div>
   );
 }

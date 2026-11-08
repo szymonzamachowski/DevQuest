@@ -320,7 +320,7 @@
     },
     "inbox": {
       "title": "Client Inbox",
-      "subtitle": "{unread} unread message(s)",
+      "subtitle": "{unread, plural, =0 {All letters read} one {# unread letter} other {# unread letters}}",
       "empty": "No client messages yet. Events appear as the campaign progresses.",
       "deadline": "Response deadline: {date}",
       "responseOptions": "Response options",
@@ -332,7 +332,22 @@
       "errors": {
         "generic": "Unable to process decision.",
         "PERMISSION_DENIED": "Only the team leader can decide in team mode."
-      }
+      },
+      "importance": {
+        "LOW": "Low",
+        "NORMAL": "Normal",
+        "HIGH": "High",
+        "CRITICAL": "Critical"
+      },
+      "status": {
+        "PENDING": "Awaiting decision",
+        "RESOLVED": "Answered",
+        "EXPIRED": "Expired"
+      },
+      "healthImpact": "Health {value}",
+      "xpImpact": "{value} XP",
+      "outcome": "Outcome",
+      "from": "From the client"
     },
     "activity": {
       "title": "Activity Timeline",
@@ -374,7 +389,8 @@
       "subtitle": "Milestones earned during this campaign.",
       "newAchievement": "New achievement",
       "unlockedAt": "Unlocked {date}",
-      "locked": "Locked"
+      "locked": "Locked",
+      "progress": "{unlocked} of {total} unlocked"
     }
   },
   "phase5": {
@@ -420,7 +436,8 @@
         "VALIDATION_ERROR": "Check the form fields and try again.",
         "PUBLIC_SLUG_TAKEN": "This public URL slug is already taken.",
         "DEMO_READ_ONLY": "This demo project is read-only."
-      }
+      },
+      "notEligibleYet": "Finish the remaining required quests above, then come back to close the campaign."
     },
     "profile": {
       "title": "Your profile",

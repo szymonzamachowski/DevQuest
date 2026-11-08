@@ -20,7 +20,7 @@ export default async function CampaignsPage({ searchParams }: { searchParams: Se
     campaigns = await getPublishedCampaigns(filters);
   } catch {
     return (
-      <div className="dq-card rounded-xl p-8 text-center">
+      <div className="dq-card p-8 text-center">
         <p className="text-sm text-[var(--dq-error)]">{t("error")}</p>
       </div>
     );

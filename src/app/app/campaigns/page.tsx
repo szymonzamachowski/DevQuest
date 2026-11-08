@@ -16,7 +16,7 @@ export default async function AppCampaignsPage() {
     projects = await getUserProjects(session.user.id);
   } catch {
     return (
-      <div className="dq-card rounded-xl p-8 text-center">
+      <div className="dq-card p-8 text-center">
         <p className="text-sm text-[var(--dq-error)]">{t("error")}</p>
       </div>
     );
@@ -26,7 +26,7 @@ export default async function AppCampaignsPage() {
     return (
       <div className="space-y-6">
         <PageHeader title={t("title")} subtitle={t("subtitle")} />
-        <div className="dq-card rounded-xl p-8 text-center">
+        <div className="dq-card p-8 text-center">
           <p className="text-sm text-[var(--muted-foreground)]">{t("empty")}</p>
           <Button asChild className="mt-4">
             <Link href="/campaigns">{t("browse")}</Link>
@@ -41,8 +41,8 @@ export default async function AppCampaignsPage() {
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
       <div className="grid gap-4 md:grid-cols-2">
         {projects.map((project) => (
-          <article key={project.id} className="dq-card dq-hover-glow rounded-xl p-6">
-            <div className="mb-2 text-xs font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
+          <article key={project.id} className="dq-card dq-hover-glow p-6">
+            <div className="mb-2 text-xs font-semibold text-[var(--dq-primary)]">
               {project.status}
             </div>
             <h2 className="text-xl font-semibold">{project.title}</h2>

@@ -42,21 +42,21 @@ export function TeamView({
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-heading text-3xl text-[var(--foreground)]">{t("title")}</h1>
+        <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">{t("title")}</h1>
         <p className="mt-2 text-sm text-[var(--muted-foreground)]">{t("subtitle")}</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="dq-card rounded-xl p-4">
+        <div className="dq-card p-4">
           <div className="text-xs text-[var(--muted-foreground)]">{t("projectHealth")}</div>
           <div className="mt-1 text-2xl font-semibold">{projectHealth}</div>
         </div>
-        <div className="dq-card rounded-xl p-4">
+        <div className="dq-card p-4">
           <div className="text-xs text-[var(--muted-foreground)]">{t("teamHealth")}</div>
           <div className="mt-1 text-2xl font-semibold">{teamHealth.label}</div>
           <div className="text-xs text-[var(--muted-foreground)]">{teamHealth.score}/100</div>
         </div>
-        <div className="dq-card rounded-xl p-4">
+        <div className="dq-card p-4">
           <div className="text-xs text-[var(--muted-foreground)]">{t("workloadBalance")}</div>
           <div className="mt-1 text-2xl font-semibold capitalize">{workloadBalance.label}</div>
           <div className="text-xs text-[var(--muted-foreground)]">
@@ -65,13 +65,11 @@ export function TeamView({
         </div>
       </div>
 
-      <section className="dq-card rounded-xl p-5">
-        <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-          {t("members")}
-        </h2>
+      <section className="dq-card p-5">
+        <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("members")}</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-sm">
-            <thead className="text-xs tracking-wide text-[var(--muted-foreground)] uppercase">
+            <thead className="text-xs text-[var(--muted-foreground)]">
               <tr>
                 <th className="pr-4 pb-3">{t("member")}</th>
                 <th className="pr-4 pb-3">{t("activeQuests")}</th>
@@ -108,10 +106,8 @@ export function TeamView({
         ) : null}
       </section>
 
-      <section className="dq-card rounded-xl p-5">
-        <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-          {t("recentActivity")}
-        </h2>
+      <section className="dq-card p-5">
+        <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("recentActivity")}</h2>
         <ul className="mt-3 space-y-2">
           {activities.map((a) => (
             <li key={a.id} className="text-sm text-[var(--muted-foreground)]">
@@ -128,9 +124,9 @@ function Badge({ label, tone }: { label: string; tone: "ok" | "warning" | "muted
   return (
     <span
       className={cn(
-        "rounded-full px-2 py-0.5 text-[10px] tracking-wide uppercase",
-        tone === "ok" && "bg-emerald-500/15 text-emerald-300",
-        tone === "warning" && "bg-amber-500/15 text-amber-300",
+        "rounded-full px-2 py-0.5 text-sm",
+        tone === "ok" && "bg-[var(--dq-surface-container-lowest)] text-[var(--dq-moss)]",
+        tone === "warning" && "bg-[var(--dq-surface-container-lowest)] text-[var(--dq-gold)]",
         tone === "muted" && "bg-[var(--dq-surface-container-high)] text-[var(--muted-foreground)]",
       )}
     >
