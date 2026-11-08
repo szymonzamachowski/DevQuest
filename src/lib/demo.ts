@@ -1,5 +1,16 @@
 import { prisma } from "@/lib/db";
 
+/** Seeded mid-campaign project that every demo sandbox is cloned from. */
+export const DEMO_TEMPLATE_PROJECT_ID = "demo-team-active-project";
+
+/**
+ * On the public deployment the template must stay pristine, otherwise one visitor
+ * logging in with the shared demo account would change every future sandbox.
+ */
+export function isTemplateLocked(projectId: string): boolean {
+  return projectId === DEMO_TEMPLATE_PROJECT_ID && process.env.DEMO_TEMPLATE_LOCKED === "true";
+}
+
 export const DEMO_EMAILS = [
   "demo.leader@devquest.local",
   "demo.member@devquest.local",
@@ -26,8 +37,9 @@ export class DemoReadOnlyError extends Error {
   }
 }
 
-/** Completed demo projects are read-only to prevent permanent data corruption. */
+/** Completed demo projects (and the locked template) are read-only. */
 export async function assertProjectMutable(projectId: string): Promise<void> {
+  if (isTemplateLocked(projectId)) throw new DemoReadOnlyError();
   const project = await prisma.project.findUnique({
     where: { id: projectId },
     select: { isDemo: true, status: true },

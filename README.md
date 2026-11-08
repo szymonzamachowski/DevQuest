@@ -55,7 +55,7 @@ DevQuest turns that loop into a game. A team (or a solo player) runs a structure
 - **Campaign completion**: leader or solo finalization with repository and demo URLs
 - **Final report**: deterministic team and individual reports (no AI)
 - **Public project page**: recruiter-friendly portfolio view
-- **Demo mode**: one-click login into a seeded mid-campaign project
+- **Demo mode**: no sign-up; every visitor gets a private copy of a mid-campaign project, removed after 24 hours
 - **i18n**: English and Polish (`next-intl`)
 
 ## Tech stack
@@ -112,6 +112,7 @@ See [`prisma/schema.prisma`](prisma/schema.prisma) for the full schema.
 - **Supabase as plain Postgres.** The app talks to the database only through Prisma (transaction pooler at runtime, session pooler for migrations). Row level security is enabled on every table with no policies, so Supabase's public Data API cannot read anything (`prisma/migrations/0007_enable_rls`).
 - **Hydration-safe i18n.** Dates are formatted through `next-intl` with a fixed time zone, so server and browser render identical text.
 - **A small design system instead of a template.** Colour tokens, sprite-style panels, segmented meters and press-down buttons are built with CSS `box-shadow` in `src/app/globals.css` and `src/components/ui`. Fonts were picked for legibility at small sizes (Jersey 10 for UI, Jacquarda Bastarda 9 for titles).
+- **Shared state lives in Postgres.** Rate limits use an atomic upsert on a `RateLimitBucket` table, because in-memory counters reset per serverless instance.
 - **Tests at two levels.** Vitest covers the rules and permissions; Playwright plays a full team campaign (submit, review, client decision, completion, public page) against a real Postgres in CI.
 
 ## Local setup
@@ -168,17 +169,31 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment variables
 
-| Variable        | Required   | Description                                      |
-| --------------- | ---------- | ------------------------------------------------ |
-| `DATABASE_URL`  | Yes        | Runtime connection (Supabase transaction pooler) |
-| `DIRECT_URL`    | Yes        | Migration connection (Supabase session pooler)   |
-| `AUTH_SECRET`   | Yes        | Session signing secret (long random string)      |
-| `NEXTAUTH_URL`  | Production | Public app URL, e.g. `https://your-domain.com`   |
-| `E2E_SKIP_SEED` | No         | Set to `1` to skip Playwright global seed        |
+| Variable               | Required   | Description                                        |
+| ---------------------- | ---------- | -------------------------------------------------- |
+| `DATABASE_URL`         | Yes        | Runtime connection (Supabase transaction pooler)   |
+| `DIRECT_URL`           | Yes        | Migration connection (Supabase session pooler)     |
+| `AUTH_SECRET`          | Yes        | Session signing secret (long random string)        |
+| `NEXTAUTH_URL`         | Production | Public app URL, e.g. `https://your-domain.com`     |
+| `DEMO_TEMPLATE_LOCKED` | Production | `true` makes the seeded template project read-only |
+| `CRON_SECRET`          | Production | Bearer token for the daily sandbox cleanup job     |
+| `E2E_SKIP_SEED`        | No         | Set to `1` to skip Playwright global seed          |
 
-## Demo accounts
+## Demo mode
 
-Password for all demo users: **`devquestdemo`**
+**Play the demo** (landing page and `/login`) needs no sign-up. Each click creates a private sandbox:
+
+1. `startDemoAction` checks two rate limits stored in Postgres (per visitor, by hashed IP, and global).
+2. `createDemoSandbox` creates a guest leader and a guest teammate and copies the seeded mid-campaign project (`demo-team-active-project`) with its quests, assignments, client letters, activity and achievements in one transaction. All timestamps are shifted so deadlines stay in the future.
+3. The action returns a short-lived HMAC-signed token; a separate NextAuth `guest` credentials provider exchanges it for a session. No password is ever sent to the browser.
+4. Guests can play the whole campaign, but cannot publish a public portfolio page.
+5. A daily Vercel Cron job (`/api/cron/cleanup-guests`) deletes sandboxes older than 24 hours.
+
+With `DEMO_TEMPLATE_LOCKED=true` the template itself is read-only, so nobody can change what future visitors get.
+
+### Seeded accounts (local development)
+
+Password for all seeded users: **`devquestdemo`**
 
 | Email                        | Role                              |
 | ---------------------------- | --------------------------------- |
@@ -186,11 +201,7 @@ Password for all demo users: **`devquestdemo`**
 | `demo.member@devquest.local` | Team member                       |
 | `demo.solo@devquest.local`   | Solo completed campaign           |
 
-**Seeded demo assets**
-
-- Active team project: `demo-team-active-project`
-- Completed public portfolio: `/projects/brightlane-booking`
-- One-click demo login on `/login`
+Completed public portfolio: `/projects/brightlane-booking`
 
 ## Testing
 
@@ -212,14 +223,16 @@ Playwright global setup runs migrations and seed automatically unless `E2E_SKIP_
 | CI       | `.github/workflows/ci.yml`  | install, format, lint, typecheck, unit tests, build |
 | E2E      | `.github/workflows/e2e.yml` | Postgres service, migrate, seed, Playwright         |
 
-## Deployment
+## Deployment (Vercel + Supabase)
 
-1. Provision PostgreSQL and set `DATABASE_URL`
-2. Set `AUTH_SECRET` and `NEXTAUTH_URL`
-3. Run `npx prisma migrate deploy` and `npm run db:seed` (or seed once in CI/CD)
-4. Build with `npm run build`, then start with `npm run start`
+1. Run migrations and the seed against the production database once:
+   `npm run db:deploy && npm run db:seed` (with that database's URLs in `.env`).
+2. Import the GitHub repository in Vercel (framework preset: Next.js).
+3. Set environment variables: `DATABASE_URL` (transaction pooler, `connection_limit=5`), `DIRECT_URL`, `AUTH_SECRET`, `NEXTAUTH_URL` (the Vercel URL), `DEMO_TEMPLATE_LOCKED=true` and `CRON_SECRET`.
+4. `vercel.json` pins functions to `fra1` (Frankfurt), next to the Supabase `eu-central-1` database; change both together.
+5. Deploy. `vercel.json` registers the daily cleanup cron automatically.
 
-Compatible with Vercel, Railway, Docker, or any Node 20+ host.
+Later schema changes: run `npm run db:deploy` against production before deploying code that needs them.
 
 ## MVP limitations
 

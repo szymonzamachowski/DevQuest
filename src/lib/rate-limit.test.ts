@@ -1,21 +1,19 @@
 import { describe, expect, it } from "vitest";
 
-import { checkRateLimit } from "@/lib/rate-limit";
+import { evaluateBucket } from "@/lib/rate-limit";
 
-describe("checkRateLimit", () => {
-  it("allows requests within the limit", () => {
-    const key = `test-${Date.now()}`;
-    expect(checkRateLimit(key, { limit: 3, windowMs: 60_000 }).allowed).toBe(true);
-    expect(checkRateLimit(key, { limit: 3, windowMs: 60_000 }).allowed).toBe(true);
-    expect(checkRateLimit(key, { limit: 3, windowMs: 60_000 }).allowed).toBe(true);
+describe("evaluateBucket", () => {
+  const now = new Date("2026-01-01T12:00:00Z");
+  const resetAt = new Date("2026-01-01T12:01:00Z");
+
+  it("allows requests up to the limit", () => {
+    expect(evaluateBucket(1, resetAt, 3, now).allowed).toBe(true);
+    expect(evaluateBucket(3, resetAt, 3, now).allowed).toBe(true);
   });
 
-  it("blocks requests above the limit", () => {
-    const key = `block-${Date.now()}`;
-    checkRateLimit(key, { limit: 2, windowMs: 60_000 });
-    checkRateLimit(key, { limit: 2, windowMs: 60_000 });
-    const blocked = checkRateLimit(key, { limit: 2, windowMs: 60_000 });
+  it("blocks requests above the limit and reports when the window resets", () => {
+    const blocked = evaluateBucket(4, resetAt, 3, now);
     expect(blocked.allowed).toBe(false);
-    expect(blocked.retryAfterMs).toBeGreaterThan(0);
+    expect(blocked.retryAfterMs).toBe(60_000);
   });
 });

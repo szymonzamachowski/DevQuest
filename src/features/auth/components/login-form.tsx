@@ -8,13 +8,11 @@ import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import { PlayDemoButton } from "@/features/auth/components/play-demo-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LoginSchema } from "@/features/auth/schemas";
 import { cn } from "@/lib/utils";
-
-const DEMO_LEADER_EMAIL = "demo.leader@devquest.local";
-const DEMO_PASSWORD = "devquestdemo";
 
 type FormValues = {
   email: string;
@@ -81,16 +79,7 @@ export function LoginForm({ className }: { className?: string }) {
         {t("submitLogin")}
       </Button>
 
-      <Button
-        type="button"
-        variant="outline"
-        className="h-11 w-full"
-        data-testid="demo-login"
-        disabled={form.formState.isSubmitting}
-        onClick={() => loginWith(DEMO_LEADER_EMAIL, DEMO_PASSWORD)}
-      >
-        {t("demoLogin")}
-      </Button>
+      <PlayDemoButton variant="outline" size="default" className="h-11 w-full" />
     </form>
   );
 }

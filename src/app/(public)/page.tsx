@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import { PlayDemoButton } from "@/features/auth/components/play-demo-button";
 
 type LoopStep = { title: string; body: string };
 
@@ -23,9 +24,7 @@ export default function HomePage() {
             {t("subtitle")}
           </p>
           <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
-            <Button asChild size="lg">
-              <Link href="/login">{t("playDemo")}</Link>
-            </Button>
+            <PlayDemoButton />
             <Button asChild size="lg" variant="outline">
               <Link href="/campaigns">{t("browseCampaigns")}</Link>
             </Button>

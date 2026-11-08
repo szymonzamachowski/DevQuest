@@ -148,6 +148,9 @@ model User {
   totalXp            Int      @default(0)
   level              Int      @default(1)
   locale             Locale   @default(en)
+  /// Throwaway account created by "Play the demo"; deleted after guestExpiresAt.
+  isGuest            Boolean  @default(false)
+  guestExpiresAt     DateTime?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -167,6 +170,15 @@ model User {
   userFinalReports UserFinalReport[]
 
   ledProjects     Project[] @relation("ProjectLeader")
+
+  @@index([guestExpiresAt])
+}
+
+/// Fixed-window rate limit counters shared by all server instances.
+model RateLimitBucket {
+  key     String   @id
+  count   Int
+  resetAt DateTime
 }
 
 model Account {

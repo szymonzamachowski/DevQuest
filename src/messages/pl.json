@@ -522,5 +522,14 @@
         "body": "Zamknij kampanię i odbierz raport zespołu oraz publiczną stronę do portfolio."
       }
     ]
+  },
+  "demo": {
+    "play": "Zagraj w demo",
+    "preparing": "Przygotowuję twoją kampanię…",
+    "guestBanner": "Grasz w prywatne demo. Zniknie po 24 godzinach.",
+    "errors": {
+      "RATE_LIMITED": "Z tego miejsca uruchomiono już zbyt wiele dem. Spróbuj za godzinę.",
+      "UNAVAILABLE": "Nie udało się uruchomić dema. Spróbuj za chwilę."
+    }
   }
 }
