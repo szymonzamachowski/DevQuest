@@ -15,11 +15,18 @@ export type AppNavItem = {
   href: string;
   labelKey: string;
   icon: ComponentType<{ className?: string }>;
+  /** Only active on this exact path (overview pages would otherwise match every child). */
+  exact?: boolean;
 };
 
 export function getProjectNavItems(projectId: string): AppNavItem[] {
   return [
-    { href: `/app/projects/${projectId}`, labelKey: "overview", icon: LayoutDashboard },
+    {
+      href: `/app/projects/${projectId}`,
+      labelKey: "overview",
+      icon: LayoutDashboard,
+      exact: true,
+    },
     { href: `/app/projects/${projectId}/quests`, labelKey: "questBoard", icon: FileText },
     { href: `/app/projects/${projectId}/roadmap`, labelKey: "roadmap", icon: Map },
     { href: `/app/projects/${projectId}/team`, labelKey: "team", icon: Users },
@@ -31,7 +38,7 @@ export function getProjectNavItems(projectId: string): AppNavItem[] {
 }
 
 export const appNavItems: AppNavItem[] = [
-  { href: "/app", labelKey: "overview", icon: LayoutDashboard },
+  { href: "/app", labelKey: "overview", icon: LayoutDashboard, exact: true },
   { href: "/app/campaigns", labelKey: "campaigns", icon: FileText },
 ];
 

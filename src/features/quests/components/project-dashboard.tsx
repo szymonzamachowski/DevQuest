@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
+import { AchievementIcon } from "@/components/ui/achievement-icon";
 import { Button } from "@/components/ui/button";
+import { PixelMeter, healthTone, rarityText } from "@/components/ui/pixel-meter";
+import { levelProgress } from "@/lib/xp-level";
 import { cn } from "@/lib/utils";
 
 type DashboardProps = {
@@ -58,214 +61,219 @@ type DashboardProps = {
   userXp: { totalXp: number; level: number } | null;
 };
 
-function healthColor(key: string) {
-  switch (key) {
-    case "EXCELLENT":
-      return "text-emerald-400";
-    case "STABLE":
-      return "text-[var(--dq-primary)]";
-    case "AT_RISK":
-      return "text-amber-400";
-    case "CRITICAL":
-      return "text-orange-400";
-    default:
-      return "text-red-400";
-  }
-}
-
 export function ProjectDashboardView(props: DashboardProps) {
   const t = useTranslations("phase4.dashboard");
+  const format = useFormatter();
   const tQuest = useTranslations("quests.dashboard");
+  const pending = props.pendingClientEvents.length;
+  const xp = props.userXp ? levelProgress(props.userXp.totalXp) : null;
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <div className="text-xs font-semibold tracking-widest text-[var(--dq-primary)]">
-            CAMPAIGN
-          </div>
-          <h1 className="font-heading text-3xl text-[var(--foreground)]">{props.campaignTitle}</h1>
+    <div className="space-y-10">
+      <header className="flex flex-wrap items-end justify-between gap-6">
+        <div className="space-y-2">
+          <h1 className="text-5xl leading-none text-[var(--dq-parchment)] md:text-6xl">
+            {props.campaignTitle}
+          </h1>
           {props.chapterTitle ? (
-            <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+            <p className="text-lg text-[var(--dq-mana)]">
               {tQuest("currentChapter", { chapter: props.chapterTitle })}
             </p>
           ) : null}
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-4">
           <Button asChild variant="outline">
-            <Link href={`/app/projects/${props.projectId}/client-inbox`}>{t("openInbox")}</Link>
+            <Link href={`/app/projects/${props.projectId}/client-inbox`}>
+              {t("openInbox")}
+              {pending > 0 ? (
+                <span className="ml-1 bg-[var(--dq-blood)] px-1.5 text-[var(--dq-ink)]">
+                  {pending}
+                </span>
+              ) : null}
+            </Link>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild>
             <Link href={`/app/projects/${props.projectId}/quests`}>{tQuest("openBoard")}</Link>
           </Button>
         </div>
-      </div>
+      </header>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <StatCard
+      <section
+        aria-label={t("partyStatus")}
+        className="dq-card grid gap-8 p-6 md:grid-cols-2 xl:grid-cols-4"
+      >
+        <PixelMeter
           label={t("projectHealth")}
-          value={`${props.health.score}`}
-          sub={props.health.band.label}
-          className={cn(healthColor(props.health.band.key), "dq-animate-health")}
+          value={props.health.score}
+          display={`${props.health.score}/100`}
+          tone={healthTone(props.health.band.key)}
+          hint={props.health.band.label}
+          className="dq-animate-health"
         />
-        <StatCard label={tQuest("campaignProgress")} value={`${props.stats.campaignProgress}%`} />
-        <StatCard label={tQuest("chapterProgress")} value={`${props.stats.chapterProgress}%`} />
-        <StatCard label={t("unresolvedEvents")} value={String(props.pendingClientEvents.length)} />
-        <StatCard
-          label={tQuest("personalXp")}
-          value={props.userXp ? `${props.userXp.totalXp} XP` : "—"}
-          sub={props.userXp ? `L${props.userXp.level}` : undefined}
-          animateXp
+        <PixelMeter label={tQuest("campaignProgress")} value={props.stats.campaignProgress} />
+        <PixelMeter
+          label={tQuest("chapterProgress")}
+          value={props.stats.chapterProgress}
+          tone="mana"
         />
-      </div>
+        {props.userXp && xp ? (
+          <PixelMeter
+            label={t("level", { level: props.userXp.level })}
+            value={xp.percent}
+            display={`${props.userXp.totalXp} XP`}
+            tone="ember"
+            hint={t("xpToNext", { xp: xp.xpToNext, level: props.userXp.level + 1 })}
+            className="dq-animate-xp"
+          />
+        ) : null}
+      </section>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <section className="dq-card rounded-xl p-5">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {t("activeRisks")}
-          </h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {props.healthRisks.map((risk) => (
-              <li key={risk} className="text-amber-200/90">
-                • {risk}
-              </li>
-            ))}
-            {props.healthRisks.length === 0 ? (
-              <li className="text-[var(--muted-foreground)]">{t("noActiveRisks")}</li>
-            ) : null}
-          </ul>
+      <div className="grid gap-8 lg:grid-cols-5">
+        <section className="dq-card dq-card--quest flex flex-col justify-between gap-6 p-6 lg:col-span-3">
+          <div className="space-y-2">
+            <h2 className="text-[var(--dq-gold)]">{tQuest("mainQuest")}</h2>
+            {props.mainQuest ? (
+              <p className="text-3xl leading-tight text-[var(--dq-parchment)]">
+                {props.mainQuest.questTemplate.title}
+              </p>
+            ) : (
+              <p className="text-[var(--muted-foreground)]">{tQuest("noMainQuest")}</p>
+            )}
+          </div>
+          {props.mainQuest ? (
+            <Button asChild size="lg" className="self-start">
+              <Link href={`/app/projects/${props.projectId}/quests/${props.mainQuest.id}`}>
+                {t("openQuest")}
+              </Link>
+            </Button>
+          ) : null}
         </section>
 
-        <section className="dq-card rounded-xl p-5">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {t("latestClientMessage")}
-          </h2>
+        <section className="space-y-3 lg:col-span-2">
+          <h2 className="text-[var(--muted-foreground)]">{t("latestClientMessage")}</h2>
           {props.latestClientMessage ? (
-            <div className="mt-3">
-              <div className="font-medium">
+            <Link
+              href={`/app/projects/${props.projectId}/client-inbox`}
+              className="dq-parchment block space-y-2 p-5 transition-transform duration-75 hover:-translate-y-1"
+            >
+              <div className="text-xl leading-tight">
                 {props.latestClientMessage.clientEventTemplate.subject}
               </div>
-              <p className="mt-1 line-clamp-3 text-sm text-[var(--muted-foreground)]">
+              <p className="line-clamp-3 text-[#5a4632]">
                 {props.latestClientMessage.clientEventTemplate.message}
               </p>
-              <Link
-                href={`/app/projects/${props.projectId}/client-inbox`}
-                className="mt-2 inline-block text-sm text-[var(--dq-primary)] hover:underline"
-              >
-                {t("viewInbox")}
-              </Link>
-            </div>
-          ) : (
-            <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("noClientMessages")}</p>
-          )}
-        </section>
-
-        <section className="dq-card rounded-xl p-5">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {t("latestAchievement")}
-          </h2>
-          {props.latestAchievement ? (
-            <div className="mt-3">
-              <div className="font-medium">{props.latestAchievement.achievement.title}</div>
-              <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-                {props.latestAchievement.achievement.description}
-              </p>
-              <div className="mt-2 text-xs tracking-wide text-[var(--dq-tertiary)] uppercase">
-                {props.latestAchievement.achievement.rarity}
+              <div className="pt-1 text-[#7a4a1c] underline decoration-2 underline-offset-4">
+                {t("lettersWaiting", { count: pending })}
               </div>
-            </div>
+            </Link>
           ) : (
-            <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("noAchievements")}</p>
+            <p className="dq-card p-5 text-[var(--muted-foreground)]">{t("noClientMessages")}</p>
           )}
         </section>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <section className="dq-card rounded-xl p-5 lg:col-span-2">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {tQuest("mainQuest")}
-          </h2>
-          {props.mainQuest ? (
-            <Link
-              href={`/app/projects/${props.projectId}/quests/${props.mainQuest.id}`}
-              className="mt-3 block text-lg font-medium text-[var(--foreground)] hover:text-[var(--dq-primary)]"
-            >
-              {props.mainQuest.questTemplate.title}
-            </Link>
+      <div className="grid gap-8 lg:grid-cols-3">
+        <section className="dq-card space-y-3 p-5">
+          <h2 className="text-[var(--dq-ember)]">{t("activeRisks")}</h2>
+          {props.healthRisks.length > 0 ? (
+            <ul className="space-y-2">
+              {props.healthRisks.map((risk) => (
+                <li key={risk} className="flex gap-3">
+                  <span aria-hidden className="mt-2 size-2 shrink-0 bg-[var(--dq-ember)]" />
+                  <span>{risk}</span>
+                </li>
+              ))}
+            </ul>
           ) : (
-            <p className="mt-3 text-sm text-[var(--muted-foreground)]">{tQuest("noMainQuest")}</p>
+            <p className="text-[var(--muted-foreground)]">{t("noActiveRisks")}</p>
           )}
         </section>
 
-        <section className="dq-card rounded-xl p-5">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {t("teamWorkload")}
-          </h2>
-          <div className="mt-2 text-xs text-[var(--muted-foreground)]">
+        <section className="dq-card space-y-3 p-5">
+          <h2 className="text-[var(--dq-mana)]">{t("teamWorkload")}</h2>
+          <div className="text-sm text-[var(--muted-foreground)]">
             {t("teamHealth")}: {props.teamHealth.label} ({props.teamHealth.score})
           </div>
-          <ul className="mt-3 space-y-2">
+          <ul className="space-y-2">
             {props.workloads.map((w) => (
-              <li key={w.userId} className="flex justify-between text-sm">
+              <li key={w.userId} className="flex items-baseline justify-between gap-3">
                 <span className={cn(w.isInactive && "text-[var(--muted-foreground)]")}>
                   {w.name || w.email}
-                  {w.isBlocked ? " · blocked" : ""}
-                  {w.isInactive ? " · inactive" : ""}
+                  {w.isBlocked ? (
+                    <span className="ml-2 text-[var(--dq-blood)]">{t("blocked")}</span>
+                  ) : null}
+                  {w.isInactive ? (
+                    <span className="ml-2 text-[var(--dq-outline)]">{t("inactive")}</span>
+                  ) : null}
                 </span>
-                <span className="text-[var(--muted-foreground)]">{w.activeQuests} active</span>
+                <span className="text-sm text-[var(--muted-foreground)]">
+                  {t("activeQuests", { count: w.activeQuests })}
+                </span>
               </li>
             ))}
           </ul>
         </section>
+
+        <section className="dq-card space-y-3 p-5">
+          <h2 className="text-[var(--dq-gold)]">{t("latestAchievement")}</h2>
+          {props.latestAchievement ? (
+            <div className="flex gap-4">
+              <div
+                className={cn(
+                  "flex size-14 shrink-0 items-center justify-center bg-[var(--dq-ink)]",
+                  rarityText[props.latestAchievement.achievement.rarity],
+                )}
+              >
+                <AchievementIcon name={props.latestAchievement.achievement.icon} />
+              </div>
+              <div className="space-y-1">
+                <div className="text-lg leading-tight">
+                  {props.latestAchievement.achievement.title}
+                </div>
+                <div className={rarityText[props.latestAchievement.achievement.rarity]}>
+                  {t(`rarity.${props.latestAchievement.achievement.rarity}`)}
+                </div>
+                <p className="text-sm text-[var(--muted-foreground)]">
+                  {props.latestAchievement.achievement.description}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-[var(--muted-foreground)]">{t("noAchievements")}</p>
+          )}
+        </section>
       </div>
 
-      <section className="dq-card rounded-xl p-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold tracking-wide text-[var(--dq-primary)]">
-            {tQuest("recentActivity")}
-          </h2>
+      <section className="dq-card p-5">
+        <div className="flex items-baseline justify-between gap-4">
+          <h2 className="font-heading text-3xl text-[var(--dq-parchment)]">{t("chronicle")}</h2>
           <Link
             href={`/app/projects/${props.projectId}/activity`}
-            className="text-sm text-[var(--dq-primary)]"
+            className="text-[var(--dq-gold)] underline decoration-2 underline-offset-4"
           >
             {t("viewAllActivity")}
           </Link>
         </div>
-        <ul className="mt-3 space-y-3">
+        <ol className="mt-4">
           {props.activities.slice(0, 6).map((a) => (
-            <li key={a.id} className="border-b border-[var(--dq-border)] pb-2 last:border-0">
-              <div className="text-sm text-[var(--foreground)]">{a.title}</div>
-              <div className="text-xs text-[var(--muted-foreground)]">
-                {a.user?.name ?? "System"} · {a.createdAt.toLocaleString()}
+            <li
+              key={a.id}
+              className="grid gap-1 border-b-[3px] border-dashed border-[var(--dq-surface-container-high)] py-3 last:border-0 sm:grid-cols-[1fr_auto] sm:gap-6"
+            >
+              <div>
+                <span>{a.title}</span>
+                <span className="ml-2 text-[var(--dq-mana)]">{a.user?.name ?? t("system")}</span>
               </div>
+              <time
+                dateTime={a.createdAt.toISOString()}
+                className="text-sm text-[var(--dq-outline)]"
+              >
+                {format.dateTime(a.createdAt, "dateTime")}
+              </time>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
-    </div>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  sub,
-  className,
-  animateXp,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  className?: string;
-  animateXp?: boolean;
-}) {
-  return (
-    <div className="dq-card rounded-xl p-4">
-      <div className="text-xs text-[var(--muted-foreground)]">{label}</div>
-      <div className={cn("mt-1 text-2xl font-semibold", animateXp && "dq-animate-xp", className)}>
-        {value}
-      </div>
-      {sub ? <div className="text-xs text-[var(--muted-foreground)]">{sub}</div> : null}
     </div>
   );
 }

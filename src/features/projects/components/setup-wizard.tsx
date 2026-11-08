@@ -66,13 +66,13 @@ function RoleCheckbox({
   disabled?: boolean;
 }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container)] px-3 py-2 text-sm">
+    <label className="flex cursor-pointer items-center gap-2 border border-[var(--dq-border)] bg-[var(--dq-surface-container)] px-3 py-2 text-sm">
       <input
         type="checkbox"
         checked={checked}
         disabled={disabled}
         onChange={(e) => onChange(e.target.checked)}
-        className="rounded border-[var(--dq-outline)]"
+        className="border-[var(--dq-outline)]"
       />
       <span className="capitalize">{role.replace("_", "/")}</span>
     </label>
@@ -100,21 +100,19 @@ export function SetupWizard(props: SetupWizardProps) {
   return (
     <div className="mx-auto max-w-3xl space-y-8">
       <div>
-        <div className="text-xs font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
-          {t("wizardLabel")}
-        </div>
-        <h1 className="font-heading text-3xl text-[var(--foreground)]">{props.campaignTitle}</h1>
+        <div className="text-xs font-semibold text-[var(--dq-primary)]">{t("wizardLabel")}</div>
+        <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">{props.campaignTitle}</h1>
         <p className="mt-2 text-sm text-[var(--muted-foreground)]">{t(`steps.${step}`)}</p>
       </div>
 
       {error ? (
-        <div className="rounded-lg border border-[var(--dq-error)]/30 bg-[var(--dq-error)]/10 px-4 py-3 text-sm text-[var(--dq-error)]">
+        <div className="border border-[var(--dq-error)]/30 bg-[var(--dq-error)]/10 px-4 py-3 text-sm text-[var(--dq-error)]">
           {error}
         </div>
       ) : null}
 
       {step === "MODE" ? (
-        <div className="dq-card grid gap-4 rounded-xl p-6 sm:grid-cols-2">
+        <div className="dq-card grid gap-4 p-6 sm:grid-cols-2">
           {props.supportsSolo ? (
             <button
               type="button"
@@ -130,7 +128,7 @@ export function SetupWizard(props: SetupWizardProps) {
                   }
                 })
               }
-              className="dq-hover-glow rounded-xl border border-[var(--dq-border)] p-6 text-left transition-colors hover:border-[var(--dq-primary)]/50"
+              className="dq-hover-glow border border-[var(--dq-border)] p-6 text-left transition-colors hover:border-[var(--dq-primary)]/50"
             >
               <div className="text-lg font-semibold">{t("mode.soloTitle")}</div>
               <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -152,7 +150,7 @@ export function SetupWizard(props: SetupWizardProps) {
                 }
               })
             }
-            className="dq-hover-glow rounded-xl border border-[var(--dq-border)] p-6 text-left transition-colors hover:border-[var(--dq-primary)]/50"
+            className="dq-hover-glow border border-[var(--dq-border)] p-6 text-left transition-colors hover:border-[var(--dq-primary)]/50"
           >
             <div className="text-lg font-semibold">{t("mode.teamTitle")}</div>
             <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -163,7 +161,7 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "TEAM" && props.isLeader ? (
-        <div className="dq-card space-y-6 rounded-xl p-6">
+        <div className="dq-card space-y-6 p-6">
           <div>
             <h2 className="font-semibold">{t("team.title")}</h2>
             <p className="text-sm text-[var(--muted-foreground)]">
@@ -174,7 +172,7 @@ export function SetupWizard(props: SetupWizardProps) {
             {props.members.map((m) => (
               <li
                 key={m.userId}
-                className="flex items-center justify-between rounded-lg border border-[var(--dq-border)] px-4 py-3 text-sm"
+                className="flex items-center justify-between border border-[var(--dq-border)] px-4 py-3 text-sm"
               >
                 <span>{m.name || m.email}</span>
                 <span className="text-xs text-[var(--dq-primary)]">{m.role}</span>
@@ -227,7 +225,7 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "ROLES" ? (
-        <div className="dq-card space-y-6 rounded-xl p-6">
+        <div className="dq-card space-y-6 p-6">
           <h2 className="font-semibold">{t("roles.title")}</h2>
           <p className="text-sm text-[var(--muted-foreground)]">{t("roles.subtitle")}</p>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -272,7 +270,7 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "ROLE_APPROVAL" && props.isLeader ? (
-        <div className="dq-card space-y-6 rounded-xl p-6">
+        <div className="dq-card space-y-6 p-6">
           <h2 className="font-semibold">{t("approval.title")}</h2>
           <p className="text-sm text-[var(--muted-foreground)]">{t("approval.subtitle")}</p>
           {props.members.map((member) => (
@@ -285,7 +283,7 @@ export function SetupWizard(props: SetupWizardProps) {
               onDone={refresh}
             />
           ))}
-          <div className="rounded-lg border border-[var(--dq-border)] p-4 text-sm">
+          <div className="border border-[var(--dq-border)] p-4 text-sm">
             <div className="mb-2 font-medium">{t("approval.criticalCoverage")}</div>
             <CoverageIndicators coverage={props.criticalCoverage} />
           </div>
@@ -304,14 +302,14 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "STACK" && props.isLeader ? (
-        <div className="dq-card space-y-6 rounded-xl p-6">
+        <div className="dq-card space-y-6 p-6">
           <h2 className="font-semibold">{t("stack.title")}</h2>
           <p className="text-sm text-[var(--muted-foreground)]">{t("stack.subtitle")}</p>
           {(Object.keys(STACK_OPTIONS) as Array<keyof typeof STACK_OPTIONS>).map((category) => (
             <div key={category} className="space-y-2">
               <Label className="capitalize">{category}</Label>
               <select
-                className="h-11 w-full rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
+                className="h-11 w-full border border-[var(--dq-border)] bg-[var(--dq-surface-dim)] px-3 text-sm"
                 value={stack[category] ?? ""}
                 onChange={(e) =>
                   setStack((s) => ({ ...s, [category]: e.target.value || undefined }))
@@ -351,14 +349,14 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "SUMMARY" && props.isLeader ? (
-        <div className="dq-card space-y-6 rounded-xl p-6">
+        <div className="dq-card space-y-6 p-6">
           <h2 className="font-semibold">{t("summary.title")}</h2>
           <div className="grid gap-3 text-sm sm:grid-cols-2">
-            <div className="rounded-lg border border-[var(--dq-border)] p-4">
+            <div className="border border-[var(--dq-border)] p-4">
               <div className="text-xs text-[var(--muted-foreground)]">{t("summary.mode")}</div>
               <div className="font-medium">{props.mode}</div>
             </div>
-            <div className="rounded-lg border border-[var(--dq-border)] p-4">
+            <div className="border border-[var(--dq-border)] p-4">
               <div className="text-xs text-[var(--muted-foreground)]">{t("summary.team")}</div>
               <div className="font-medium">{props.members.length} members</div>
             </div>
@@ -384,7 +382,7 @@ export function SetupWizard(props: SetupWizardProps) {
       ) : null}
 
       {step === "ROLE_APPROVAL" && !props.isLeader ? (
-        <div className="dq-card rounded-xl p-6 text-sm text-[var(--muted-foreground)]">
+        <div className="dq-card p-6 text-sm text-[var(--muted-foreground)]">
           {t("approval.waitingForLeader")}
         </div>
       ) : null}
@@ -413,7 +411,7 @@ function MemberRoleApproval({
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <div className="rounded-lg border border-[var(--dq-border)] p-4">
+    <div className="border border-[var(--dq-border)] p-4">
       <div className="mb-3 flex items-center justify-between">
         <div>
           <div className="font-medium">{member.name || member.email}</div>
@@ -474,9 +472,9 @@ function CoverageIndicators({ coverage }: { coverage: SetupWizardProps["critical
         <span
           key={item.key}
           className={cn(
-            "rounded px-2 py-1 text-xs",
+            "px-2 py-1 text-xs",
             item.ok
-              ? "bg-emerald-500/15 text-emerald-400"
+              ? "bg-[var(--dq-surface-container-lowest)] text-[var(--dq-moss)]"
               : "bg-[var(--dq-surface-container-high)] text-[var(--muted-foreground)]",
           )}
         >
@@ -490,7 +488,7 @@ function CoverageIndicators({ coverage }: { coverage: SetupWizardProps["critical
 function StackAssessmentPanel({ assessment }: { assessment: StackAssessmentResult }) {
   const t = useTranslations("setup.stack");
   return (
-    <div className="space-y-4 rounded-lg border border-[var(--dq-border)] p-4">
+    <div className="space-y-4 border border-[var(--dq-border)] p-4">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">{t("compatibilityScore")}</span>
         <span className="font-mono text-2xl text-[var(--dq-primary)]">
@@ -534,7 +532,7 @@ function Section({
 
   return (
     <div>
-      <div className={cn("mb-1 text-xs font-semibold tracking-wide uppercase", color)}>{title}</div>
+      <div className={cn("mb-1 text-xs font-semibold", color)}>{title}</div>
       <ul className="space-y-1 text-sm text-[var(--foreground)]">
         {items.map((item) => (
           <li key={item} className="flex gap-2">

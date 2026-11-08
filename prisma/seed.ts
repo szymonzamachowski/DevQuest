@@ -132,7 +132,7 @@ async function upsertBookingCrisis() {
       maximumTeamSize: 4,
       supportsSolo: true,
       status: "PUBLISHED",
-      coverImage: "/brand/logo-big-dark.png",
+      coverImage: "/campaigns/booking-crisis.png",
     },
     create: {
       title: "Booking Crisis",
@@ -166,7 +166,7 @@ async function upsertBookingCrisis() {
       maximumTeamSize: 4,
       supportsSolo: true,
       status: "PUBLISHED",
-      coverImage: "/brand/logo-big-dark.png",
+      coverImage: "/campaigns/booking-crisis.png",
     },
   });
 

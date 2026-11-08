@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +15,7 @@ export async function PublicProjectView({
   highlightUserId?: string;
 }) {
   const t = await getTranslations("phase5.public");
+  const format = await getFormatter();
   const report = project.finalReport;
   const payload = report?.reportPayload as {
     strongestAreas?: string[];
@@ -37,9 +38,7 @@ export async function PublicProjectView({
   return (
     <article className="space-y-10">
       <header className="space-y-4 border-b border-[var(--dq-border)] pb-8">
-        <p className="text-xs font-semibold tracking-widest text-[var(--dq-primary)] uppercase">
-          {t("portfolioProject")}
-        </p>
+        <p className="text-xs font-semibold text-[var(--dq-primary)]">{t("portfolioProject")}</p>
         <h1 className="font-heading text-4xl tracking-tight text-[var(--foreground)]">
           {project.title}
         </h1>
@@ -48,7 +47,7 @@ export async function PublicProjectView({
         </p>
         {project.completedAt ? (
           <p className="text-sm text-[var(--muted-foreground)]">
-            {t("completedOn", { date: project.completedAt.toLocaleDateString() })}
+            {t("completedOn", { date: format.dateTime(project.completedAt, "date") })}
           </p>
         ) : null}
       </header>
@@ -104,16 +103,11 @@ export async function PublicProjectView({
               <div className="mt-3 grid gap-4 sm:grid-cols-2">
                 {screenshots.map((src) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={src}
-                    src={src}
-                    alt=""
-                    className="rounded-lg border border-[var(--dq-border)]"
-                  />
+                  <img key={src} src={src} alt="" className="border border-[var(--dq-border)]" />
                 ))}
               </div>
             ) : (
-              <div className="mt-3 rounded-lg border border-dashed border-[var(--dq-border)] p-8 text-center text-sm text-[var(--muted-foreground)]">
+              <div className="mt-3 border border-dashed border-[var(--dq-border)] p-8 text-center text-sm text-[var(--muted-foreground)]">
                 {t("screenshotsPlaceholder")}
               </div>
             )}
@@ -122,7 +116,7 @@ export async function PublicProjectView({
 
         <aside className="space-y-6">
           {report ? (
-            <div className="dq-card rounded-xl p-5">
+            <div className="dq-card p-5">
               <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("outcome")}</h2>
               <dl className="mt-3 space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -141,7 +135,7 @@ export async function PublicProjectView({
             </div>
           ) : null}
 
-          <div className="dq-card rounded-xl p-5">
+          <div className="dq-card p-5">
             <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("team")}</h2>
             <ul className="mt-3 space-y-2 text-sm">
               {project.members.map((m) => (
@@ -156,7 +150,7 @@ export async function PublicProjectView({
           </div>
 
           {highlightMember && highlightReport ? (
-            <div className="dq-card rounded-xl p-5">
+            <div className="dq-card p-5">
               <h2 className="text-sm font-semibold text-[var(--dq-primary)]">
                 {t("memberContribution")}
               </h2>
@@ -170,7 +164,7 @@ export async function PublicProjectView({
           ) : null}
 
           {(payload?.achievements?.length ?? project.userAchievements.length) > 0 ? (
-            <div className="dq-card rounded-xl p-5">
+            <div className="dq-card p-5">
               <h2 className="text-sm font-semibold text-[var(--dq-primary)]">
                 {t("achievements")}
               </h2>

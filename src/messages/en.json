@@ -177,14 +177,14 @@
   },
   "quests": {
     "boardTitle": "Quest Board",
-    "boardSubtitle": "Drag quests between columns. Workflow rules and permissions are enforced server-side.",
+    "boardSubtitle": "Drag a quest into the next column to move it forward. Locked quests open once the quests they depend on are done.",
     "boardRegion": "Quest board columns",
     "dragHandle": "Drag quest card",
     "statusLabel": "Status: {status}",
-    "mainQuest": "Main Quest",
-    "sideQuest": "Side Quest",
+    "mainQuest": "Main quest",
+    "sideQuest": "Side quest",
     "commitLinked": "Commit linked",
-    "difficulty": "Difficulty {level}",
+    "difficulty": "Difficulty {level} of 5",
     "dependsOn": "Depends on: {names}",
     "deadline": "Suggested deadline: {date}",
     "columns": {
@@ -275,6 +275,15 @@
       "errors": {
         "generic": "Something went wrong."
       }
+    },
+    "status": {
+      "LOCKED": "Locked",
+      "AVAILABLE": "Available",
+      "IN_PROGRESS": "In progress",
+      "REVIEW": "In review",
+      "CHANGES_REQUIRED": "Changes required",
+      "COMPLETED": "Completed",
+      "FAILED": "Failed"
     }
   },
   "phase4": {
@@ -291,11 +300,27 @@
       "noAchievements": "No achievements unlocked yet.",
       "teamWorkload": "Team workload",
       "teamHealth": "Team Health",
-      "viewAllActivity": "View all activity"
+      "viewAllActivity": "View all activity",
+      "partyStatus": "Campaign status",
+      "level": "Level {level}",
+      "xpToNext": "{xp} XP to level {level}",
+      "openQuest": "Open quest",
+      "activeQuests": "{count, plural, =0 {no active quests} one {# active quest} other {# active quests}}",
+      "blocked": "blocked",
+      "inactive": "inactive",
+      "system": "System",
+      "lettersWaiting": "{count, plural, =0 {No letters waiting} one {# letter waiting for a decision} other {# letters waiting for a decision}}",
+      "chronicle": "Chronicle",
+      "rarity": {
+        "COMMON": "Common",
+        "RARE": "Rare",
+        "EPIC": "Epic",
+        "LEGENDARY": "Legendary"
+      }
     },
     "inbox": {
       "title": "Client Inbox",
-      "subtitle": "{unread} unread message(s)",
+      "subtitle": "{unread, plural, =0 {All letters read} one {# unread letter} other {# unread letters}}",
       "empty": "No client messages yet. Events appear as the campaign progresses.",
       "deadline": "Response deadline: {date}",
       "responseOptions": "Response options",
@@ -307,7 +332,22 @@
       "errors": {
         "generic": "Unable to process decision.",
         "PERMISSION_DENIED": "Only the team leader can decide in team mode."
-      }
+      },
+      "importance": {
+        "LOW": "Low",
+        "NORMAL": "Normal",
+        "HIGH": "High",
+        "CRITICAL": "Critical"
+      },
+      "status": {
+        "PENDING": "Awaiting decision",
+        "RESOLVED": "Answered",
+        "EXPIRED": "Expired"
+      },
+      "healthImpact": "Health {value}",
+      "xpImpact": "{value} XP",
+      "outcome": "Outcome",
+      "from": "From the client"
     },
     "activity": {
       "title": "Activity Timeline",
@@ -349,7 +389,8 @@
       "subtitle": "Milestones earned during this campaign.",
       "newAchievement": "New achievement",
       "unlockedAt": "Unlocked {date}",
-      "locked": "Locked"
+      "locked": "Locked",
+      "progress": "{unlocked} of {total} unlocked"
     }
   },
   "phase5": {
@@ -395,7 +436,8 @@
         "VALIDATION_ERROR": "Check the form fields and try again.",
         "PUBLIC_SLUG_TAKEN": "This public URL slug is already taken.",
         "DEMO_READ_ONLY": "This demo project is read-only."
-      }
+      },
+      "notEligibleYet": "Finish the remaining required quests above, then come back to close the campaign."
     },
     "profile": {
       "title": "Your profile",
@@ -440,5 +482,45 @@
       "disabledTitle": "Project not available",
       "disabledDescription": "This project is not published or has not been completed yet."
     }
+  },
+  "home": {
+    "title": "Run a real software project like a campaign.",
+    "subtitle": "Lead a team through a client brief: take quests, ship code for review, handle scope changes, and finish with a report you can show employers.",
+    "playDemo": "Play the demo",
+    "browseCampaigns": "Browse campaigns",
+    "demoHint": "No sign-up. The demo logs you in as a team leader mid-campaign.",
+    "preview": {
+      "label": "Example quest from the BrightLane Booking campaign",
+      "chapter": "Chapter 2: Booking engine",
+      "questTitle": "Stop double bookings",
+      "questMeta": "Backend quest",
+      "reward": "+140 XP",
+      "inReview": "In review",
+      "skill": "Backend, level 4",
+      "health": "Project health",
+      "letterFrom": "Letter from BrightLane",
+      "letterBody": "Can we add SMS reminders before Friday's demo?",
+      "accept": "Take it on",
+      "pushBack": "Push back"
+    },
+    "loopTitle": "How a campaign plays",
+    "loop": [
+      {
+        "title": "Form your party",
+        "body": "Pick solo or team mode, choose roles, and match the stack to the brief."
+      },
+      {
+        "title": "Clear quests",
+        "body": "Submit commits and pull requests. The leader reviews them and XP goes to the skills you used."
+      },
+      {
+        "title": "Answer the client",
+        "body": "Timed messages ask for decisions. Each choice moves project health and scope."
+      },
+      {
+        "title": "Publish the report",
+        "body": "Close the campaign and get a team report plus a public page for your portfolio."
+      }
+    ]
   }
 }

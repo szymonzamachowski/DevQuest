@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import { completeCampaignAction } from "@/features/completion/actions/completion.actions";
 import { Button } from "@/components/ui/button";
+import { PixelMeter } from "@/components/ui/pixel-meter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { TeamReportPayload } from "@/lib/services/final-report.service";
@@ -77,7 +78,7 @@ export function CampaignReportView(props: ReportViewProps) {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="font-heading text-3xl text-[var(--foreground)]">
+          <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">
             {t("preCompletionTitle")}
           </h1>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -85,38 +86,53 @@ export function CampaignReportView(props: ReportViewProps) {
           </p>
         </div>
 
-        <section className="dq-card rounded-xl p-5">
-          <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("requirements")}</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li>
-              {t("requiredMainProgress", {
+        <section className="dq-card space-y-6 p-6">
+          <h2 className="text-lg text-[var(--dq-gold)]">{t("requirements")}</h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            <PixelMeter
+              label={t("requiredMainProgress", {
                 done: props.eligibility.stats.requiredMainCompleted,
                 total: props.eligibility.stats.requiredMainTotal,
               })}
-            </li>
-            <li>
-              {t("optionalProgress", {
+              value={percent(
+                props.eligibility.stats.requiredMainCompleted,
+                props.eligibility.stats.requiredMainTotal,
+              )}
+              tone={props.eligibility.eligible ? "moss" : "gold"}
+            />
+            <PixelMeter
+              label={t("optionalProgress", {
                 done: props.eligibility.stats.optionalCompleted,
                 total: props.eligibility.stats.optionalTotal,
               })}
-            </li>
+              value={percent(
+                props.eligibility.stats.optionalCompleted,
+                props.eligibility.stats.optionalTotal,
+              )}
+              tone="mana"
+            />
+          </div>
+          <ul className="space-y-2">
             {props.eligibility.missing.map((m) => (
-              <li key={m} className="text-amber-200/90">
-                • {m}
+              <li key={m} className="flex gap-3">
+                <span aria-hidden className="mt-2 size-2 shrink-0 bg-[var(--dq-ember)]" />
+                <span>{m}</span>
               </li>
             ))}
             {props.eligibility.eligible ? (
-              <li className="text-emerald-300">{t("allRequirementsMet")}</li>
+              <li className="text-[var(--dq-moss)]">{t("allRequirementsMet")}</li>
             ) : null}
           </ul>
         </section>
 
         {!props.canComplete ? (
-          <p className="text-sm text-[var(--muted-foreground)]">{t("leaderOnly")}</p>
+          <p className="text-[var(--muted-foreground)]">
+            {props.isLeader || props.isSolo ? t("notEligibleYet") : t("leaderOnly")}
+          </p>
         ) : (
-          <section className="dq-card rounded-xl p-5">
+          <section className="dq-card p-5">
             <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("completeForm")}</h2>
-            {error ? <p className="mt-2 text-sm text-red-300">{error}</p> : null}
+            {error ? <p className="mt-2 text-sm text-[var(--dq-blood)]">{error}</p> : null}
             <form
               className="mt-4 space-y-4"
               onSubmit={(e) => {
@@ -140,7 +156,7 @@ export function CampaignReportView(props: ReportViewProps) {
                   required
                   minLength={20}
                   defaultValue={props.initial.solutionDescription ?? ""}
-                  className="mt-1 min-h-28 w-full rounded-md border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
+                  className="mt-1 min-h-28 w-full border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
                 />
               </div>
               <div>
@@ -190,7 +206,7 @@ export function CampaignReportView(props: ReportViewProps) {
 
   if (!props.report) {
     return (
-      <div className="dq-card rounded-xl p-8 text-center text-sm text-[var(--muted-foreground)]">
+      <div className="dq-card p-8 text-center text-sm text-[var(--muted-foreground)]">
         {t("reportNotReady")}
       </div>
     );
@@ -200,7 +216,7 @@ export function CampaignReportView(props: ReportViewProps) {
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-3xl text-[var(--foreground)]">
+          <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">
             {t("finalReportTitle")}
           </h1>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">{props.report.summary}</p>
@@ -225,7 +241,7 @@ export function CampaignReportView(props: ReportViewProps) {
 
       {payload ? (
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="dq-card rounded-xl p-5">
+          <section className="dq-card p-5">
             <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("teamSummary")}</h2>
             <ul className="mt-3 space-y-2 text-sm text-[var(--muted-foreground)]">
               <li>{t("duration", { days: payload.durationDays })}</li>
@@ -240,7 +256,7 @@ export function CampaignReportView(props: ReportViewProps) {
             </ul>
             {payload.recommendations.length > 0 ? (
               <div className="mt-4">
-                <h3 className="text-xs font-semibold tracking-wide text-[var(--muted-foreground)] uppercase">
+                <h3 className="text-xs font-semibold text-[var(--muted-foreground)]">
                   {t("recommendations")}
                 </h3>
                 <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
@@ -252,7 +268,7 @@ export function CampaignReportView(props: ReportViewProps) {
             ) : null}
           </section>
 
-          <section className="dq-card rounded-xl p-5">
+          <section className="dq-card p-5">
             <h2 className="text-sm font-semibold text-[var(--dq-primary)]">{t("yourReport")}</h2>
             {userReport ? (
               <div className="mt-3 space-y-2 text-sm">
@@ -274,9 +290,13 @@ export function CampaignReportView(props: ReportViewProps) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="dq-card rounded-xl p-4">
+    <div className="dq-card p-4">
       <div className="text-xs text-[var(--muted-foreground)]">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
     </div>
   );
+}
+
+function percent(done: number, total: number) {
+  return total > 0 ? (done / total) * 100 : 0;
 }

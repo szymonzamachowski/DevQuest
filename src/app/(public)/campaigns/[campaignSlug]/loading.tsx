@@ -1,5 +1,5 @@
 function Pulse({ className }: { className: string }) {
-  return <div className={`bg-muted animate-pulse rounded-md ${className}`} />;
+  return <div className={`bg-muted animate-pulse ${className}`} />;
 }
 
 export default function CampaignDetailLoading() {
@@ -11,10 +11,10 @@ export default function CampaignDetailLoading() {
         <Pulse className="h-5 w-full max-w-2xl" />
       </div>
       <div className="grid gap-6 lg:grid-cols-3">
-        <Pulse className="h-48 rounded-xl lg:col-span-2" />
-        <Pulse className="h-48 rounded-xl" />
+        <Pulse className="h-48 lg:col-span-2" />
+        <Pulse className="h-48" />
       </div>
-      <Pulse className="h-64 w-full rounded-xl" />
+      <Pulse className="h-64 w-full" />
     </div>
   );
 }

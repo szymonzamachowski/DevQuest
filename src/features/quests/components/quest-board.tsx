@@ -29,6 +29,14 @@ import { cn } from "@/lib/utils";
 
 type BoardQuest = QuestCardData;
 
+const columnTone: Record<KanbanColumn, string> = {
+  LOCKED: "text-[var(--dq-outline)]",
+  AVAILABLE: "text-[var(--dq-gold)]",
+  IN_PROGRESS: "text-[var(--dq-ember)]",
+  REVIEW: "text-[var(--dq-mana)]",
+  COMPLETED: "text-[var(--dq-moss)]",
+};
+
 function DroppableColumn({
   id,
   title,
@@ -47,17 +55,28 @@ function DroppableColumn({
       ref={setNodeRef}
       aria-label={title}
       className={cn(
-        "flex min-h-[360px] w-[min(280px,85vw)] shrink-0 flex-col rounded-xl border border-[var(--dq-border)] bg-[var(--dq-surface-container)]/40 sm:min-h-[420px] sm:w-[280px]",
-        isOver && "border-[var(--dq-primary)]/50",
+        "dq-well relative flex max-h-[calc(100dvh-14rem)] min-h-[420px] w-[min(288px,85vw)] shrink-0 flex-col",
+        isOver && "dq-well--over",
       )}
     >
-      <header className="border-b border-[var(--dq-border)] px-4 py-3">
-        <div className="dq-label-caps text-[var(--dq-primary)]">{title}</div>
-        <div className="text-[11px] text-[var(--muted-foreground)]" aria-live="polite">
+      <header className="flex items-center justify-between gap-2 px-4 pt-4 pb-2">
+        <span className={cn("flex items-center gap-2 text-lg", columnTone[id])}>
+          <span aria-hidden className="size-3 bg-current" />
+          {title}
+        </span>
+        <span
+          className="min-w-7 bg-[var(--dq-ink)] px-1.5 text-center text-[var(--muted-foreground)]"
+          aria-live="polite"
+        >
           {quests.length}
-        </div>
+        </span>
       </header>
-      <ul className="flex flex-1 list-none flex-col gap-3 p-3">
+      <ul
+        className={cn(
+          "flex flex-1 list-none flex-col overflow-y-auto p-4",
+          id === "COMPLETED" ? "gap-2" : "gap-5",
+        )}
+      >
         {quests.map((quest) => (
           <li key={quest.id}>
             <DraggableQuestCard quest={quest} projectId={projectId} />
@@ -171,7 +190,7 @@ export function QuestBoard({
     <div className="space-y-4">
       {error ? (
         <div
-          className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm text-red-200"
+          className="dq-card px-4 py-3 text-[var(--dq-blood)]"
           role="alert"
           aria-live="assertive"
         >
@@ -180,6 +199,7 @@ export function QuestBoard({
       ) : null}
 
       <DndContext
+        id="quest-board"
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={onDragStart}
@@ -187,7 +207,7 @@ export function QuestBoard({
       >
         <div
           className={cn(
-            "dq-kanban-scroll flex gap-4 overflow-x-auto pb-4",
+            "dq-kanban-scroll flex gap-5 overflow-x-auto px-1 pt-1 pb-4",
             pending && "opacity-80",
           )}
           role="region"

@@ -34,7 +34,7 @@ export default async function CampaignSetupPage({ params }: { params: Params }) 
   const access = await getProjectWithAccess(projectId, session.user.id);
   if (!access) {
     return (
-      <div className="dq-card rounded-xl p-8 text-center">
+      <div className="dq-card p-8 text-center">
         <p className="text-sm text-[var(--dq-error)]">Permission denied</p>
       </div>
     );

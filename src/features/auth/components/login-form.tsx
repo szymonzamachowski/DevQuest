@@ -50,7 +50,7 @@ export function LoginForm({ className }: { className?: string }) {
       onSubmit={form.handleSubmit(async (values) => loginWith(values.email, values.password))}
     >
       {registered ? (
-        <div className="rounded-lg border border-[var(--dq-border)] bg-[var(--dq-surface-container-low)] px-4 py-3 text-sm text-[var(--muted-foreground)]">
+        <div className="border border-[var(--dq-border)] bg-[var(--dq-surface-container-low)] px-4 py-3 text-sm text-[var(--muted-foreground)]">
           {t("registeredHint")}
         </div>
       ) : null}

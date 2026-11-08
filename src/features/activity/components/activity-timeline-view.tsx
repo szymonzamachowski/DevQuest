@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import type { ActivityType } from "@prisma/client";
 
 import { ACTIVITY_CATEGORIES } from "@/features/activity/queries/activities";
@@ -27,6 +27,7 @@ export function ActivityTimelineView({
   filters: { userId?: string; category?: string; type?: string };
 }) {
   const t = useTranslations("phase4.activity");
+  const format = useFormatter();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,13 +41,13 @@ export function ActivityTimelineView({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-heading text-3xl text-[var(--foreground)]">{t("title")}</h1>
+        <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">{t("title")}</h1>
         <p className="mt-2 text-sm text-[var(--muted-foreground)]">{t("subtitle")}</p>
       </div>
 
       <div className="flex flex-wrap gap-3">
         <select
-          className="rounded-md border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
+          className="border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
           value={filters.userId ?? ""}
           onChange={(e) => updateFilter("userId", e.target.value)}
         >
@@ -59,7 +60,7 @@ export function ActivityTimelineView({
         </select>
 
         <select
-          className="rounded-md border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
+          className="border border-[var(--dq-border)] bg-[var(--dq-surface-container-high)] px-3 py-2 text-sm"
           value={filters.category ?? ""}
           onChange={(e) => updateFilter("category", e.target.value)}
         >
@@ -74,23 +75,20 @@ export function ActivityTimelineView({
 
       <ul className="space-y-3">
         {activities.map((a) => (
-          <li key={a.id} className="dq-card rounded-xl p-4">
+          <li key={a.id} className="dq-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="text-sm font-medium text-[var(--foreground)]">{a.title}</div>
-              <span className="text-[10px] tracking-wide text-[var(--dq-tertiary)] uppercase">
-                {a.type}
-              </span>
+              <span className="text-sm text-[var(--dq-tertiary)]">{a.type}</span>
             </div>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">{a.description}</p>
             <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-              {a.user?.name || a.user?.email || "System"} · {a.createdAt.toLocaleString()}
+              {a.user?.name || a.user?.email || "System"} ·{" "}
+              {format.dateTime(a.createdAt, "dateTime")}
             </div>
           </li>
         ))}
         {activities.length === 0 ? (
-          <li className="dq-card rounded-xl p-6 text-sm text-[var(--muted-foreground)]">
-            {t("empty")}
-          </li>
+          <li className="dq-card p-6 text-sm text-[var(--muted-foreground)]">{t("empty")}</li>
         ) : null}
       </ul>
     </div>

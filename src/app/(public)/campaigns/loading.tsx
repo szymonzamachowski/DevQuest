@@ -1,5 +1,5 @@
 function Pulse({ className }: { className: string }) {
-  return <div className={`bg-muted animate-pulse rounded-md ${className}`} />;
+  return <div className={`bg-muted animate-pulse ${className}`} />;
 }
 
 export default function CampaignsLoading() {
@@ -16,7 +16,7 @@ export default function CampaignsLoading() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Pulse key={i} className="h-64 w-full rounded-xl" />
+          <Pulse key={i} className="h-64 w-full" />
         ))}
       </div>
     </div>

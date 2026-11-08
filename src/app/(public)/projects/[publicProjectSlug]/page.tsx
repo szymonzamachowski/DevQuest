@@ -27,7 +27,7 @@ export default async function PublicProjectPage({
 
     if (maybeExists && (!maybeExists.isPublic || maybeExists.status !== "COMPLETED")) {
       return (
-        <div className="dq-card rounded-xl p-10 text-center">
+        <div className="dq-card p-10 text-center">
           <h1 className="font-heading text-2xl">{t("disabledTitle")}</h1>
           <p className="mt-3 text-sm text-[var(--muted-foreground)]">{t("disabledDescription")}</p>
         </div>

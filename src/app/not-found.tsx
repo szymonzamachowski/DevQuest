@@ -8,7 +8,7 @@ export default function NotFound() {
     <div className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-[var(--dq-layer-0)] px-6 text-center">
       <BrandLogo href="/" />
       <div>
-        <h1 className="font-heading text-3xl text-[var(--foreground)]">Page not found</h1>
+        <h1 className="text-5xl leading-none text-[var(--dq-parchment)]">Page not found</h1>
         <p className="mt-2 max-w-md text-sm text-[var(--muted-foreground)]">
           The page you requested does not exist or is no longer available.
         </p>

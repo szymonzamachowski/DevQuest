@@ -41,7 +41,7 @@
     "homeTitle": "Symulacje projektów jak w pracy",
     "homeSubtitle": "Prowadź realistyczne kampanie software’owe. Zarządzaj jak w SaaS — rozwijaj umiejętności jak w RPG.",
     "campaignsTitle": "Kampanie",
-    "appTitle": "Workspace",
+    "appTitle": "Panel",
     "settingsTitle": "Ustawienia"
   },
   "validation": {
@@ -177,14 +177,14 @@
   },
   "quests": {
     "boardTitle": "Tablica questów",
-    "boardSubtitle": "Przeciągaj questy między kolumnami. Reguły workflow i uprawnienia są weryfikowane po stronie serwera.",
+    "boardSubtitle": "Przeciągnij quest do następnej kolumny, żeby posunąć go dalej. Zablokowane questy otwierają się, gdy skończysz te, od których zależą.",
     "boardRegion": "Kolumny tablicy questów",
     "dragHandle": "Przeciągnij kartę questa",
     "statusLabel": "Status: {status}",
-    "mainQuest": "Main Quest",
-    "sideQuest": "Side Quest",
+    "mainQuest": "Quest główny",
+    "sideQuest": "Quest poboczny",
     "commitLinked": "Commit podpięty",
-    "difficulty": "Trudność {level}",
+    "difficulty": "Trudność {level} z 5",
     "dependsOn": "Zależy od: {names}",
     "deadline": "Sugerowany deadline: {date}",
     "columns": {
@@ -196,7 +196,7 @@
     },
     "category": {
       "PLANNING": "Planowanie",
-      "SETUP": "Setup",
+      "SETUP": "Konfiguracja",
       "FRONTEND": "Frontend",
       "BACKEND": "Backend",
       "DATABASE": "Baza danych",
@@ -205,7 +205,7 @@
       "UX_UI": "UX/UI",
       "GIT": "Git",
       "DOCUMENTATION": "Dokumentacja",
-      "TEAMWORK": "Teamwork",
+      "TEAMWORK": "Praca zespołowa",
       "PRODUCT": "Produkt"
     },
     "errors": {
@@ -234,7 +234,7 @@
       "myAssignments": "Twoje zadania",
       "noAssignments": "Brak przypisanych questów.",
       "team": "Zespół",
-      "teamworkXp": "teamwork XP",
+      "teamworkXp": "XP za pracę zespołową",
       "recentActivity": "Ostatnia aktywność"
     },
     "roadmap": {
@@ -275,27 +275,52 @@
       "errors": {
         "generic": "Coś poszło nie tak."
       }
+    },
+    "status": {
+      "LOCKED": "Zablokowany",
+      "AVAILABLE": "Dostępny",
+      "IN_PROGRESS": "W trakcie",
+      "REVIEW": "W review",
+      "CHANGES_REQUIRED": "Do poprawy",
+      "COMPLETED": "Ukończony",
+      "FAILED": "Nieudany"
     }
   },
   "phase4": {
     "dashboard": {
-      "projectHealth": "Project Health",
+      "projectHealth": "Kondycja projektu",
       "unresolvedEvents": "Nierozwiązane wydarzenia",
       "activeRisks": "Aktywne ryzyka",
       "noActiveRisks": "Brak wykrytych ryzyk.",
       "latestClientMessage": "Ostatnia wiadomość klienta",
       "noClientMessages": "Brak wiadomości od klienta.",
       "viewInbox": "Otwórz skrzynkę",
-      "openInbox": "Client Inbox",
+      "openInbox": "Skrzynka klienta",
       "latestAchievement": "Ostatnie osiągnięcie",
       "noAchievements": "Brak odblokowanych osiągnięć.",
       "teamWorkload": "Obciążenie zespołu",
-      "teamHealth": "Team Health",
-      "viewAllActivity": "Cała aktywność"
+      "teamHealth": "Kondycja zespołu",
+      "viewAllActivity": "Cała aktywność",
+      "partyStatus": "Stan kampanii",
+      "level": "Poziom {level}",
+      "xpToNext": "{xp} XP do poziomu {level}",
+      "openQuest": "Otwórz quest",
+      "activeQuests": "{count, plural, =0 {brak aktywnych questów} one {# aktywny quest} few {# aktywne questy} many {# aktywnych questów} other {# aktywnego questa}}",
+      "blocked": "zablokowany",
+      "inactive": "nieaktywny",
+      "system": "System",
+      "lettersWaiting": "{count, plural, =0 {Brak listów do odpowiedzi} one {# list czeka na decyzję} few {# listy czekają na decyzję} many {# listów czeka na decyzję} other {# listu czeka na decyzję}}",
+      "chronicle": "Kronika",
+      "rarity": {
+        "COMMON": "Zwykłe",
+        "RARE": "Rzadkie",
+        "EPIC": "Epickie",
+        "LEGENDARY": "Legendarne"
+      }
     },
     "inbox": {
-      "title": "Client Inbox",
-      "subtitle": "{unread} nieprzeczytanych wiadomości",
+      "title": "Skrzynka klienta",
+      "subtitle": "{unread, plural, =0 {Wszystkie listy przeczytane} one {# nieprzeczytany list} few {# nieprzeczytane listy} many {# nieprzeczytanych listów} other {# nieprzeczytanego listu}}",
       "empty": "Brak wiadomości. Wydarzenia pojawiają się w trakcie kampanii.",
       "deadline": "Termin odpowiedzi: {date}",
       "responseOptions": "Opcje odpowiedzi",
@@ -307,7 +332,22 @@
       "errors": {
         "generic": "Nie udało się zapisać decyzji.",
         "PERMISSION_DENIED": "W trybie zespołowym decyduje tylko lider."
-      }
+      },
+      "importance": {
+        "LOW": "Niski",
+        "NORMAL": "Normalny",
+        "HIGH": "Wysoki",
+        "CRITICAL": "Krytyczny"
+      },
+      "status": {
+        "PENDING": "Czeka na decyzję",
+        "RESOLVED": "Odpowiedziano",
+        "EXPIRED": "Wygasł"
+      },
+      "healthImpact": "Kondycja {value}",
+      "xpImpact": "{value} XP",
+      "outcome": "Wynik",
+      "from": "Od klienta"
     },
     "activity": {
       "title": "Oś czasu aktywności",
@@ -318,7 +358,7 @@
       "categories": {
         "quest": "Questy",
         "client": "Klient",
-        "health": "Health",
+        "health": "Kondycja",
         "xp": "XP",
         "achievement": "Osiągnięcia",
         "team": "Zespół"
@@ -327,8 +367,8 @@
     "team": {
       "title": "Zespół",
       "subtitle": "Balans obciążenia, wkład i zdrowie zespołu.",
-      "projectHealth": "Project Health",
-      "teamHealth": "Team Health",
+      "projectHealth": "Kondycja projektu",
+      "teamHealth": "Kondycja zespołu",
       "workloadBalance": "Balans obciążenia",
       "spread": "Rozpiętość aktywnych questów: {count}",
       "members": "Członkowie",
@@ -336,8 +376,8 @@
       "activeQuests": "Aktywne",
       "completedQuests": "Ukończone",
       "contribution": "Wkład",
-      "teamworkXp": "Teamwork XP",
-      "status": "Status",
+      "teamworkXp": "XP za pracę zespołową",
+      "status": "Stan",
       "blocked": "Zablokowany",
       "inactive": "Nieaktywny",
       "active": "Aktywny",
@@ -349,7 +389,8 @@
       "subtitle": "Kamienie milowe zdobyte w tej kampanii.",
       "newAchievement": "Nowe osiągnięcie",
       "unlockedAt": "Odblokowano {date}",
-      "locked": "Zablokowane"
+      "locked": "Zablokowane",
+      "progress": "Odblokowano {unlocked} z {total}"
     }
   },
   "phase5": {
@@ -372,9 +413,9 @@
       "finalReportTitle": "Raport końcowy",
       "viewPublicPage": "Zobacz stronę publiczną",
       "grade": "Ocena",
-      "health": "Health",
+      "health": "Kondycja",
       "completion": "Ukończenie",
-      "teamwork": "Teamwork",
+      "teamwork": "Praca zespołowa",
       "testing": "Testowanie",
       "adaptability": "Adaptacyjność",
       "teamSummary": "Podsumowanie zespołu",
@@ -395,7 +436,8 @@
         "VALIDATION_ERROR": "Sprawdź pola formularza i spróbuj ponownie.",
         "PUBLIC_SLUG_TAKEN": "Ten slug jest już zajęty.",
         "DEMO_READ_ONLY": "Ten projekt demo jest tylko do odczytu."
-      }
+      },
+      "notEligibleYet": "Ukończ pozostałe wymagane questy z listy powyżej i wróć, żeby zamknąć kampanię."
     },
     "profile": {
       "title": "Twój profil",
@@ -440,5 +482,45 @@
       "disabledTitle": "Projekt niedostępny",
       "disabledDescription": "Ten projekt nie jest publiczny lub nie został jeszcze ukończony."
     }
+  },
+  "home": {
+    "title": "Poprowadź prawdziwy projekt jak kampanię.",
+    "subtitle": "Przeprowadź zespół przez brief klienta: bierz questy, oddawaj kod do review, reaguj na zmiany zakresu i zakończ raportem, który pokażesz pracodawcy.",
+    "playDemo": "Zagraj w demo",
+    "browseCampaigns": "Przeglądaj kampanie",
+    "demoHint": "Bez rejestracji. Demo loguje cię jako lidera w trakcie kampanii.",
+    "preview": {
+      "label": "Przykładowy quest z kampanii BrightLane Booking",
+      "chapter": "Rozdział 2: Silnik rezerwacji",
+      "questTitle": "Koniec z podwójnymi rezerwacjami",
+      "questMeta": "Quest backendowy",
+      "reward": "+140 XP",
+      "inReview": "W review",
+      "skill": "Backend, poziom 4",
+      "health": "Kondycja projektu",
+      "letterFrom": "List od BrightLane",
+      "letterBody": "Czy dodamy przypomnienia SMS przed piątkowym demo?",
+      "accept": "Bierzemy to",
+      "pushBack": "Odmawiamy"
+    },
+    "loopTitle": "Jak przebiega kampania",
+    "loop": [
+      {
+        "title": "Zbierz drużynę",
+        "body": "Wybierz tryb solo lub zespołowy, przydziel role i dopasuj stack do briefu."
+      },
+      {
+        "title": "Wykonuj questy",
+        "body": "Oddawaj commity i pull requesty. Lider robi review, a XP trafia do użytych umiejętności."
+      },
+      {
+        "title": "Odpowiadaj klientowi",
+        "body": "Wiadomości z terminem wymagają decyzji. Każdy wybór zmienia kondycję i zakres projektu."
+      },
+      {
+        "title": "Opublikuj raport",
+        "body": "Zamknij kampanię i odbierz raport zespołu oraz publiczną stronę do portfolio."
+      }
+    ]
   }
 }
