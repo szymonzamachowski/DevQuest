@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 export type AppShellUser = {
   name?: string | null;
   email?: string | null;
+  isGuest?: boolean;
 };
 
 function initials(nameOrEmail: string | null | undefined) {
@@ -166,6 +167,15 @@ function MobileDrawer({ navItems }: { navItems: AppNavItem[] }) {
   );
 }
 
+function GuestBanner() {
+  const t = useTranslations("demo");
+  return (
+    <p className="mb-8 flex items-center gap-3 bg-[var(--dq-surface-container-lowest)] px-4 py-3 text-[var(--muted-foreground)] shadow-[inset_4px_0_0_var(--dq-mana)]">
+      {t("guestBanner")}
+    </p>
+  );
+}
+
 /** The shell renders above the project layout, so it reads the project id from the URL. */
 function projectIdFromPath(pathname: string): string | null {
   const match = /^\/app\/projects\/([^/]+)/.exec(pathname);
@@ -205,6 +215,7 @@ export function AppShellClient({
           id="main-content"
           className="mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 sm:py-10"
         >
+          {user.isGuest ? <GuestBanner /> : null}
           {children}
         </main>
       </div>

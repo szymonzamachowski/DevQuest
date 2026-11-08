@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { prisma } from "@/lib/db";
 import { getEnv } from "@/lib/env";
+import { verifyGuestToken } from "@/lib/guest-token";
 
 import { LoginSchema } from "@/features/auth/schemas";
 
@@ -42,6 +43,23 @@ export function getAuthOptions(): NextAuthOptions {
             name: user.name,
             image: user.image,
           };
+        },
+      }),
+      // Demo sandbox: exchanges the short-lived token from startDemoAction for a session.
+      CredentialsProvider({
+        id: "guest",
+        name: "Guest",
+        credentials: { token: { label: "Token", type: "text" } },
+        async authorize(credentials) {
+          const userId = credentials?.token
+            ? verifyGuestToken(credentials.token, env.AUTH_SECRET)
+            : null;
+          if (!userId) return null;
+          const user = await prisma.user.findFirst({
+            where: { id: userId, isGuest: true, guestExpiresAt: { gt: new Date() } },
+          });
+          if (!user) return null;
+          return { id: user.id, email: user.email, name: user.name, image: user.image };
         },
       }),
     ],

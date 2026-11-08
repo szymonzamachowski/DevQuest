@@ -9,7 +9,8 @@ import {
   checkCampaignCompletionEligibility,
 } from "@/lib/services/campaign-completion.service";
 import { completeCampaign } from "@/lib/services/final-report.service";
-import { assertCampaignNotAlreadyCompleted } from "@/lib/demo";
+import { assertCampaignNotAlreadyCompleted, assertProjectMutable } from "@/lib/demo";
+import { prisma } from "@/lib/db";
 import { getAuthOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
@@ -73,19 +74,24 @@ export async function completeCampaignAction(projectId: string, formData: FormDa
   });
   if (!parsed.success) return { ok: false as const, error: "VALIDATION_ERROR" };
 
+  // Anonymous demo guests can finish the campaign but not publish pages under our domain.
+  const actor = await prisma.user.findUnique({ where: { id: userId }, select: { isGuest: true } });
+  const isPublic = parsed.data.isPublic && !actor?.isGuest;
+
   try {
+    await assertProjectMutable(projectId);
     await assertCampaignNotAlreadyCompleted(projectId);
     const report = await completeCampaign(projectId, {
       repositoryUrl: parsed.data.repositoryUrl || undefined,
       liveDemoUrl: parsed.data.liveDemoUrl || undefined,
-      isPublic: parsed.data.isPublic,
+      isPublic,
       solutionDescription: parsed.data.solutionDescription,
-      publicSlug: parsed.data.publicSlug || undefined,
+      publicSlug: isPublic ? parsed.data.publicSlug || undefined : undefined,
     });
 
     revalidatePath(`/app/projects/${projectId}/report`);
     revalidatePath(`/app/projects/${projectId}`);
-    if (parsed.data.isPublic && parsed.data.publicSlug) {
+    if (isPublic && parsed.data.publicSlug) {
       revalidatePath(`/projects/${parsed.data.publicSlug}`);
     }
 

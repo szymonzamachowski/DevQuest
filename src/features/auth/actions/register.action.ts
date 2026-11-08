@@ -1,12 +1,11 @@
 "use server";
 
 import bcrypt from "bcryptjs";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { prisma } from "@/lib/db";
 import { RegisterSchema } from "@/features/auth/schemas";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, clientKey } from "@/lib/rate-limit";
 
 export type RegisterState =
   | { ok: true }
@@ -29,12 +28,10 @@ export async function registerAction(_: RegisterState, formData: FormData): Prom
     return { ok: false, fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
-  const headerStore = await headers();
-  const ip =
-    headerStore.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    headerStore.get("x-real-ip") ??
-    "unknown";
-  const rate = checkRateLimit(`register:${ip}`, { limit: 5, windowMs: 60_000 });
+  const rate = await checkRateLimit(await clientKey("register"), {
+    limit: 5,
+    windowMs: 60_000,
+  });
   if (!rate.allowed) {
     return { ok: false, formError: "Too many registration attempts. Please try again later." };
   }

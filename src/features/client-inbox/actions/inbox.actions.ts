@@ -86,6 +86,7 @@ export async function addClientEventCommentAction(
   const parsed = CommentSchema.safeParse({ content });
   if (!parsed.success) throw new Error("VALIDATION_ERROR");
 
+  await assertProjectMutable(projectId);
   await addClientEventComment(projectId, eventId, userId, parsed.data.content);
   revalidateInbox(projectId);
   return { ok: true as const };

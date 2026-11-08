@@ -522,5 +522,14 @@
         "body": "Close the campaign and get a team report plus a public page for your portfolio."
       }
     ]
+  },
+  "demo": {
+    "play": "Play the demo",
+    "preparing": "Preparing your campaign…",
+    "guestBanner": "You are playing a private demo. It resets in 24 hours.",
+    "errors": {
+      "RATE_LIMITED": "Too many demos started from here. Try again in an hour.",
+      "UNAVAILABLE": "The demo could not start. Try again in a moment."
+    }
   }
 }
