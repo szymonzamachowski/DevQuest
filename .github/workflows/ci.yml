@@ -9,16 +9,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # Placeholder values: the build only validates env shape, it never connects to the database.
+      DATABASE_URL: postgresql://devquest:devquest@localhost:5432/devquest?schema=public
+      DIRECT_URL: postgresql://devquest:devquest@localhost:5432/devquest?schema=public
+      AUTH_SECRET: ci_build_auth_secret_with_sufficient_length_1234567890
+      NEXTAUTH_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install
         run: npm ci
+
+      - name: Generate Prisma client
+        run: npm run prisma:generate
 
       - name: Format
         run: npm run format

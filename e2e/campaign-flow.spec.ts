@@ -12,6 +12,14 @@ async function login(page: import("@playwright/test").Page, email: string) {
   await page.waitForURL(/\/app/);
 }
 
+/** Quest and inbox actions reload the page when the server action succeeds. */
+async function clickAndWaitForReload(
+  page: import("@playwright/test").Page,
+  locator: import("@playwright/test").Locator,
+) {
+  await Promise.all([page.waitForEvent("load", { timeout: 30_000 }), locator.click()]);
+}
+
 test.describe("Phase 5 campaign flow", () => {
   test("public completed project is visible", async ({ page }) => {
     await page.goto(`/projects/${PUBLIC_SLUG}`);
@@ -40,8 +48,8 @@ test.describe("Phase 5 campaign flow", () => {
       .fill(
         "Deployed the booking application to production with verified booking flow and rollback notes.",
       );
-    await memberPage.getByTestId("quest-submit").click();
-    await expect(memberPage.getByText(/review|leader review/i)).toBeVisible({ timeout: 15000 });
+    await clickAndWaitForReload(memberPage, memberPage.getByTestId("quest-submit"));
+    await expect(memberPage.getByText("REVIEW", { exact: true })).toBeVisible();
     await memberContext.close();
 
     const leaderContext = await browser.newContext();
@@ -50,15 +58,14 @@ test.describe("Phase 5 campaign flow", () => {
 
     await leaderPage.goto(`/app/projects/${ACTIVE_PROJECT_ID}/quests`);
     await leaderPage.getByRole("link", { name: /publish the application/i }).click();
-    await leaderPage.getByTestId("quest-accept").click();
-    await leaderPage.waitForLoadState("networkidle");
+    await clickAndWaitForReload(leaderPage, leaderPage.getByTestId("quest-accept"));
+    await expect(leaderPage.getByText("COMPLETED", { exact: true })).toBeVisible();
 
     await leaderPage.goto(`/app/projects/${ACTIVE_PROJECT_ID}/client-inbox`);
-    await leaderPage
-      .getByRole("button", { name: /choose this option|wybierz tę opcję/i })
-      .first()
-      .click();
-    await leaderPage.waitForLoadState("networkidle");
+    await clickAndWaitForReload(
+      leaderPage,
+      leaderPage.getByRole("button", { name: /choose this option|wybierz tę opcję/i }).first(),
+    );
 
     await leaderPage.goto(`/app/projects/${ACTIVE_PROJECT_ID}/report`);
     await expect(
@@ -89,9 +96,9 @@ test.describe("Phase 5 campaign flow", () => {
       leaderPage.getByRole("link", { name: /view public page|zobacz stronę publiczną/i }).click(),
     ]);
     await publicPage.waitForLoadState("domcontentloaded");
-    await expect(
-      publicPage.getByRole("heading", { name: /brightlane team sprint/i }),
-    ).toBeVisible({ timeout: 15_000 });
+    await expect(publicPage.getByRole("heading", { name: /brightlane team sprint/i })).toBeVisible({
+      timeout: 15_000,
+    });
     await publicPage.close();
 
     await leaderContext.close();

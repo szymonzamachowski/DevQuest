@@ -27,6 +27,7 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://devquest:devquest@localhost:5432/devquest?schema=public
+      DIRECT_URL: postgresql://devquest:devquest@localhost:5432/devquest?schema=public
       AUTH_SECRET: ci_test_auth_secret_with_sufficient_length_1234567890
       NEXTAUTH_URL: http://localhost:3000
       E2E_SKIP_SEED: "1"
@@ -36,7 +37,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
@@ -56,3 +57,11 @@ jobs:
 
       - name: Run Playwright tests
         run: npm run e2e
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
