@@ -335,3 +335,33 @@ select {
     transform: translateY(9px);
   }
 }
+
+/* The quest the party should play next gets a gold frame instead of ink. */
+.dq-card--quest {
+  background: linear-gradient(to bottom, rgb(240 181 65 / 0.08), transparent 60%), var(--dq-stone);
+  box-shadow:
+    0 calc(var(--px) * -1) 0 var(--dq-gold),
+    0 var(--px) 0 var(--dq-gold),
+    calc(var(--px) * -1) 0 0 var(--dq-gold),
+    var(--px) 0 0 var(--dq-gold),
+    var(--dq-bevel),
+    calc(var(--px) * 2) calc(var(--px) * 2) 0 rgb(0 0 0 / 0.35);
+}
+
+/* Recessed column (quest board): darker than panels, lit when a quest is dragged over it. */
+.dq-well {
+  background: #110e17;
+  box-shadow:
+    inset var(--px) var(--px) 0 rgb(0 0 0 / 0.5),
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 rgb(255 255 255 / 0.04);
+}
+.dq-well--over {
+  box-shadow:
+    inset 0 0 0 var(--px) var(--dq-gold),
+    inset var(--px) var(--px) 0 rgb(0 0 0 / 0.5);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--dq-gold);
+}

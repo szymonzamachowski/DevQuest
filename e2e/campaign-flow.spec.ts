@@ -49,7 +49,7 @@ test.describe("Phase 5 campaign flow", () => {
         "Deployed the booking application to production with verified booking flow and rollback notes.",
       );
     await clickAndWaitForReload(memberPage, memberPage.getByTestId("quest-submit"));
-    await expect(memberPage.getByText("REVIEW", { exact: true })).toBeVisible();
+    await expect(memberPage.getByTestId("quest-status")).toHaveAttribute("data-status", "REVIEW");
     await memberContext.close();
 
     const leaderContext = await browser.newContext();
@@ -59,7 +59,10 @@ test.describe("Phase 5 campaign flow", () => {
     await leaderPage.goto(`/app/projects/${ACTIVE_PROJECT_ID}/quests`);
     await leaderPage.getByRole("link", { name: /publish the application/i }).click();
     await clickAndWaitForReload(leaderPage, leaderPage.getByTestId("quest-accept"));
-    await expect(leaderPage.getByText("COMPLETED", { exact: true })).toBeVisible();
+    await expect(leaderPage.getByTestId("quest-status")).toHaveAttribute(
+      "data-status",
+      "COMPLETED",
+    );
 
     await leaderPage.goto(`/app/projects/${ACTIVE_PROJECT_ID}/client-inbox`);
     await clickAndWaitForReload(

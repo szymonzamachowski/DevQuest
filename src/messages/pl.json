@@ -177,14 +177,14 @@
   },
   "quests": {
     "boardTitle": "Tablica questów",
-    "boardSubtitle": "Przeciągaj questy między kolumnami. Reguły workflow i uprawnienia są weryfikowane po stronie serwera.",
+    "boardSubtitle": "Przeciągnij quest do następnej kolumny, żeby posunąć go dalej. Zablokowane questy otwierają się, gdy skończysz te, od których zależą.",
     "boardRegion": "Kolumny tablicy questów",
     "dragHandle": "Przeciągnij kartę questa",
     "statusLabel": "Status: {status}",
-    "mainQuest": "Main Quest",
-    "sideQuest": "Side Quest",
+    "mainQuest": "Quest główny",
+    "sideQuest": "Quest poboczny",
     "commitLinked": "Commit podpięty",
-    "difficulty": "Trudność {level}",
+    "difficulty": "Trudność {level} z 5",
     "dependsOn": "Zależy od: {names}",
     "deadline": "Sugerowany deadline: {date}",
     "columns": {
@@ -275,6 +275,15 @@
       "errors": {
         "generic": "Coś poszło nie tak."
       }
+    },
+    "status": {
+      "LOCKED": "Zablokowany",
+      "AVAILABLE": "Dostępny",
+      "IN_PROGRESS": "W trakcie",
+      "REVIEW": "W review",
+      "CHANGES_REQUIRED": "Do poprawy",
+      "COMPLETED": "Ukończony",
+      "FAILED": "Nieudany"
     }
   },
   "phase4": {
@@ -291,7 +300,23 @@
       "noAchievements": "Brak odblokowanych osiągnięć.",
       "teamWorkload": "Obciążenie zespołu",
       "teamHealth": "Team Health",
-      "viewAllActivity": "Cała aktywność"
+      "viewAllActivity": "Cała aktywność",
+      "partyStatus": "Stan kampanii",
+      "level": "Poziom {level}",
+      "xpToNext": "{xp} XP do poziomu {level}",
+      "openQuest": "Otwórz quest",
+      "activeQuests": "{count, plural, =0 {brak aktywnych questów} one {# aktywny quest} few {# aktywne questy} many {# aktywnych questów} other {# aktywnego questa}}",
+      "blocked": "zablokowany",
+      "inactive": "nieaktywny",
+      "system": "System",
+      "lettersWaiting": "{count, plural, =0 {Brak listów do odpowiedzi} one {# list czeka na decyzję} few {# listy czekają na decyzję} many {# listów czeka na decyzję} other {# listu czeka na decyzję}}",
+      "chronicle": "Kronika",
+      "rarity": {
+        "COMMON": "Zwykłe",
+        "RARE": "Rzadkie",
+        "EPIC": "Epickie",
+        "LEGENDARY": "Legendarne"
+      }
     },
     "inbox": {
       "title": "Client Inbox",

@@ -15,5 +15,16 @@ export default getRequestConfig(async () => {
   const cookieStore = await cookies();
   const locale = coerceLocale(cookieStore.get("locale")?.value);
   const messages = (await import(`../messages/${locale}.json`)).default;
-  return { locale, messages };
+  return {
+    locale,
+    messages,
+    // A fixed zone keeps server- and client-rendered dates identical (no hydration mismatch).
+    timeZone: "Europe/Warsaw",
+    formats: {
+      dateTime: {
+        date: { dateStyle: "medium" },
+        dateTime: { dateStyle: "medium", timeStyle: "short" },
+      },
+    },
+  };
 });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -54,6 +54,7 @@ export function ClientInboxView({
   isSolo: boolean;
 }) {
   const t = useTranslations("phase4.inbox");
+  const format = useFormatter();
   const [selectedId, setSelectedId] = useState<string | null>(events[0]?.id ?? null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -106,7 +107,7 @@ export function ClientInboxView({
               </div>
               <div className="mt-1 text-xs text-[var(--muted-foreground)]">{event.status}</div>
               <div className="mt-1 text-[11px] text-[var(--muted-foreground)]">
-                {event.triggeredAt.toLocaleString()}
+                {format.dateTime(event.triggeredAt, "dateTime")}
               </div>
             </button>
           ))}
@@ -126,7 +127,7 @@ export function ClientInboxView({
 
             {selected.responseDeadline ? (
               <p className="mt-2 text-xs text-amber-300/90">
-                {t("deadline", { date: selected.responseDeadline.toLocaleString() })}
+                {t("deadline", { date: format.dateTime(selected.responseDeadline, "dateTime") })}
               </p>
             ) : null}
 

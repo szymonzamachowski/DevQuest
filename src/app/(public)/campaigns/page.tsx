@@ -5,7 +5,7 @@ import {
   CampaignCatalog,
   CampaignCatalogSkeleton,
 } from "@/features/campaigns/components/campaign-catalog";
-import { parseCampaignFilters } from "@/features/campaigns/components/campaign-filters";
+import { parseCampaignFilters } from "@/features/campaigns/parse-campaign-filters";
 import { getPublishedCampaigns } from "@/features/campaigns/queries/campaigns";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;

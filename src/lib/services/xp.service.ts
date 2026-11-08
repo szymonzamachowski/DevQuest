@@ -1,10 +1,9 @@
 import { ActivityType } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
+import { calculateUserLevel } from "@/lib/xp-level";
 
-export function calculateUserLevel(totalXp: number): number {
-  return Math.max(1, Math.floor(totalXp / 500) + 1);
-}
+export { calculateUserLevel };
 
 export function calculateTeamworkXp(baseXp: number): number {
   return Math.max(5, Math.round(baseXp * 0.1));

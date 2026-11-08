@@ -177,14 +177,14 @@
   },
   "quests": {
     "boardTitle": "Quest Board",
-    "boardSubtitle": "Drag quests between columns. Workflow rules and permissions are enforced server-side.",
+    "boardSubtitle": "Drag a quest into the next column to move it forward. Locked quests open once the quests they depend on are done.",
     "boardRegion": "Quest board columns",
     "dragHandle": "Drag quest card",
     "statusLabel": "Status: {status}",
-    "mainQuest": "Main Quest",
-    "sideQuest": "Side Quest",
+    "mainQuest": "Main quest",
+    "sideQuest": "Side quest",
     "commitLinked": "Commit linked",
-    "difficulty": "Difficulty {level}",
+    "difficulty": "Difficulty {level} of 5",
     "dependsOn": "Depends on: {names}",
     "deadline": "Suggested deadline: {date}",
     "columns": {
@@ -275,6 +275,15 @@
       "errors": {
         "generic": "Something went wrong."
       }
+    },
+    "status": {
+      "LOCKED": "Locked",
+      "AVAILABLE": "Available",
+      "IN_PROGRESS": "In progress",
+      "REVIEW": "In review",
+      "CHANGES_REQUIRED": "Changes required",
+      "COMPLETED": "Completed",
+      "FAILED": "Failed"
     }
   },
   "phase4": {
@@ -291,7 +300,23 @@
       "noAchievements": "No achievements unlocked yet.",
       "teamWorkload": "Team workload",
       "teamHealth": "Team Health",
-      "viewAllActivity": "View all activity"
+      "viewAllActivity": "View all activity",
+      "partyStatus": "Campaign status",
+      "level": "Level {level}",
+      "xpToNext": "{xp} XP to level {level}",
+      "openQuest": "Open quest",
+      "activeQuests": "{count, plural, =0 {no active quests} one {# active quest} other {# active quests}}",
+      "blocked": "blocked",
+      "inactive": "inactive",
+      "system": "System",
+      "lettersWaiting": "{count, plural, =0 {No letters waiting} one {# letter waiting for a decision} other {# letters waiting for a decision}}",
+      "chronicle": "Chronicle",
+      "rarity": {
+        "COMMON": "Common",
+        "RARE": "Rare",
+        "EPIC": "Epic",
+        "LEGENDARY": "Legendary"
+      }
     },
     "inbox": {
       "title": "Client Inbox",

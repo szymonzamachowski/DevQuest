@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -37,6 +37,7 @@ export function TeamView({
   isTeamMode: boolean;
 }) {
   const t = useTranslations("phase4.team");
+  const format = useFormatter();
 
   return (
     <div className="space-y-8">
@@ -114,7 +115,7 @@ export function TeamView({
         <ul className="mt-3 space-y-2">
           {activities.map((a) => (
             <li key={a.id} className="text-sm text-[var(--muted-foreground)]">
-              {a.title} · {a.user?.name ?? "System"} · {a.createdAt.toLocaleString()}
+              {a.title} · {a.user?.name ?? "System"} · {format.dateTime(a.createdAt, "dateTime")}
             </li>
           ))}
         </ul>

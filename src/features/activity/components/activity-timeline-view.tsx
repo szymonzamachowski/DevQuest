@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import type { ActivityType } from "@prisma/client";
 
 import { ACTIVITY_CATEGORIES } from "@/features/activity/queries/activities";
@@ -27,6 +27,7 @@ export function ActivityTimelineView({
   filters: { userId?: string; category?: string; type?: string };
 }) {
   const t = useTranslations("phase4.activity");
+  const format = useFormatter();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -83,7 +84,8 @@ export function ActivityTimelineView({
             </div>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">{a.description}</p>
             <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-              {a.user?.name || a.user?.email || "System"} · {a.createdAt.toLocaleString()}
+              {a.user?.name || a.user?.email || "System"} ·{" "}
+              {format.dateTime(a.createdAt, "dateTime")}
             </div>
           </li>
         ))}

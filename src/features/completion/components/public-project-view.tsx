@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +15,7 @@ export async function PublicProjectView({
   highlightUserId?: string;
 }) {
   const t = await getTranslations("phase5.public");
+  const format = await getFormatter();
   const report = project.finalReport;
   const payload = report?.reportPayload as {
     strongestAreas?: string[];
@@ -48,7 +49,7 @@ export async function PublicProjectView({
         </p>
         {project.completedAt ? (
           <p className="text-sm text-[var(--muted-foreground)]">
-            {t("completedOn", { date: project.completedAt.toLocaleDateString() })}
+            {t("completedOn", { date: format.dateTime(project.completedAt, "date") })}
           </p>
         ) : null}
       </header>

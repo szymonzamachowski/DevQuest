@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 const RARITY_STYLES: Record<string, string> = {
   COMMON: "border-[var(--dq-border)]",
@@ -25,6 +25,7 @@ export function AchievementsView({
   } | null;
 }) {
   const t = useTranslations("phase4.achievements");
+  const format = useFormatter();
   const unlockedKeys = new Set(unlocked.map((u) => u.achievement.key));
 
   return (
@@ -68,7 +69,7 @@ export function AchievementsView({
               </p>
               {isUnlocked && unlockedAt ? (
                 <p className="mt-3 text-xs text-[var(--dq-primary)]">
-                  {t("unlockedAt", { date: unlockedAt.toLocaleDateString() })}
+                  {t("unlockedAt", { date: format.dateTime(unlockedAt, "date") })}
                 </p>
               ) : (
                 <p className="mt-3 text-xs text-[var(--muted-foreground)]">{t("locked")}</p>
