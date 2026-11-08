@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-pixel);
+  --font-mono: var(--font-pixel);
+  --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,91 +49,79 @@
 }
 
 :root {
-  /* Light theme is intentionally minimal; DevQuest is dark-by-default. */
-  --background: #ffffff;
-  --foreground: #0b0f19;
-  --card: #ffffff;
-  --card-foreground: #0b0f19;
-  --popover: #ffffff;
-  --popover-foreground: #0b0f19;
-  --primary: #4d8eff;
-  --primary-foreground: #ffffff;
-  --secondary: #571bc1;
-  --secondary-foreground: #ffffff;
-  --muted: #f2f4ff;
-  --muted-foreground: #2e3038;
-  --accent: #f2f4ff;
-  --accent-foreground: #0b0f19;
-  --destructive: #b42318;
-  --border: #d0d5dd;
-  --input: #d0d5dd;
-  --ring: rgba(77, 142, 255, 0.5);
-  --chart-1: #4d8eff;
-  --chart-2: #571bc1;
-  --chart-3: #df7412;
-  --chart-4: #12b76a;
-  --chart-5: #f79009;
-  --radius: 0.5rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0b0f19;
-  --sidebar-primary: #4d8eff;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f2f4ff;
-  --sidebar-accent-foreground: #0b0f19;
-  --sidebar-border: #d0d5dd;
-  --sidebar-ring: rgba(77, 142, 255, 0.5);
+  /* DevQuest is dark-only: a torchlit guild hall rendered as pixel art. */
+  --radius: 0rem;
 
-  /* DevQuest design tokens (from design-reference). */
-  --dq-layer-0: #0b0f19;
-  --dq-surface-dim: #10131a;
-  --dq-surface-container-lowest: #0b0e15;
-  --dq-surface-container-low: #191b23;
-  --dq-surface-container: #1d2027;
-  --dq-surface-container-high: #272a31;
-  --dq-surface-container-highest: #32353c;
-  --dq-outline: #8c909f;
-  --dq-outline-variant: #424754;
-  --dq-border: #1e293b;
-  --dq-primary: #adc6ff;
-  --dq-secondary: #d0bcff;
-  --dq-tertiary: #ffb786;
-  --dq-emerald: #12b76a;
-  --dq-amber: #f79009;
-  --dq-error: #ffb4ab;
-}
+  /* Core palette */
+  --dq-ink: #0c0a10; /* sprite outline */
+  --dq-night: #17141f; /* page background, cold stone */
+  --dq-stone: #2a2338; /* panels */
+  --dq-parchment: #f1e4c3; /* text, scrolls */
+  --dq-gold: #f0b541; /* rewards and primary actions */
+  --dq-gold-deep: #a8701c;
+  --dq-ember: #ff7a3d; /* XP, heat, urgency */
+  --dq-moss: #6cc24a; /* done, healthy */
+  --dq-blood: #e0483e; /* damage, errors */
+  --dq-mana: #8c7cf2; /* info, team */
 
-.dark {
-  --background: var(--dq-layer-0);
-  --foreground: #e1e2ec;
-  --card: var(--dq-surface-container);
-  --card-foreground: #e1e2ec;
+  /* Legacy token names mapped onto the palette (used across feature components). */
+  --dq-layer-0: var(--dq-night);
+  --dq-surface-dim: #1e1a29;
+  --dq-surface-container-lowest: #120f18;
+  --dq-surface-container-low: #241e30;
+  --dq-surface-container: var(--dq-stone);
+  --dq-surface-container-high: #352c45;
+  --dq-surface-container-highest: #43385a;
+  --dq-outline: #a89a80;
+  --dq-outline-variant: #4a3f5e;
+  --dq-border: #4a3f5e;
+  --dq-primary: var(--dq-gold);
+  --dq-secondary: var(--dq-mana);
+  --dq-tertiary: var(--dq-ember);
+  --dq-emerald: var(--dq-moss);
+  --dq-amber: var(--dq-gold);
+  --dq-error: var(--dq-blood);
+
+  --background: var(--dq-night);
+  --foreground: var(--dq-parchment);
+  --card: var(--dq-stone);
+  --card-foreground: var(--dq-parchment);
   --popover: var(--dq-surface-container-low);
-  --popover-foreground: #e1e2ec;
-  --primary: var(--dq-primary);
-  --primary-foreground: #002e6a;
-  --secondary: var(--dq-secondary);
-  --secondary-foreground: #23005c;
+  --popover-foreground: var(--dq-parchment);
+  --primary: var(--dq-gold);
+  --primary-foreground: #2a1a08;
+  --secondary: var(--dq-mana);
+  --secondary-foreground: #150f2e;
   --muted: var(--dq-surface-container-low);
-  --muted-foreground: #c2c6d6;
+  --muted-foreground: #c4b596;
   --accent: var(--dq-surface-container-high);
-  --accent-foreground: #e1e2ec;
-  --destructive: #ffb4ab;
+  --accent-foreground: var(--dq-parchment);
+  --destructive: var(--dq-blood);
   --border: var(--dq-border);
-  --input: var(--dq-outline-variant);
-  --ring: rgba(173, 198, 255, 0.5);
-  --chart-1: var(--dq-primary);
-  --chart-2: var(--dq-secondary);
-  --chart-3: var(--dq-tertiary);
-  --chart-4: var(--dq-emerald);
-  --chart-5: var(--dq-amber);
+  --input: var(--dq-ink);
+  --ring: var(--dq-gold);
+  --chart-1: var(--dq-gold);
+  --chart-2: var(--dq-mana);
+  --chart-3: var(--dq-ember);
+  --chart-4: var(--dq-moss);
+  --chart-5: var(--dq-blood);
   --sidebar: var(--dq-surface-dim);
-  --sidebar-foreground: #e1e2ec;
-  --sidebar-primary: var(--dq-primary);
-  --sidebar-primary-foreground: #002e6a;
-  --sidebar-accent: color-mix(in oklab, var(--dq-surface-container-high) 70%, transparent);
-  --sidebar-accent-foreground: #e1e2ec;
-  --sidebar-border: var(--dq-outline-variant);
-  --sidebar-ring: rgba(173, 198, 255, 0.45);
+  --sidebar-foreground: var(--dq-parchment);
+  --sidebar-primary: var(--dq-gold);
+  --sidebar-primary-foreground: #2a1a08;
+  --sidebar-accent: var(--dq-surface-container-high);
+  --sidebar-accent-foreground: var(--dq-parchment);
+  --sidebar-border: var(--dq-ink);
+  --sidebar-ring: var(--dq-gold);
+
+  /* Pixel geometry */
+  --px: 3px;
+  --dq-outline-ring:
+    0 calc(var(--px) * -1) 0 var(--dq-ink), 0 var(--px) 0 var(--dq-ink),
+    calc(var(--px) * -1) 0 0 var(--dq-ink), var(--px) 0 0 var(--dq-ink);
+  --dq-bevel:
+    inset var(--px) var(--px) 0 rgb(255 255 255 / 0.07),
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 rgb(0 0 0 / 0.3);
 }
 
 @layer base {
@@ -142,9 +130,28 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Faint 2px dither so the stone never reads as a flat fill. */
+    background-image: repeating-conic-gradient(rgb(255 255 255 / 0.018) 0 25%, transparent 0 50%);
+    background-size: 4px 4px;
+  }
+  h1,
+  .font-heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  img[src*="/brand/"] {
+    image-rendering: pixelated;
+  }
+  ::selection {
+    background: var(--dq-gold);
+    color: var(--dq-ink);
   }
   html {
     @apply font-sans;
+    /* Jersey 10 ships one weight and runs small: never fake bold, and lift the base size. */
+    font-synthesis: none;
+    font-size: 125%;
     scroll-behavior: smooth;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -160,31 +167,57 @@
     }
   }
   :focus-visible {
-    outline: 2px solid var(--dq-primary);
-    outline-offset: 2px;
+    outline: var(--px) solid var(--dq-gold);
+    outline-offset: var(--px);
   }
 }
 
 @layer utilities {
+  /* Sprite-style panel: ink outline with notched pixel corners and a 1px-light bevel. */
   .dq-card {
-    border: 1px solid var(--dq-border);
-    background: color-mix(in oklab, var(--dq-surface-container-low) 85%, transparent);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
+    background: var(--dq-stone);
+    box-shadow:
+      var(--dq-outline-ring),
+      var(--dq-bevel),
+      calc(var(--px) * 2) calc(var(--px) * 2) 0 rgb(0 0 0 / 0.35);
+    border: 0 !important;
   }
   .dq-hover-glow {
-    transition:
-      border-color 200ms ease,
-      transform 200ms ease;
+    transition: transform 80ms steps(2);
   }
   .dq-hover-glow:hover {
-    border-color: rgba(173, 198, 255, 0.5);
+    transform: translate(calc(var(--px) * -1), calc(var(--px) * -1));
+  }
+  /* Parchment scroll for content that reads like a letter or quest text. */
+  .dq-parchment {
+    background: var(--dq-parchment);
+    color: #2b1d14;
+    box-shadow:
+      var(--dq-outline-ring),
+      inset var(--px) var(--px) 0 rgb(255 255 255 / 0.5),
+      inset calc(var(--px) * -1) calc(var(--px) * -1) 0 rgb(120 80 30 / 0.25);
   }
   .dq-label-caps {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  /* Segmented meter (XP, health): fill width via --value (0-100). */
+  .dq-meter {
+    position: relative;
+    height: calc(var(--px) * 5);
+    background: var(--dq-surface-container-lowest);
+    box-shadow: var(--dq-outline-ring);
+  }
+  .dq-meter > span {
+    display: block;
+    height: 100%;
+    width: calc(var(--value, 0) * 1%);
+    background:
+      linear-gradient(to bottom, rgb(255 255 255 / 0.25) 0 var(--px), transparent var(--px)),
+      var(--meter-color, var(--dq-gold));
+    -webkit-mask: repeating-linear-gradient(to right, #000 0 9px, transparent 9px 12px);
+    mask: repeating-linear-gradient(to right, #000 0 9px, transparent 9px 12px);
   }
   .dq-animate-unlock {
     animation: dq-unlock 480ms ease-out;
@@ -259,5 +292,46 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/*
+ * Unlayered on purpose: native form controls are styled inline across features with
+ * rounded borders; this keeps every textarea and select on the pixel look.
+ */
+textarea,
+select {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: var(--dq-surface-container-lowest) !important;
+  color: var(--dq-parchment);
+  box-shadow:
+    var(--dq-outline-ring),
+    inset var(--px) var(--px) 0 rgb(0 0 0 / 0.45);
+}
+
+/* Pixel art has no round corners; dots and avatars become square sprites. */
+.rounded-full {
+  border-radius: 0 !important;
+}
+
+/* Landing hero: the one orchestrated moment. The XP bar fills in steps, then the reward lands. */
+.dq-xp-fill {
+  animation: dq-xp-fill 1200ms steps(12, end) 400ms both;
+}
+.dq-xp-pop {
+  animation: dq-xp-pop 360ms steps(3, end) 1600ms both;
+}
+
+@keyframes dq-xp-fill {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes dq-xp-pop {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
   }
 }

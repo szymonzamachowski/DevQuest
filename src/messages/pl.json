@@ -440,5 +440,45 @@
       "disabledTitle": "Projekt niedostępny",
       "disabledDescription": "Ten projekt nie jest publiczny lub nie został jeszcze ukończony."
     }
+  },
+  "home": {
+    "title": "Poprowadź prawdziwy projekt jak kampanię.",
+    "subtitle": "Przeprowadź zespół przez brief klienta: bierz questy, oddawaj kod do review, reaguj na zmiany zakresu i zakończ raportem, który pokażesz pracodawcy.",
+    "playDemo": "Zagraj w demo",
+    "browseCampaigns": "Przeglądaj kampanie",
+    "demoHint": "Bez rejestracji. Demo loguje cię jako lidera w trakcie kampanii.",
+    "preview": {
+      "label": "Przykładowy quest z kampanii BrightLane Booking",
+      "chapter": "Rozdział 2: Silnik rezerwacji",
+      "questTitle": "Koniec z podwójnymi rezerwacjami",
+      "questMeta": "Quest backendowy",
+      "reward": "+140 XP",
+      "inReview": "W review",
+      "skill": "Backend, poziom 4",
+      "health": "Kondycja projektu",
+      "letterFrom": "List od BrightLane",
+      "letterBody": "Czy dodamy przypomnienia SMS przed piątkowym demo?",
+      "accept": "Bierzemy to",
+      "pushBack": "Odmawiamy"
+    },
+    "loopTitle": "Jak przebiega kampania",
+    "loop": [
+      {
+        "title": "Zbierz drużynę",
+        "body": "Wybierz tryb solo lub zespołowy, przydziel role i dopasuj stack do briefu."
+      },
+      {
+        "title": "Wykonuj questy",
+        "body": "Oddawaj commity i pull requesty. Lider robi review, a XP trafia do użytych umiejętności."
+      },
+      {
+        "title": "Odpowiadaj klientowi",
+        "body": "Wiadomości z terminem wymagają decyzji. Każdy wybór zmienia kondycję i zakres projektu."
+      },
+      {
+        "title": "Opublikuj raport",
+        "body": "Zamknij kampanię i odbierz raport zespołu oraz publiczną stronę do portfolio."
+      }
+    ]
   }
 }

@@ -440,5 +440,45 @@
       "disabledTitle": "Project not available",
       "disabledDescription": "This project is not published or has not been completed yet."
     }
+  },
+  "home": {
+    "title": "Run a real software project like a campaign.",
+    "subtitle": "Lead a team through a client brief: take quests, ship code for review, handle scope changes, and finish with a report you can show employers.",
+    "playDemo": "Play the demo",
+    "browseCampaigns": "Browse campaigns",
+    "demoHint": "No sign-up. The demo logs you in as a team leader mid-campaign.",
+    "preview": {
+      "label": "Example quest from the BrightLane Booking campaign",
+      "chapter": "Chapter 2: Booking engine",
+      "questTitle": "Stop double bookings",
+      "questMeta": "Backend quest",
+      "reward": "+140 XP",
+      "inReview": "In review",
+      "skill": "Backend, level 4",
+      "health": "Project health",
+      "letterFrom": "Letter from BrightLane",
+      "letterBody": "Can we add SMS reminders before Friday's demo?",
+      "accept": "Take it on",
+      "pushBack": "Push back"
+    },
+    "loopTitle": "How a campaign plays",
+    "loop": [
+      {
+        "title": "Form your party",
+        "body": "Pick solo or team mode, choose roles, and match the stack to the brief."
+      },
+      {
+        "title": "Clear quests",
+        "body": "Submit commits and pull requests. The leader reviews them and XP goes to the skills you used."
+      },
+      {
+        "title": "Answer the client",
+        "body": "Timed messages ask for decisions. Each choice moves project health and scope."
+      },
+      {
+        "title": "Publish the report",
+        "body": "Close the campaign and get a team report plus a public page for your portfolio."
+      }
+    ]
   }
 }

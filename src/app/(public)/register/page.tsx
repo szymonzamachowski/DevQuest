@@ -12,7 +12,7 @@ export default function RegisterPage() {
     <div className="mx-auto grid w-full max-w-[520px] gap-6">
       <div className="dq-card rounded-xl p-6">
         <div className="mb-6 flex items-center justify-between">
-          <BrandLogo size={28} label={t("common.appName")} />
+          <BrandLogo label={t("common.appName")} />
           <Button asChild variant="ghost" className="h-9">
             <Link href="/login">{t("auth.loginTitle")}</Link>
           </Button>

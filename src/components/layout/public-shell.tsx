@@ -9,8 +9,8 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   const t = useTranslations();
 
   return (
-    <div className="min-h-dvh bg-[var(--dq-layer-0)]">
-      <header className="sticky top-0 z-40 border-b border-[var(--dq-outline-variant)] bg-[var(--dq-surface-container)]/80 backdrop-blur">
+    <div className="min-h-dvh">
+      <header className="sticky top-0 z-40 bg-[var(--dq-surface-dim)] shadow-[0_3px_0_var(--dq-ink),0_6px_0_rgb(0_0_0/0.3)]">
         <div className="mx-auto flex h-16 w-full max-w-[1280px] items-center justify-between gap-3 px-4 sm:h-20 sm:px-6">
           <BrandLogo />
           <div className="flex items-center gap-2 sm:gap-3">

@@ -1,7 +1,7 @@
 # DevQuest
 
 <p align="center">
-  <img src="public/brand/logo.svg" alt="DevQuest logo" width="72" height="72" />
+  <img src="public/brand/logo.png" alt="DevQuest logo" width="96" height="96" />
 </p>
 
 <p align="center">
@@ -46,17 +46,17 @@ Replace placeholders with captures from your local build before publishing the r
 
 ## Tech stack
 
-| Layer         | Technology                                                        |
-| ------------- | ----------------------------------------------------------------- |
-| Framework     | Next.js 16 (App Router), React 19, TypeScript (strict)            |
-| Styling       | Tailwind CSS 4, shadcn/ui, design tokens from `design-reference/` |
-| Database      | PostgreSQL 16, Prisma ORM                                         |
-| Auth          | Auth.js (NextAuth) credentials provider, bcrypt password hashing  |
-| i18n          | next-intl (EN / PL)                                               |
-| Drag and drop | @dnd-kit (quest board)                                            |
-| Unit tests    | Vitest, Testing Library                                           |
-| E2E tests     | Playwright                                                        |
-| CI            | GitHub Actions                                                    |
+| Layer         | Technology                                                          |
+| ------------- | ------------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router), React 19, TypeScript (strict)              |
+| Styling       | Tailwind CSS 4, shadcn/ui, pixel-art design tokens in `globals.css` |
+| Database      | PostgreSQL 16, Prisma ORM                                           |
+| Auth          | Auth.js (NextAuth) credentials provider, bcrypt password hashing    |
+| i18n          | next-intl (EN / PL)                                                 |
+| Drag and drop | @dnd-kit (quest board)                                              |
+| Unit tests    | Vitest, Testing Library                                             |
+| E2E tests     | Playwright                                                          |
+| CI            | GitHub Actions                                                      |
 
 ## Architecture
 
@@ -222,8 +222,3 @@ Not implemented in this MVP:
 ## License
 
 [MIT](LICENSE)
-
-## Design references
-
-- `design-reference/stitch_devquest_guild_operations_dashboard/`
-- `public/brand/logo.svg`

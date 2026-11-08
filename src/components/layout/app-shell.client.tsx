@@ -45,10 +45,10 @@ function NavLink({
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+        "flex min-h-11 items-center gap-3 px-3 py-2 text-[0.9375rem]",
         "text-[var(--muted-foreground)] hover:bg-[var(--dq-surface-container-high)] hover:text-[var(--foreground)]",
         active &&
-          "border-l-2 border-[var(--dq-primary)] bg-[color-mix(in_oklab,var(--dq-secondary)_18%,transparent)] font-semibold text-[var(--dq-primary)]",
+          "bg-[var(--dq-surface-container-high)] font-semibold text-[var(--dq-gold)] shadow-[inset_4px_0_0_var(--dq-gold),var(--dq-bevel)]",
       )}
     >
       <Icon className="h-4 w-4 shrink-0" aria-hidden />
@@ -63,7 +63,7 @@ function Sidebar({ user, navItems }: { user: AppShellUser; navItems: AppNavItem[
 
   return (
     <aside
-      className="hidden h-dvh w-72 flex-col border-r border-[var(--dq-outline-variant)] bg-[var(--dq-surface-dim)] px-4 py-6 md:flex"
+      className="sticky top-0 hidden h-dvh w-72 shrink-0 flex-col bg-[var(--dq-surface-dim)] px-4 py-6 shadow-[3px_0_0_var(--dq-ink)] md:flex"
       aria-label={t("sidebar")}
     >
       <div className="px-2">
@@ -80,7 +80,7 @@ function Sidebar({ user, navItems }: { user: AppShellUser; navItems: AppNavItem[
       </nav>
 
       <div className="mt-4 space-y-2">
-        <Separator className="bg-[var(--dq-outline-variant)]" />
+        <Separator className="h-[3px] bg-[var(--dq-ink)]" />
         <div className="flex items-center justify-between gap-3 px-2">
           <LocaleSwitcher value={locale === "pl" ? "pl" : "en"} />
           <Avatar className="h-9 w-9">
@@ -152,10 +152,10 @@ export function AppShellClient({
       ];
 
   return (
-    <div className="min-h-dvh bg-[var(--dq-layer-0)] md:flex">
+    <div className="min-h-dvh md:flex">
       <Sidebar user={user} navItems={resolvedNav} />
       <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-40 border-b border-[var(--dq-outline-variant)] bg-[var(--dq-surface-container)]/80 backdrop-blur supports-[backdrop-filter]:bg-[var(--dq-surface-container)]/70">
+        <header className="sticky top-0 z-40 bg-[var(--dq-surface-dim)] shadow-[0_3px_0_var(--dq-ink)]">
           <div className="mx-auto flex h-16 w-full max-w-[1280px] items-center justify-between gap-3 px-4 sm:h-20 sm:px-6">
             <div className="flex min-w-0 items-center gap-3">
               <MobileDrawer navItems={resolvedNav} />
