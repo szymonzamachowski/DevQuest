@@ -642,13 +642,19 @@ async function upsertBookingCrisis() {
 
   // Replace quests for this campaign (idempotent seed)
   await prisma.questAssignment.deleteMany({
-    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+    where: {
+      projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },
+    },
   });
   await prisma.questSubmission.deleteMany({
-    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+    where: {
+      projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },
+    },
   });
   await prisma.questComment.deleteMany({
-    where: { projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } } },
+    where: {
+      projectQuest: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },
+    },
   });
   await prisma.projectQuest.deleteMany({
     where: { questTemplate: { chapterTemplate: { campaignTemplateId: campaign.id } } },

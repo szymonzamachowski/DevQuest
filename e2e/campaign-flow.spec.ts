@@ -89,9 +89,9 @@ test.describe("Phase 5 campaign flow", () => {
       leaderPage.getByRole("link", { name: /view public page|zobacz stronę publiczną/i }).click(),
     ]);
     await publicPage.waitForLoadState("domcontentloaded");
-    await expect(
-      publicPage.getByRole("heading", { name: /brightlane team sprint/i }),
-    ).toBeVisible({ timeout: 15_000 });
+    await expect(publicPage.getByRole("heading", { name: /brightlane team sprint/i })).toBeVisible({
+      timeout: 15_000,
+    });
     await publicPage.close();
 
     await leaderContext.close();

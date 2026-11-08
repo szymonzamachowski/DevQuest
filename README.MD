@@ -94,8 +94,8 @@ See [`prisma/schema.prisma`](prisma/schema.prisma) for the full schema.
 
 ### Prerequisites
 
-- Node.js 20+
-- Docker (for PostgreSQL) or an existing Postgres instance
+- Node.js 20.9+ (24 recommended, see `.nvmrc`)
+- A PostgreSQL database — a free [Supabase](https://supabase.com) project works out of the box, no Docker required
 
 ### 1. Install dependencies
 
@@ -103,11 +103,14 @@ See [`prisma/schema.prisma`](prisma/schema.prisma) for the full schema.
 npm install
 ```
 
-### 2. Start PostgreSQL
+### 2. Create a database (Supabase, no Docker)
 
-```bash
-docker compose up -d
-```
+1. Create a free project at [supabase.com](https://supabase.com) and save the database password.
+2. Open **Connect → ORMs → Prisma** in the project dashboard and copy the two connection strings:
+   - **Transaction pooler** (port `6543`) → `DATABASE_URL`
+   - **Session pooler** (port `5432`) → `DIRECT_URL`, used only by Prisma Migrate
+
+> Prefer a local database? `docker compose up -d` starts Postgres 16; use the local URLs from `.env.example` for both variables.
 
 ### 3. Environment variables
 
@@ -115,7 +118,7 @@ docker compose up -d
 cp .env.example .env
 ```
 
-Edit `.env` and set a strong `AUTH_SECRET`:
+Paste both connection strings into `.env` and set a strong `AUTH_SECRET`:
 
 ```bash
 openssl rand -base64 48
@@ -125,9 +128,11 @@ openssl rand -base64 48
 
 ```bash
 npm run prisma:generate
-npx prisma migrate deploy
+npm run db:deploy
 npm run db:seed
 ```
+
+To wipe the database and start over (also re-runs the seed): `npm run db:reset`.
 
 ### 5. Run the app
 
@@ -139,12 +144,13 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment variables
 
-| Variable        | Required   | Description                                    |
-| --------------- | ---------- | ---------------------------------------------- |
-| `DATABASE_URL`  | Yes        | PostgreSQL connection string                   |
-| `AUTH_SECRET`   | Yes        | Session signing secret (long random string)    |
-| `NEXTAUTH_URL`  | Production | Public app URL, e.g. `https://your-domain.com` |
-| `E2E_SKIP_SEED` | No         | Set to `1` to skip Playwright global seed      |
+| Variable        | Required   | Description                                      |
+| --------------- | ---------- | ------------------------------------------------ |
+| `DATABASE_URL`  | Yes        | Runtime connection (Supabase transaction pooler) |
+| `DIRECT_URL`    | Yes        | Migration connection (Supabase session pooler)   |
+| `AUTH_SECRET`   | Yes        | Session signing secret (long random string)      |
+| `NEXTAUTH_URL`  | Production | Public app URL, e.g. `https://your-domain.com`   |
+| `E2E_SKIP_SEED` | No         | Set to `1` to skip Playwright global seed        |
 
 ## Demo accounts
 
